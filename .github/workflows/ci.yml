@@ -31,7 +31,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
+        run: cd ast && npm install
 
       - name: Make CLI executable
         run: chmod +x pak-it
@@ -39,6 +39,15 @@ jobs:
       - name: Verify PHP syntax of all source files
         run: |
           find src/ Commands/ -name "*.php" -exec php -l {} \; 2>&1 | (! grep -v "No syntax errors")
+        continue-on-error: false
+
+      - name: Prepare test fixture (is-number npm pack)
+        run: |
+          npm pack is-number@7.0.0 --pack-destination /tmp 2>&1
+          tar -xzf /tmp/is-number-7.0.0.tgz -C /tmp/
+
+      - name: Run functional tests (JS vs PHP output comparison)
+        run: php tests/functional.php
         continue-on-error: false
 
       - name: Test init (is-number)
@@ -70,7 +79,5 @@ jobs:
 
       - name: Check PHP coding standards
         run: |
-          php -l pak-it
-          php -l src/*.php
-          php -l Commands/*.php
+          find . -name "*.php" -not -path "*/vendor/*" -not -path "*/node_modules/*" -exec php -l {} \;
         continue-on-error: false

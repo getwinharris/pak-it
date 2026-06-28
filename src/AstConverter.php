@@ -768,9 +768,11 @@ class AstConverter
             case '~':
                 return '~' . $arg;
             case '+':
-                return '+' . $arg;
+                // JS unary + converts to Number (NaN for non-numeric strings).
+                // PHP 8.3+ throws TypeError on +"abc". Use safe cast.
+                return '(is_numeric(' . $arg . ') ? +' . $arg . ' : NAN)';
             case '-':
-                return '-' . $arg;
+                return '-(' . $arg . ')';
             case 'void':
                 // JS void always returns undefined; discard expression value
                 $inner = $this->walkExpression($node['argument'], $indent);
@@ -822,6 +824,17 @@ class AstConverter
         if ($op === '>>>') $phpOp = '>>'; // unsigned right shift not in PHP
         if ($op === 'in') $phpOp = 'in_array'; // needs special handling
         if ($op === 'instanceof') $phpOp = 'instanceof';
+
+        // JS === / !== with numeric operands may produce floats (e.g. num - num === 0).
+        // PHP's === distinguishes int(0) from float(0.0). Use ==/!= when arithmetic is involved.
+        if ($phpOp === '===' || $phpOp === '!==') {
+            $hasArithmetic = function (array $n): bool {
+                return $n['type'] === 'BinaryExpression' && in_array($n['operator'], ['-', '+', '*', '/', '%', '**'], true);
+            };
+            if ($hasArithmetic($node['left'])) {
+                $phpOp = $phpOp === '===' ? '==' : '!=';
+            }
+        }
 
         // Handle `in` operator: `x in y` -> `in_array(x, y)` or `array_key_exists(x, y)`
         if ($op === 'in') {
@@ -1118,6 +1131,9 @@ class AstConverter
                     'POSITIVE_INFINITY' => 'INF', 'EPSILON' => 'PHP_FLOAT_EPSILON',
                     'MAX_SAFE_INTEGER' => 'PHP_INT_MAX',
                     'MIN_SAFE_INTEGER' => 'PHP_INT_MIN',
+                    'isFinite' => 'is_finite', 'isNaN' => 'is_nan',
+                    'isInteger' => 'is_int', 'parseInt' => 'intval',
+                    'parseFloat' => 'floatval',
                 ],
                 'Object' => ['keys' => 'keys', 'values' => 'values', 'assign' => 'assign'],
                 'JSON' => ['parse' => 'parse', 'stringify' => 'stringify'],
@@ -1129,8 +1145,9 @@ class AstConverter
                 if (strpos($mapped, 'M_') === 0 || strpos($mapped, 'PHP_') === 0 || $mapped === 'INF' || $mapped === 'NAN' || $mapped === '-INF') {
                     return $mapped;
                 }
-                // Otherwise, it's a function name reference
-                return $mapped;
+                // Function name reference — wrap in function_exists so it works in test positions
+                // e.g., Number.isFinite ? ... : ...  →  function_exists('is_finite') ? ... : ...
+                return '(function_exists(' . var_export($mapped, true) . '))';
             }
         }
 
