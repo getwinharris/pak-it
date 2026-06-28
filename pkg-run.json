@@ -4,8 +4,8 @@
     "description": "Playwright MCP server — browser automation via CLI"
   },
   "codex": {
-    "command": "npx codex-cli",
-    "description": "AI coding assistant"
+    "command": "npx @openai/codex",
+    "description": "OpenAI Codex CLI — AI coding agent that runs in your terminal"
   },
   "graphifyy": {
     "command": "pipx run graphifyy",
