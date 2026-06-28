@@ -36,21 +36,23 @@ class AstConverter
 
     public function convertCode(string $jsPath): string
     {
-        // Call acorn parser to get AST
+        // Call acorn parser to get AST, capturing stderr for diagnostics
         $cmd = sprintf(
-            'node %s/parse.js %s 2>/dev/null',
+            'node %s/parse.js %s 2>&1',
             escapeshellarg($this->nodeJsDir),
             escapeshellarg($jsPath)
         );
 
-        $json = shell_exec($cmd);
-        if (!$json) {
-            // Fallback to regex-based converter
+        exec($cmd, $lines, $exitCode);
+        $output = implode("\n", $lines);
+
+        // Distinguish parse failures from environment issues (Node.js not found, etc.)
+        if ($exitCode !== 0 || $output === '') {
             $fallback = new NodeConverter();
             return $fallback->convertCode(file_get_contents($jsPath));
         }
 
-        $ast = json_decode($json, true);
+        $ast = json_decode($output, true);
         if (!$ast || !isset($ast['type'])) {
             $fallback = new NodeConverter();
             return $fallback->convertCode(file_get_contents($jsPath));
@@ -682,10 +684,9 @@ class AstConverter
         $params = $this->walkParams($node['params'] ?? []);
 
         if (isset($node['body']['type']) && $node['body']['type'] !== 'BlockStatement') {
-            // Expression body: (x) => x + 1  ->  fn($x) => $x + 1
+            // Expression body: (x) => x + 1  ->  function($x) { return $x + 1; }
             $body = $this->walkExpression($node['body'], $indent);
-            // Use closure if expression is complex (contains ; or newlines)
-            return 'function(' . $params . ') use () { return ' . $body . '; }';
+            return 'function(' . $params . ') { return ' . $body . '; }';
         } else {
             // Block body: (x) => { ... }  ->  function($x) { ... }
             $body = $this->walkBlockBody($node['body']['body'] ?? [], $indent);
@@ -708,7 +709,8 @@ class AstConverter
             case '-':
                 return '-' . $arg;
             case 'void':
-                return '(function() use (&' . $arg . ') { return null; })()'; // approximate
+                // JS void always returns undefined; evaluate for side effects, then return null
+                return '(static function() { ' . $arg . '; return null; })()';
             case 'typeof':
                 return $this->walkTypeof($node, $indent);
             case 'delete':
@@ -774,7 +776,9 @@ class AstConverter
 
         switch ($typeStr) {
             case 'undefined':
-                return $prefix . 'isset(' . $arg . ')';
+                // typeof x === 'undefined' -> !isset($x)
+                // typeof x !== 'undefined' -> isset($x)
+                return $positive ? '!isset(' . $arg . ')' : 'isset(' . $arg . ')';
             case 'number':
                 return $prefix . 'is_numeric(' . $arg . ')';
             case 'string':

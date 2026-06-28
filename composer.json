@@ -22,8 +22,8 @@
     "require": {
         "php": ">=8.3"
     },
-    "require-dev": {
-        "node": ">=18.0"
+    "suggest": {
+        "node": "Required for AST-based JS→PHP conversion (>=18.0)"
     },
     "bin": [
         "pak-it"
