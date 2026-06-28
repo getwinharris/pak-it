@@ -34,6 +34,12 @@ switch ($command) {
         (new VerifyCommand())->run();
         break;
 
+    case 'remove':
+    case 'uninstall':
+        require __DIR__ . '/Commands/RemoveCommand.php';
+        (new RemoveCommand())->run(array_slice($argv, 2));
+        break;
+
     case 'list':
         $dirs = glob(__DIR__ . '/vendor/*', GLOB_ONLYDIR);
         if (!$dirs) { echo "No packages installed.\n"; break; }
@@ -48,12 +54,15 @@ switch ($command) {
     case 'help':
         echo "pak-it - Universal PHP package manager\n";
         echo "Usage:\n";
-        echo "  php pak-it init <package>    Download and convert a package\n";
-        echo "  php pak-it list              Show installed packages\n";
-        echo "  php pak-it <pkg> [args...]   Run a package's CLI (vendor/ or pkg-run.json)\n";
-        echo "  php pak-it <npm|pip|brew|npx|pip3|cargo|go> [args...]  Pass through to native package manager\n";
-        echo "  php pak-it verify            Syntax-check all converted files\n";
-        echo "  php pak-it help              Show this help\n";
+        echo "  php pak-it init <package> [version]      Download and convert a package\n";
+        echo "  php pak-it require <package> [version]   Alias for init\n";
+        echo "  php pak-it remove <package> [--all]      Uninstall a package\n";
+        echo "  php pak-it list                          Show installed packages\n";
+        echo "  php pak-it install                       Batch install from pak-it.json\n";
+        echo "  php pak-it <pkg> [args...]               Run a package's CLI (vendor/ or pkg-run.json)\n";
+        echo "  php pak-it <npm|pip|brew|npx|...> [...]   Native package manager passthrough\n";
+        echo "  php pak-it verify                        Syntax-check all converted files\n";
+        echo "  php pak-it help                          Show this help\n";
         break;
 
     default:

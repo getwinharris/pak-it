@@ -186,6 +186,7 @@ $response = \pakit\axios\get('https://api.example.com/data');
 | `php pak-it init <pkg> [version]` | Download and convert a package from npm or PyPI |
 | `php pak-it require <pkg> [version]` | Alias for `init` |
 | `php pak-it install` | Batch install all packages from `pak-it.json` or `pak-it.toml` |
+| `php pak-it remove <pkg> [--all]` | Uninstall a package and regenerate autoloader |
 | `php pak-it verify` | Syntax-check all converted PHP files |
 | `php pak-it list` | Show installed packages and versions |
 | `php pak-it <pkg> [args...]` | Run a package's CLI entry point |
