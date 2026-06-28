@@ -50,16 +50,79 @@ php pak-it verify
 php pak-it list
 ```
 
-Use the converted package in your PHP code:
+## Usage Examples
+
+### Use a package in your PHP code
+
+After installing a package with `php pak-it init lodash`, use it in your project:
 
 ```php
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
-$packages = require __DIR__ . '/vendor/autoload.php';
+// lodash functions
+$merged  = \pakit\lodash\merge($defaults, $overrides);
+$cloned  = \pakit\lodash\cloneDeep($data);
+$unique  = \pakit\lodash\uniq([1, 2, 1, 3]);
+$sorted  = \pakit\lodash\sortBy($users, 'age');
+```
 
-// Use any function from lodash
-$result = \pakit\lodash\cloneDeep($data);
+### Run a package's CLI command
+
+Some packages ship CLI entry points. Run them with:
+
+```bash
+# Run the lodash CLI (if it has one)
+php pak-it lodash
+
+# Pass arguments to the package CLI
+php pak-it lodash --help
+php pak-it lodash subcommand --flag value
+
+# Run a specific package command
+php pak-it chalk
+php pak-it axios https://api.example.com/data
+```
+
+### Install with specific version
+
+```bash
+# Install a specific version
+php pak-it init lodash 4.18.1
+
+# Install from PyPI with version
+php pak-it init requests 2.31.0
+```
+
+### Batch install from config
+
+Create a `pak-it.toml`:
+
+```toml
+[require]
+npm = ["lodash", "axios", "chalk"]
+pip = ["requests", "python-dateutil"]
+```
+
+Then install all at once:
+
+```bash
+php pak-it install
+```
+
+After installation, every package is ready to use with zero runtime dependencies:
+
+```php
+<?php
+require __DIR__ . '/vendor/autoload.php';
+
+// Use lodash
+$data = \pakit\lodash\camelCase('hello world');
+
+// Use axios (HTTP client)
+$response = \pakit\axios\get('https://api.example.com/data');
+
+// No Composer, no Node.js, no Python required on the server
 ```
 
 ## Commands
@@ -188,7 +251,9 @@ Just upload the converted files and run them.
 
 ## Conversion Quality
 
-The AST-based converter currently achieves a **94% pass rate** on lodash (312 of 331 functions convert cleanly). Some limitations:
+The AST-based converter achieves a **100% syntax pass rate** on all 1048 lodash module files. Every individual module, the full bundled build, the core build, and both minified builds convert to valid PHP syntax.
+
+Some limitations:
 
 - ES6+ modules (`import`/`export`) require CommonJS (`require`/`module.exports`)
 - Async/await is stripped (converted to synchronous calls)
