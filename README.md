@@ -137,12 +137,25 @@ php pak-it init requests 2.31.0
 
 ### Batch install from config
 
-Create a `pak-it.toml`:
+Create a `pak-it.json`:
+
+```json
+{
+  "require": {
+    "lodash": "4.18.1",
+    "axios": "latest",
+    "chalk": "latest",
+    "requests": "latest"
+  }
+}
+```
+
+Legacy `pak-it.toml` format is also supported:
 
 ```toml
 [require]
-npm = ["lodash", "axios", "chalk"]
-pip = ["requests", "python-dateutil"]
+lodash = "4.18.1"
+axios = "latest"
 ```
 
 Then install all at once:
@@ -172,7 +185,7 @@ $response = \pakit\axios\get('https://api.example.com/data');
 |---------|-------------|
 | `php pak-it init <pkg> [version]` | Download and convert a package from npm or PyPI |
 | `php pak-it require <pkg> [version]` | Alias for `init` |
-| `php pak-it install` | Batch install all packages from `pak-it.toml` |
+| `php pak-it install` | Batch install all packages from `pak-it.json` or `pak-it.toml` |
 | `php pak-it verify` | Syntax-check all converted PHP files |
 | `php pak-it list` | Show installed packages and versions |
 | `php pak-it <pkg> [args...]` | Run a package's CLI entry point |
@@ -180,12 +193,25 @@ $response = \pakit\axios\get('https://api.example.com/data');
 
 ## Configuration
 
-Create a `pak-it.toml` in your project root:
+Create a `pak-it.json` in your project root:
+
+```json
+{
+  "require": {
+    "lodash": "4.18.1",
+    "axios": "latest",
+    "chalk": "latest",
+    "requests": "latest"
+  }
+}
+```
+
+Legacy `pak-it.toml` with simple `key = "value"` pairs is also supported:
 
 ```toml
 [require]
-npm = ["lodash", "axios", "chalk"]
-pip = ["requests", "python-dateutil"]
+lodash = "4.18.1"
+axios = "latest"
 ```
 
 Then run:

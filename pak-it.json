@@ -1,0 +1,8 @@
+{
+  "require": {
+    "lodash": "4.18.1",
+    "is-number": "7.0.0",
+    "chalk": "latest",
+    "requests": "latest"
+  }
+}
