@@ -20,7 +20,8 @@ class SyntaxCheck
 
             $output = [];
             $return = 0;
-            exec("php -l " . escapeshellarg($path) . " 2>&1", $output, $return);
+            $phpBin = defined('PHP_BINARY') ? PHP_BINARY : 'php';
+            exec($phpBin . " -l " . escapeshellarg($path) . " 2>&1", $output, $return);
 
             if ($return !== 0) {
                 $errors[] = ['file' => $path, 'errors' => $output];

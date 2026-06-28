@@ -15,9 +15,9 @@ class Autoloader
                 $info = json_decode(file_get_contents($pkgJson), true) ?: [];
             }
             $packages[$name] = [
-                'dir'     => $pkgDir,
+                'dir'     => '__DIR__ . \'/' . basename($pkgDir) . '\'',
                 'version' => $info['version'] ?? '?',
-                'main'    => $info['main'] ?? 'index.php',
+                'main'    => $info['main'] ?? 'index',
             ];
         }
 
@@ -33,8 +33,8 @@ class Autoloader
         $code .= "// Packages: " . count($packages) . "\n\n";
         $code .= "spl_autoload_register(function (\$class) {\n";
         $code .= "    \$map = [\n";
-        foreach ($namespaceMap as $ns => $dir) {
-            $code .= "        " . var_export($ns . '\\', true) . " => " . var_export($dir . '/', true) . ",\n";
+        foreach ($namespaceMap as $ns => $dirExpr) {
+            $code .= "        " . var_export($ns . '\\', true) . " => " . $dirExpr . ",\n";
         }
         $code .= "    ];\n";
         $code .= "    foreach (\$map as \$prefix => \$baseDir) {\n";
@@ -47,7 +47,13 @@ class Autoloader
         $code .= "});\n";
         $code .= "\n";
         $code .= "// Package registry\n";
-        $code .= "return " . var_export($packages, true) . ";\n";
+        $code .= "return [\n";
+        foreach ($packages as $name => $pkg) {
+            $version = var_export($pkg['version'], true);
+            $main = var_export($pkg['main'], true);
+            $code .= "    " . var_export($name, true) . " => ['version' => $version, 'main' => $main],\n";
+        }
+        $code .= "];\n";
 
         file_put_contents($vendorDir . '/autoload.php', $code);
         echo "    Autoloader generated: " . count($packages) . " packages registered\n";

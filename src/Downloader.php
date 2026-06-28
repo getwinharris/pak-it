@@ -10,10 +10,16 @@ class Downloader
 
         echo "    Fetching $tarball\n";
 
-        // Download tarball
-        $data = @file_get_contents($tarball, false, stream_context_create([
-            'http' => ['timeout' => 30, 'user_agent' => 'pak-it/1.0']
-        ]));
+        // Download tarball with SSL verification
+        $ctx = stream_context_create([
+            'http' => ['timeout' => 30, 'user_agent' => 'pak-it/1.0', 'follow_location' => 1],
+            'ssl'  => [
+                'verify_peer'      => true,
+                'verify_peer_name' => true,
+                'allow_self_signed' => false,
+            ],
+        ]);
+        $data = @file_get_contents($tarball, false, $ctx);
         if (!$data) throw new RuntimeException("Failed to download $tarball");
         file_put_contents("$tmp/package.tar.gz", $data);
 
@@ -51,21 +57,36 @@ class Downloader
     private function copyDir(string $src, string $dst): void
     {
         if (!is_dir($dst)) mkdir($dst, 0755, true);
-        foreach (scandir($src) as $f) {
+        $items = scandir($src);
+        if ($items === false) throw new RuntimeException("Failed to scan directory: $src");
+        foreach ($items as $f) {
             if ($f[0] === '.') continue;
             $s = "$src/$f";
             $d = "$dst/$f";
-            is_dir($s) ? $this->copyDir($s, $d) : copy($s, $d);
+            if (is_link($s)) {
+                $target = readlink($s);
+                symlink($target, $d);
+            } elseif (is_dir($s)) {
+                $this->copyDir($s, $d);
+            } else {
+                copy($s, $d);
+            }
         }
     }
 
     private function delTree(string $dir): void
     {
         if (!is_dir($dir)) return;
-        foreach (scandir($dir) as $f) {
+        $items = scandir($dir);
+        if ($items === false) throw new RuntimeException("Failed to scan directory: $dir");
+        foreach ($items as $f) {
             if ($f[0] === '.') continue;
             $p = "$dir/$f";
-            is_dir($p) ? $this->delTree($p) : unlink($p);
+            if (is_link($p) || !is_dir($p)) {
+                unlink($p);
+            } else {
+                $this->delTree($p);
+            }
         }
         rmdir($dir);
     }
