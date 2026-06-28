@@ -1,0 +1,29 @@
+<?php
+$baseIsSet = require __DIR__ . '/_baseIsSet';
+    $baseUnary = require('./_baseUnary');
+    $nodeUtil = require('./_nodeUtil');
+
+/* Node.js helper references. */
+$nodeIsSet = nodeUtil && nodeUtil.isSet;
+
+/**
+* Checks if `value` is classified as a `Set` object.
+*
+* @static
+* @memberOf _
+* @since 4.3.0
+* @category Lang
+* @param {*} value The value to check.
+* @returns {boolean} Returns `true` if `value` is a set, else `false`.
+* @example
+*
+* _.isSet(new Set);
+* // => true
+*
+* _.isSet(new WeakSet);
+* // => false
+*/
+$isSet = nodeIsSet ? baseUnary(nodeIsSet) : baseIsSet;
+
+return $isSet;
+

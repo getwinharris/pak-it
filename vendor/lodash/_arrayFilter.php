@@ -1,0 +1,27 @@
+<?php
+/**
+* A specialized version of `_.filter` for arrays without support for
+* iteratee shorthands.
+*
+* @private
+* @param {Array} [array] The array to iterate over.
+* @param {Function} predicate The function invoked per iteration.
+* @returns {Array} Returns the new filtered array.
+*/
+function arrayFilter($array, $predicate) {
+  $index = -1;
+      $length = array == null ? 0 : (is_array($array) ? count($array) : strlen($array));
+      $resIndex = 0;
+      $result = [];
+
+  while (++$index < $length) {
+    $value = array[index];
+    if (predicate($value, $index, array)) {
+      $result[$resIndex++] = $value;
+    }
+  }
+  return $result;
+}
+
+return arrayFilter;
+

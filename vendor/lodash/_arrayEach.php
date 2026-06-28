@@ -1,0 +1,24 @@
+<?php
+/**
+* A specialized version of `_.forEach` for arrays without support for
+* iteratee shorthands.
+*
+* @private
+* @param {Array} [array] The array to iterate over.
+* @param {Function} iteratee The function invoked per iteration.
+* @returns {Array} Returns `array`.
+*/
+function arrayEach($array, $iteratee) {
+  $index = -1;
+      $length = array == null ? 0 : (is_array($array) ? count($array) : strlen($array));
+
+  while (++$index < $length) {
+    if (iteratee(array[$index], $index, array) === false) {
+      break;
+    }
+  }
+  return array;
+}
+
+return arrayEach;
+

@@ -1,0 +1,63 @@
+#!/usr/bin/env php
+<?php
+
+$ROOT = __DIR__;
+
+// Minimal autoloader
+spl_autoload_register(function ($class) use ($ROOT) {
+    $paths = [
+        "$ROOT/src/$class.php",
+        "$ROOT/Commands/$class.php",
+        "$ROOT/vendor/$class.php",
+    ];
+    foreach ($paths as $path) {
+        if (file_exists($path)) { require $path; return; }
+    }
+});
+
+$command = $argv[1] ?? 'help';
+
+switch ($command) {
+    case 'init':
+    case 'require':
+        require __DIR__ . '/Commands/InitCommand.php';
+        (new InitCommand())->run(array_slice($argv, 2));
+        break;
+
+    case 'install':
+        require __DIR__ . '/Commands/InstallCommand.php';
+        (new InstallCommand())->run();
+        break;
+
+    case 'verify':
+        require __DIR__ . '/Commands/VerifyCommand.php';
+        (new VerifyCommand())->run();
+        break;
+
+    case 'list':
+        $dirs = glob(__DIR__ . '/vendor/*', GLOB_ONLYDIR);
+        if (!$dirs) { echo "No packages installed.\n"; break; }
+        foreach ($dirs as $pkg) {
+            $name = basename($pkg);
+            $info = json_decode(@file_get_contents("$pkg/package.json"), true);
+            $version = $info['version'] ?? '?';
+            echo "  $name@$version\n";
+        }
+        break;
+
+    case 'help':
+        echo "pak-it - Universal PHP package manager\n";
+        echo "Usage:\n";
+        echo "  php pak-it init <package>    Download and convert a package\n";
+        echo "  php pak-it list              Show installed packages\n";
+        echo "  php pak-it <pkg> [args...]   Run a package's CLI\n";
+        echo "  php pak-it verify            Syntax-check all converted files\n";
+        echo "  php pak-it help              Show this help\n";
+        break;
+
+    default:
+        // Try to run as a package CLI
+        require __DIR__ . '/Commands/RunCommand.php';
+        (new RunCommand())->run($command, array_slice($argv, 2));
+        break;
+}

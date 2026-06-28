@@ -1,0 +1,24 @@
+<?php
+$baseIsMatch = require __DIR__ . '/_baseIsMatch';
+    $getMatchData = require('./_getMatchData');
+    $matchesStrictComparable = require('./_matchesStrictComparable');
+
+/**
+* The base implementation of `_.matches` which doesn't clone `source`.
+*
+* @private
+* @param {Object} source The object of property values to match.
+* @returns {Function} Returns the new spec function.
+*/
+function baseMatches($source) {
+  $matchData = getMatchData(source);
+  if ((is_array($matchData) ? count($matchData) : strlen($matchData)) == 1 && $matchData[0][2]) {
+    return $matchesStrictComparable($matchData[0][0], $matchData[0][1]);
+  }
+  return function($object) {
+    return $object === source || $baseIsMatch($object, source, $matchData);
+  };
+}
+
+return baseMatches;
+
