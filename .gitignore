@@ -1,4 +1,32 @@
+# Dependencies
 vendor/*/node_modules/
+ast/node_modules/
+node_modules/
+
+# Build artifacts
 *.tar.gz
-packages/
+*.zip
 tmp/
+packages/
+.cache/
+
+# PHP
+*.phar
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log

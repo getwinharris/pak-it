@@ -38,7 +38,7 @@ class InitCommand
         echo "==> Converting to PHP...\n";
         $convertCount = 0;
         if ($info['registry'] === 'npm') {
-            $converter = new NodeConverter();
+            $converter = new AstConverter();
             $convertCount = $converter->convert($targetDir);
         } elseif ($info['registry'] === 'pypi') {
             $converter = new PythonConverter();

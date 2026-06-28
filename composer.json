@@ -1,0 +1,49 @@
+{
+    "name": "getwinharris/pak-it",
+    "description": "PHP-native universal package manager and converter — npm, PyPI, cargo to pure PHP",
+    "type": "project",
+    "license": "MIT",
+    "keywords": [
+        "package-manager",
+        "php",
+        "npm",
+        "pypi",
+        "converter",
+        "transpiler",
+        "ast",
+        "shared-hosting"
+    ],
+    "authors": [
+        {
+            "name": "getwinharris",
+            "email": "getwinharris@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.3"
+    },
+    "require-dev": {
+        "node": ">=18.0"
+    },
+    "bin": [
+        "pak-it"
+    ],
+    "autoload": {
+        "classmap": [
+            "src/",
+            "Commands/"
+        ],
+        "files": [
+            "vendor/autoload.php"
+        ]
+    },
+    "scripts": {
+        "test": "php pak-it verify",
+        "convert": "php pak-it init",
+        "syntax-check": "php -r \"foreach(glob('vendor/**/*.php') as \$f) echo shell_exec('php -l '.\$f);\""
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
+}

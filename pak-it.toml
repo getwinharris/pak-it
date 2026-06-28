@@ -1,0 +1,14 @@
+# pak-it.toml — Package configuration
+# Add packages here and install with: php pak-it install
+
+[require]
+# npm packages
+lodash = "4.18.1"
+is-number = "7.0.0"
+chalk = "4.1.2"
+
+# Python packages (basic support)
+requests = "2.31.0"
+
+# CLI tools
+# jq = "1.6"
