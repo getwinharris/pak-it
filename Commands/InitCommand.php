@@ -13,9 +13,9 @@ class InitCommand
         $name = $args[0];
         $version = $args[1] ?? 'latest';
 
-        echo "==> Resolving $name...\n";
+        echo "==> Resolving $name" . ($version !== 'latest' ? " @ $version" : '') . "...\n";
         $resolver = new Resolver();
-        $info = $resolver->resolve($name);
+        $info = $resolver->resolve($name, $version);
 
         if (!$info) {
             echo "Error: Package '$name' not found in any registry.\n";
