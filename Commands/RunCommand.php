@@ -44,7 +44,14 @@ class RunCommand
 
         echo "  running: $cmd\n\n";
 
-        passthru($cmd, $exitCode);
+        // Pass through stdin/stdout/stderr so interactive CLIs (codex, etc.) work
+        $descriptors = [0 => STDIN, 1 => STDOUT, 2 => STDERR];
+        $proc = proc_open($cmd, $descriptors, $pipes);
+        if (!$proc) {
+            echo "Error: Failed to launch command\n";
+            exit(1);
+        }
+        $exitCode = proc_close($proc);
         exit($exitCode);
     }
 
