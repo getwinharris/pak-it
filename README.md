@@ -24,13 +24,13 @@ Every package becomes pure PHP that runs anywhere PHP runs.
 ## Install
 
 ```bash
-curl -sS https://raw.githubusercontent.com/getwinharris/pak-it/v1/install.sh | bash
+curl -sS https://raw.githubusercontent.com/getwinharris/pak-it/main/install.sh | bash
 ```
 
 Or clone manually:
 
 ```bash
-git clone --depth 1 --branch v1 https://github.com/getwinharris/pak-it.git
+git clone --depth 1 --branch main https://github.com/getwinharris/pak-it.git
 chmod +x pak-it/pak-it
 ```
 

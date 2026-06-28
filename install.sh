@@ -4,7 +4,7 @@ set -e
 echo "==> Installing pak-it..."
 
 # Check PHP
-php -v >/dev/null 2>&1 || { echo "Error: PHP 8.2+ required"; exit 1; }
+php -v >/dev/null 2>&1 || { echo "Error: PHP 8.3+ required"; exit 1; }
 
 # Determine install dir
 INSTALL_DIR="${1:-$PWD/pak-it}"
@@ -26,7 +26,7 @@ if command -v unzip &>/dev/null; then
     rm -f /tmp/pak-it.zip
 elif command -v git &>/dev/null; then
     echo "    Cloning repository..."
-    git clone --depth 1 --branch v1 https://github.com/getwinharris/pak-it.git "$INSTALL_DIR"
+    git clone --depth 1 --branch main https://github.com/getwinharris/pak-it.git "$INSTALL_DIR"
 else
     echo "Error: Need unzip or git to install"; exit 1
 fi
