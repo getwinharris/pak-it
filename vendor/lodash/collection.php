@@ -1,32 +1,31 @@
 <?php
-return {
-  'countBy': require('./countBy');
-  'each': require('./each');
-  'eachRight': require('./eachRight');
-  'every': require('./every');
-  'filter': require('./filter');
-  'find': require('./find');
-  'findLast': require('./findLast');
-  'flatMap': require('./flatMap');
-  'flatMapDeep': require('./flatMapDeep');
-  'flatMapDepth': require('./flatMapDepth');
-  'forEach': require('./forEach');
-  'forEachRight': require('./forEachRight');
-  'groupBy': require('./groupBy');
-  'includes': require('./includes');
-  'invokeMap': require('./invokeMap');
-  'keyBy': require('./keyBy');
-  'map': require('./map');
-  'orderBy': require('./orderBy');
-  'partition': require('./partition');
-  'reduce': require('./reduce');
-  'reduceRight': require('./reduceRight');
-  'reject': require('./reject');
-  'sample': require('./sample');
-  'sampleSize': require('./sampleSize');
-  'shuffle': require('./shuffle');
-  'size': require('./size');
-  'some': require('./some');
-  'sortBy': require('./sortBy')
-};
-
+return [
+    'countBy' => require __DIR__ . '/countBy.php',
+    'each' => require __DIR__ . '/each.php',
+    'eachRight' => require __DIR__ . '/eachRight.php',
+    'every' => require __DIR__ . '/every.php',
+    'filter' => require __DIR__ . '/filter.php',
+    'find' => require __DIR__ . '/find.php',
+    'findLast' => require __DIR__ . '/findLast.php',
+    'flatMap' => require __DIR__ . '/flatMap.php',
+    'flatMapDeep' => require __DIR__ . '/flatMapDeep.php',
+    'flatMapDepth' => require __DIR__ . '/flatMapDepth.php',
+    'forEach' => require __DIR__ . '/forEach.php',
+    'forEachRight' => require __DIR__ . '/forEachRight.php',
+    'groupBy' => require __DIR__ . '/groupBy.php',
+    'includes' => require __DIR__ . '/includes.php',
+    'invokeMap' => require __DIR__ . '/invokeMap.php',
+    'keyBy' => require __DIR__ . '/keyBy.php',
+    'map' => require __DIR__ . '/map.php',
+    'orderBy' => require __DIR__ . '/orderBy.php',
+    'partition' => require __DIR__ . '/partition.php',
+    'reduce' => require __DIR__ . '/reduce.php',
+    'reduceRight' => require __DIR__ . '/reduceRight.php',
+    'reject' => require __DIR__ . '/reject.php',
+    'sample' => require __DIR__ . '/sample.php',
+    'sampleSize' => require __DIR__ . '/sampleSize.php',
+    'shuffle' => require __DIR__ . '/shuffle.php',
+    'size' => require __DIR__ . '/size.php',
+    'some' => require __DIR__ . '/some.php',
+    'sortBy' => require __DIR__ . '/sortBy.php'
+];

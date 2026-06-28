@@ -1,3 +1,2 @@
 <?php
-return require('./takeRightWhile');
-
+return require __DIR__ . '/takeRightWhile.php';

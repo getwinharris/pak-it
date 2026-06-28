@@ -1,5 +1,4 @@
 <?php
-return {
-  'now': require('./now')
-};
-
+return [
+    'now' => require __DIR__ . '/now.php'
+];

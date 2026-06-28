@@ -1,60 +1,59 @@
 <?php
-return {
-  'castArray': require('./castArray');
-  'clone': require('./clone');
-  'cloneDeep': require('./cloneDeep');
-  'cloneDeepWith': require('./cloneDeepWith');
-  'cloneWith': require('./cloneWith');
-  'conformsTo': require('./conformsTo');
-  'eq': require('./eq');
-  'gt': require('./gt');
-  'gte': require('./gte');
-  'isArguments': require('./isArguments');
-  'isArray': require('./isArray');
-  'isArrayBuffer': require('./isArrayBuffer');
-  'isArrayLike': require('./isArrayLike');
-  'isArrayLikeObject': require('./isArrayLikeObject');
-  'isBoolean': require('./isBoolean');
-  'isBuffer': require('./isBuffer');
-  'isDate': require('./isDate');
-  'isElement': require('./isElement');
-  'isEmpty': require('./isEmpty');
-  'isEqual': require('./isEqual');
-  'isEqualWith': require('./isEqualWith');
-  'isError': require('./isError');
-  'is_finite': require('./is_finite');
-  'isFunction': require('./isFunction');
-  'is_int': require('./is_int');
-  'isLength': require('./isLength');
-  'isMap': require('./isMap');
-  'isMatch': require('./isMatch');
-  'isMatchWith': require('./isMatchWith');
-  'is_nan': require('./is_nan');
-  'isNative': require('./isNative');
-  'isNil': require('./isNil');
-  'isNull': require('./isNull');
-  'isNumber': require('./isNumber');
-  'isObject': require('./isObject');
-  'isObjectLike': require('./isObjectLike');
-  'isPlainObject': require('./isPlainObject');
-  'isRegExp': require('./isRegExp');
-  'isSafeInteger': require('./isSafeInteger');
-  'isSet': require('./isSet');
-  'isString': require('./isString');
-  'isSymbol': require('./isSymbol');
-  'isTypedArray': require('./isTypedArray');
-  'isUndefined': require('./isUndefined');
-  'isWeakMap': require('./isWeakMap');
-  'isWeakSet': require('./isWeakSet');
-  'lt': require('./lt');
-  'lte': require('./lte');
-  'toArray': require('./toArray');
-  'toFinite': require('./toFinite');
-  'toInteger': require('./toInteger');
-  'toLength': require('./toLength');
-  'toNumber': require('./toNumber');
-  'toPlainObject': require('./toPlainObject');
-  'toSafeInteger': require('./toSafeInteger');
-  'toString': require('./toString')
-};
-
+return [
+    'castArray' => require __DIR__ . '/castArray.php',
+    'clone' => require __DIR__ . '/clone.php',
+    'cloneDeep' => require __DIR__ . '/cloneDeep.php',
+    'cloneDeepWith' => require __DIR__ . '/cloneDeepWith.php',
+    'cloneWith' => require __DIR__ . '/cloneWith.php',
+    'conformsTo' => require __DIR__ . '/conformsTo.php',
+    'eq' => require __DIR__ . '/eq.php',
+    'gt' => require __DIR__ . '/gt.php',
+    'gte' => require __DIR__ . '/gte.php',
+    'isArguments' => require __DIR__ . '/isArguments.php',
+    'isArray' => require __DIR__ . '/isArray.php',
+    'isArrayBuffer' => require __DIR__ . '/isArrayBuffer.php',
+    'isArrayLike' => require __DIR__ . '/isArrayLike.php',
+    'isArrayLikeObject' => require __DIR__ . '/isArrayLikeObject.php',
+    'isBoolean' => require __DIR__ . '/isBoolean.php',
+    'isBuffer' => require __DIR__ . '/isBuffer.php',
+    'isDate' => require __DIR__ . '/isDate.php',
+    'isElement' => require __DIR__ . '/isElement.php',
+    'isEmpty' => require __DIR__ . '/isEmpty.php',
+    'isEqual' => require __DIR__ . '/isEqual.php',
+    'isEqualWith' => require __DIR__ . '/isEqualWith.php',
+    'isError' => require __DIR__ . '/isError.php',
+    'isFinite' => require __DIR__ . '/isFinite.php',
+    'isFunction' => require __DIR__ . '/isFunction.php',
+    'isInteger' => require __DIR__ . '/isInteger.php',
+    'isLength' => require __DIR__ . '/isLength.php',
+    'isMap' => require __DIR__ . '/isMap.php',
+    'isMatch' => require __DIR__ . '/isMatch.php',
+    'isMatchWith' => require __DIR__ . '/isMatchWith.php',
+    'isNaN' => require __DIR__ . '/isNaN.php',
+    'isNative' => require __DIR__ . '/isNative.php',
+    'isNil' => require __DIR__ . '/isNil.php',
+    'isNull' => require __DIR__ . '/isNull.php',
+    'isNumber' => require __DIR__ . '/isNumber.php',
+    'isObject' => require __DIR__ . '/isObject.php',
+    'isObjectLike' => require __DIR__ . '/isObjectLike.php',
+    'isPlainObject' => require __DIR__ . '/isPlainObject.php',
+    'isRegExp' => require __DIR__ . '/isRegExp.php',
+    'isSafeInteger' => require __DIR__ . '/isSafeInteger.php',
+    'isSet' => require __DIR__ . '/isSet.php',
+    'isString' => require __DIR__ . '/isString.php',
+    'isSymbol' => require __DIR__ . '/isSymbol.php',
+    'isTypedArray' => require __DIR__ . '/isTypedArray.php',
+    'isUndefined' => require __DIR__ . '/isUndefined.php',
+    'isWeakMap' => require __DIR__ . '/isWeakMap.php',
+    'isWeakSet' => require __DIR__ . '/isWeakSet.php',
+    'lt' => require __DIR__ . '/lt.php',
+    'lte' => require __DIR__ . '/lte.php',
+    'toArray' => require __DIR__ . '/toArray.php',
+    'toFinite' => require __DIR__ . '/toFinite.php',
+    'toInteger' => require __DIR__ . '/toInteger.php',
+    'toLength' => require __DIR__ . '/toLength.php',
+    'toNumber' => require __DIR__ . '/toNumber.php',
+    'toPlainObject' => require __DIR__ . '/toPlainObject.php',
+    'toSafeInteger' => require __DIR__ . '/toSafeInteger.php',
+    'toString' => require __DIR__ . '/toString.php'
+];

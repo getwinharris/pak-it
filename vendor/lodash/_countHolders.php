@@ -1,23 +1,12 @@
 <?php
-/**
-* Gets the number of `placeholder` occurrences in `array`.
-*
-* @private
-* @param {Array} array The array to inspect.
-* @param {*} placeholder The placeholder to search for.
-* @returns {number} Returns the placeholder count.
-*/
 function countHolders($array, $placeholder) {
-  $length = array.length;
-      $result = 0;
-
-  while (length--) {
-    if (array[$length] === placeholder) {
-      ++$result;
+    $length = (is_array($array) ? count($array) : strlen($array));
+    $result = 0;
+    while ($length--) {
+        if ($array[$length] === $placeholder) {
+            ++$result;
+        }
     }
-  }
-  return $result;
+    return $result;
 }
-
-return countHolders;
-
+return 'countHolders';

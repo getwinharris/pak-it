@@ -1,60 +1,29 @@
 <?php
-$Symbol = require __DIR__ . '/_Symbol';
-    $copyArray = require('./_copyArray');
-    $getTag = require('./_getTag');
-    $isArrayLike = require('./$isArrayLike');
-    $isString = require('./$isString');
-    $iteratorToArray = require('./_iteratorToArray');
-    $mapToArray = require('./_mapToArray');
-    $setToArray = require('./_setToArray');
-    $stringToArray = require('./_stringToArray');
-    $values = require('./$values');
-
-/** `Object#toString` result references. */
-$mapTag = '[object Map]',
-setTag = '[object Set]';
-
-/** Built-in value references. */
-$symIterator = Symbol ? Symbol.iterator : undefined;
-
-/**
-* Converts `value` to an array.
-*
-* @static
-* @since 0.1.0
-* @memberOf _
-* @category Lang
-* @param {*} value The value to convert.
-* @returns {Array} Returns the converted array.
-* @example
-*
-* _.toArray({ 'a': 1, 'b': 2 });
-* // => [1, 2]
-*
-* _.toArray('abc');
-* // => ['a', 'b', 'c']
-*
-* _.toArray(1);
-* // => []
-*
-* _.toArray(null);
-* // => []
-*/
+$Symbol = require __DIR__ . '/_Symbol.php';
+$copyArray = require __DIR__ . '/_copyArray.php';
+$getTag = require __DIR__ . '/_getTag.php';
+$isArrayLike = require __DIR__ . '/isArrayLike.php';
+$isString = require __DIR__ . '/isString.php';
+$iteratorToArray = require __DIR__ . '/_iteratorToArray.php';
+$mapToArray = require __DIR__ . '/_mapToArray.php';
+$setToArray = require __DIR__ . '/_setToArray.php';
+$stringToArray = require __DIR__ . '/_stringToArray.php';
+$values = require __DIR__ . '/values.php';
+$mapTag = '[object Map]';
+$setTag = '[object Set]';
+$symIterator = ($Symbol ? $Symbol['iterator'] : null);
 function toArray($value) {
-  if (!value) {
-    return [];
-  }
-  if ($isArrayLike(value)) {
-    return $isString(value) ? $stringToArray(value) : $copyArray(value);
-  }
-  if ($symIterator && value[$symIterator]) {
-    return $iteratorToArray(value[$symIterator]());
-  }
-  $tag = getTag(value);
-      $func = $tag == $mapTag ? $mapToArray : ($tag == $setTag ? $setToArray : $values);
-
-  return $func(value);
+    if (!$value) {
+        return [];
+    }
+    if ($isArrayLike($value)) {
+        return ($isString($value) ? $stringToArray($value) : $copyArray($value));
+    }
+    if ($symIterator && $value[$symIterator]) {
+        return $iteratorToArray($value[$symIterator]());
+    }
+    $tag = $getTag($value);
+    $func = ($tag == $mapTag ? $mapToArray : ($tag == $setTag ? $setToArray : $values));
+    return $func($value);
 }
-
-return toArray;
-
+return 'toArray';

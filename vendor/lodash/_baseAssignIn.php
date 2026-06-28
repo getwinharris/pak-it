@@ -1,19 +1,7 @@
 <?php
-$copyObject = require __DIR__ . '/_copyObject';
-    $keysIn = require('./$keysIn');
-
-/**
-* The base implementation of `_.assignIn` without support for multiple sources
-* or `customizer` functions.
-*
-* @private
-* @param {Object} object The destination object.
-* @param {Object} source The source object.
-* @returns {Object} Returns `object`.
-*/
+$copyObject = require __DIR__ . '/_copyObject.php';
+$keysIn = require __DIR__ . '/keysIn.php';
 function baseAssignIn($object, $source) {
-  return object && $copyObject(source, $keysIn(source), object);
+    return $object && $copyObject($source, $keysIn($source), $object);
 }
-
-return baseAssignIn;
-
+return 'baseAssignIn';

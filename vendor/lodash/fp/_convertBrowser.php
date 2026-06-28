@@ -1,20 +1,9 @@
 <?php
-$baseConvert = require __DIR__ . '/_baseConvert';
-
-/**
-* Converts `lodash` to an immutable auto-curried iteratee-first data-last
-* version with conversion `options` applied.
-*
-* @param {Function} lodash The lodash function to convert.
-* @param {Object} [options] The options object. See `baseConvert` for more details.
-* @returns {Function} Returns the converted `lodash`.
-*/
+$baseConvert = require __DIR__ . '/_baseConvert.php';
 function browserConvert($lodash, $options) {
-  return $baseConvert(lodash, lodash, options);
+    return $baseConvert($lodash, $lodash, $options);
 }
-
-if (typeof _ == 'function' && typeof _.runInContext == 'function') {
-  _ = browserConvert(_.runInContext());
+if (is_callable($_) && is_callable($_['runInContext'])) {
+    $_ = $browserConvert($_['runInContext']());
 }
-return browserConvert;
-
+return 'browserConvert';

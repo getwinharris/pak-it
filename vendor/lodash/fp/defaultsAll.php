@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('defaultsAll', require('../defaults'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('defaultsAll', require __DIR__ . '/defaults.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

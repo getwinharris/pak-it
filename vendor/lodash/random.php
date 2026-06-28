@@ -1,93 +1,44 @@
 <?php
-$baseRandom = require __DIR__ . '/_baseRandom';
-    $isIterateeCall = require('./_isIterateeCall');
-    $toFinite = require('./$toFinite');
-
-/** Built-in method references without a dependency on `root`. */
+$baseRandom = require __DIR__ . '/_baseRandom.php';
+$isIterateeCall = require __DIR__ . '/_isIterateeCall.php';
+$toFinite = require __DIR__ . '/toFinite.php';
 $freeParseFloat = parseFloat;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
 $nativeMin = min;
-    $nativeRandom = random;
-
-/**
-* Produces a random number between the inclusive `lower` and `upper` bounds.
-* If only one argument is provided a number between `0` and the given number
-* is returned. If `floating` is `true`, or either `lower` or `upper` are
-* floats, a floating-point number is returned instead of an integer.
-*
-* **Note:** JavaScript follows the IEEE-754 standard for resolving
-* floating-point values which can produce unexpected results.
-*
-* **Note:** If `lower` is greater than `upper`, the values are swapped.
-*
-* @static
-* @memberOf _
-* @since 0.7.0
-* @category Number
-* @param {number} [lower=0] The lower bound.
-* @param {number} [upper=1] The upper bound.
-* @param {boolean} [floating] Specify returning a floating-point number.
-* @returns {number} Returns the random number.
-* @example
-*
-* _.random(0, 5);
-* // => an integer between 0 and 5
-*
-* // when lower is greater than upper the values are swapped
-* _.random(5, 0);
-* // => an integer between 0 and 5
-*
-* _.random(5);
-* // => also an integer between 0 and 5
-*
-* _.random(-5);
-* // => an integer between -5 and 0
-*
-* _.random(5, true);
-* // => a floating-point number between 0 and 5
-*
-* _.random(1.2, 5.2);
-* // => a floating-point number between 1.2 and 5.2
-*/
+$nativeRandom = random;
 function random($lower, $upper, $floating) {
-  if (floating && typeof floating != 'boolean' && $isIterateeCall(lower, upper, floating)) {
-    upper = floating = undefined;
-  }
-  if (floating === null) {
-    if (typeof upper == 'boolean') {
-      floating = upper;
-      upper = undefined;
+    if ($floating && !is_bool($floating) && $isIterateeCall($lower, $upper, $floating)) {
+        $upper = $floating = null;
     }
-    else if (typeof lower == 'boolean') {
-      floating = lower;
-      lower = undefined;
+    if ($floating === null) {
+        if (is_bool($upper)) {
+            $floating = $upper;
+            $upper = null;
+        } else if (is_bool($lower)) {
+            $floating = $lower;
+            $lower = null;
+        }
     }
-  }
-  if (lower === null && upper === null) {
-    lower = 0;
-    upper = 1;
-  }
-  else {
-    lower = $toFinite(lower);
-    if (upper === null) {
-      upper = lower;
-      lower = 0;
+    if ($lower === null && $upper === null) {
+        $lower = 0;
+        $upper = 1;
     } else {
-      upper = $toFinite(upper);
+        $lower = $toFinite($lower);
+        if ($upper === null) {
+            $upper = $lower;
+            $lower = 0;
+        } else {
+            $upper = $toFinite($upper);
+        }
     }
-  }
-  if (lower > upper) {
-    $temp = lower;
-    lower = upper;
-    upper = $temp;
-  }
-  if (floating || lower % 1 || upper % 1) {
-    $rand = nativeRandom();
-    return $nativeMin(lower + ($rand * (upper - lower + $freeParseFloat('1e-' + (($rand + '').length - 1)))), upper);
-  }
-  return $baseRandom(lower, upper);
+    if ($lower > $upper) {
+        $temp = $lower;
+        $lower = $upper;
+        $upper = $temp;
+    }
+    if ($floating || $lower % 1 || $upper % 1) {
+        $rand = $nativeRandom();
+        return $nativeMin($lower + $rand * $upper - $lower + $freeParseFloat('1e-' + (is_array($rand + '') ? count($rand + '') : strlen($rand + '')) - 1), $upper);
+    }
+    return $baseRandom($lower, $upper);
 }
-
-return random;
-
+return 'random';

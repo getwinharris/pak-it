@@ -1,47 +1,23 @@
 <?php
-$arrayFilter = require __DIR__ . '/_arrayFilter';
-    $arrayMap = require('./_arrayMap');
-    $baseProperty = require('./_baseProperty');
-    $baseTimes = require('./_baseTimes');
-    $isArrayLikeObject = require('./$isArrayLikeObject');
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-$nativeMax = Math.max;
-
-/**
-* This method is like `_.zip` except that it accepts an array of grouped
-* elements and creates an array regrouping the elements to their pre-zip
-* configuration.
-*
-* @static
-* @memberOf _
-* @since 1.2.0
-* @category Array
-* @param {Array} array The array of grouped elements to process.
-* @returns {Array} Returns the new array of regrouped elements.
-* @example
-*
-* var zipped = _.zip(['a', 'b'], [1, 2], [true, false]);
-* // => [['a', 1, true], ['b', 2, false]]
-*
-* _.unzip(zipped);
-* // => [['a', 'b'], [1, 2], [true, false]]
-*/
+$arrayFilter = require __DIR__ . '/_arrayFilter.php';
+$arrayMap = require __DIR__ . '/_arrayMap.php';
+$baseProperty = require __DIR__ . '/_baseProperty.php';
+$baseTimes = require __DIR__ . '/_baseTimes.php';
+$isArrayLikeObject = require __DIR__ . '/isArrayLikeObject.php';
+$nativeMax = max;
 function unzip($array) {
-  if (!(array && (is_array($array) ? count($array) : strlen($array)))) {
-    return [];
-  }
-  $length = 0;
-  array = $arrayFilter(array, function($group) {
-    if ($isArrayLikeObject($group)) {
-      $length = $nativeMax((is_array($group) ? count($group) : strlen($group)), $length);
-      return true;
+    if (!$array && (is_array($array) ? count($array) : strlen($array))) {
+        return [];
     }
-  });
-  return $baseTimes($length, function($index) {
-    return $arrayMap(array, $baseProperty($index));
-  });
+    $length = 0;
+    $array = $arrayFilter($array, function($group) {
+        if ($isArrayLikeObject($group)) {
+            $length = $nativeMax((is_array($group) ? count($group) : strlen($group)), $length);
+            return true;
+        }
+});
+    return $baseTimes($length, function($index) {
+        return $arrayMap($array, $baseProperty($index));
+});
 }
-
-return unzip;
-
+return 'unzip';

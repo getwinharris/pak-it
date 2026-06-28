@@ -1,21 +1,8 @@
 <?php
-$assocIndexOf = require __DIR__ . '/_assocIndexOf';
-
-/**
-* Gets the list cache value for `key`.
-*
-* @private
-* @name get
-* @memberOf ListCache
-* @param {string} key The key of the value to get.
-* @returns {*} Returns the entry value.
-*/
+$assocIndexOf = require __DIR__ . '/_assocIndexOf.php';
 function listCacheGet($key) {
-  $data = this.__data__;
-      $index = $assocIndexOf($data, key);
-
-  return $index < 0 ? undefined : $data[$index][1];
+    $data = $this->__data__;
+    $index = $assocIndexOf($data, $key);
+    return ($index < 0 ? null : $data[$index][1]);
 }
-
-return listCacheGet;
-
+return 'listCacheGet';

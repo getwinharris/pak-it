@@ -1,35 +1,15 @@
 <?php
-$arrayMap = require __DIR__ . '/_arrayMap';
-    $copyArray = require('./_copyArray');
-    $isArray = require('./$isArray');
-    $isSymbol = require('./$isSymbol');
-    $stringToPath = require('./_stringToPath');
-    $toKey = require('./_toKey');
-    $toString = require('./$toString');
-
-/**
-* Converts `value` to a property path array.
-*
-* @static
-* @memberOf _
-* @since 4.0.0
-* @category Util
-* @param {*} value The value to convert.
-* @returns {Array} Returns the new property path array.
-* @example
-*
-* _.toPath('a.b.c');
-* // => ['a', 'b', 'c']
-*
-* _.toPath('a[0].b.c');
-* // => ['a', '0', 'b', 'c']
-*/
+$arrayMap = require __DIR__ . '/_arrayMap.php';
+$copyArray = require __DIR__ . '/_copyArray.php';
+$isArray = require __DIR__ . '/isArray.php';
+$isSymbol = require __DIR__ . '/isSymbol.php';
+$stringToPath = require __DIR__ . '/_stringToPath.php';
+$toKey = require __DIR__ . '/_toKey.php';
+$toString = require __DIR__ . '/toString.php';
 function toPath($value) {
-  if ($isArray(value)) {
-    return $arrayMap(value, $toKey);
-  }
-  return $isSymbol(value) ? [value] : $copyArray($stringToPath($toString(value)));
+    if ($isArray($value)) {
+        return $arrayMap($value, $toKey);
+    }
+    return ($isSymbol($value) ? [$value] : $copyArray($stringToPath($toString($value))));
 }
-
-return toPath;
-
+return 'toPath';

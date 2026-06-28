@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('after', require('../after'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('after', require __DIR__ . '/after.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

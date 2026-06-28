@@ -1,3 +1,2 @@
 <?php
-return require('./get');
-
+return require __DIR__ . '/get.php';

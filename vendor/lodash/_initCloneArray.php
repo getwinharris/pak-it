@@ -1,28 +1,13 @@
 <?php
-/** Used for built-in method references. */
-$objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-$hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
-* Initializes an array clone.
-*
-* @private
-* @param {Array} array The array to clone.
-* @returns {Array} Returns the initialized clone.
-*/
+$objectProto = Object['prototype'];
+$hasOwnProperty = $objectProto['hasOwnProperty'];
 function initCloneArray($array) {
-  $length = array.length;
-      $result = new array.constructor($length);
-
-  // Add properties assigned by `RegExp#exec`.
-  if ($length && typeof array[0] == 'string' && $hasOwnProperty.call(array, 'index')) {
-    $result.index = array.index;
-    $result.input = array.input;
-  }
-  return $result;
+    $length = (is_array($array) ? count($array) : strlen($array));
+    $result = new $array['constructor']($length);
+    if ($length && is_string($array[0]) && call_user_func($hasOwnProperty, $array, 'index')) {
+        $result['index'] = $array['index'];
+        $result['input'] = $array['input'];
+    }
+    return $result;
 }
-
-return initCloneArray;
-
+return 'initCloneArray';

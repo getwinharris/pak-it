@@ -1,34 +1,9 @@
 <?php
-$toString = require __DIR__ . '/toString';
-
-/**
-* Used to match `RegExp`
-* [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
-*/
-$reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
-    $reHasRegExpChar = RegExp($reRegExpChar.source);
-
-/**
-* Escapes the `RegExp` special characters "^", "$", "\", ".", "*", "+";
-* "?", "(", ")", "[", "]", "{", "}", and "|" in `string`.
-*
-* @static
-* @memberOf _
-* @since 3.0.0
-* @category String
-* @param {string} [string=''] The string to escape.
-* @returns {string} Returns the escaped string.
-* @example
-*
-* _.escapeRegExp('[lodash](https://lodash.com/)');
-* // => '\[lodash\]\(https://lodash\.com/\)'
-*/
+$toString = require __DIR__ . '/toString.php';
+$reRegExpChar = '/[\\\\^$.*+?()[\\]{}|]/g';
+$reHasRegExpChar = '/' . $reRegExpChar['source'] . '/';
 function escapeRegExp($string) {
-  string = $toString(string);
-  return (string && $reHasRegExpChar.test(string))
-    ? str_replace($reRegExpChar, '\\$&', $string)
-    : string;
+    $string = $toString($string);
+    return ($string && preg_match($string, $reHasRegExpChar) ? str_replace($reRegExpChar, '\\$&', $string) : $string);
 }
-
-return escapeRegExp;
-
+return 'escapeRegExp';

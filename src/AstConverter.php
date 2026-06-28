@@ -268,19 +268,36 @@ class AstConverter
         }
     }
 
+    private function reservedPhpNames(): array
+    {
+        return [
+            // PHP built-in classes
+            'Hash', 'Map', 'Set', 'WeakMap', 'WeakSet', 'Promise',
+            'Closure', 'DateTime', 'Exception', 'PDO', 'DOMDocument',
+            'SimpleXMLElement', 'SplStack', 'SplFileInfo', 'Iterator',
+            'Countable', 'ArrayAccess', 'Serializable', 'JsonSerializable',
+            'RecursiveIteratorIterator', 'DirectoryIterator', 'PharData',
+            // PHP built-in functions that conflict
+            'compact', 'constant', 'max', 'min', 'shuffle', 'trim',
+            'empty', 'isset', 'unset', 'list', 'eval', 'assert', 'join',
+            'clone', 'foreach', 'die', 'exit', 'include', 'require_once',
+            'include_once', 'print', 'echo', 'return', 'yield', 'fn',
+            // PHP 8+ keywords
+            'readonly', 'enum', 'match', 'mixed', 'never', 'true', 'false', 'null',
+        ];
+    }
+
     private function walkFunctionDeclaration(array $node, string $indent): string
     {
         $name = $node['id']['name'] ?? '';
         $params = $this->walkParams($node['params'] ?? []);
         $body = $this->walkBlockBody($node['body']['body'] ?? [], $indent);
 
-        // Avoid conflicts with PHP built-in classes
-        $reserved = ['Hash', 'Map', 'Set', 'WeakMap', 'WeakSet', 'Promise',
-            'Closure', 'DateTime', 'Exception', 'PDO', 'DOMDocument',
-            'SimpleXMLElement', 'SplStack', 'SplFileInfo', 'Iterator',
-            'Countable', 'ArrayAccess', 'Serializable', 'JsonSerializable',
-            'RecursiveIteratorIterator', 'DirectoryIterator', 'PharData'];
-        if (in_array($name, $reserved, true)) {
+        // Avoid conflicts with PHP reserved names
+        static $phpKeywords = ['foreach', 'clone', 'unset', 'empty', 'isset', 'list', 'echo', 'print', 'die', 'exit', 'eval', 'include', 'require', 'return', 'yield', 'fn', 'match', 'readonly', 'enum', 'true', 'false', 'null', 'array', 'callable', 'static', 'global', 'var', 'const', 'abstract', 'final', 'private', 'protected', 'public', 'implements', 'extends', 'interface', 'trait', 'new', 'instanceof', 'insteadof', 'as', 'or', 'and', 'xor', 'for', 'while', 'if', 'else', 'elseif', 'switch', 'default', 'case', 'break', 'continue', 'throw', 'try', 'catch', 'finally', 'declare', 'enddeclare', 'goto', 'namespace', 'use', 'class', 'function'];
+        // Check case-insensitively for PHP keywords, case-sensitively for built-in function names
+        $lowerName = strtolower($name);
+        if (in_array($lowerName, $phpKeywords, true) || in_array($name, $this->reservedPhpNames(), true)) {
             $name = '_' . $name;
         }
 
@@ -292,6 +309,11 @@ class AstConverter
         $decls = [];
         foreach ($node['declarations'] ?? [] as $decl) {
             $id = $this->walkExpression($decl['id'], $indent);
+            // If expression returned a constant (e.g., null for 'undefined'), use variable instead
+            $varName = $decl['id']['name'] ?? '';
+            if ($varName && ($id === 'null' || $id === 'true' || $id === 'false' || $id === 'NAN' || $id === 'INF')) {
+                $id = '$' . $varName;
+            }
             if (isset($decl['init'])) {
                 $init = $this->walkExpression($decl['init'], $indent);
                 $decls[] = $id . ' = ' . $init;
@@ -415,6 +437,9 @@ class AstConverter
         // Handler (catch)
         if (isset($node['handler'])) {
             $param = $this->walkExpression($node['handler']['param'] ?? [], $indent);
+            if (strpos($param, '$') === 0) {
+                $param = '\Throwable ' . $param;
+            }
             $handlerBody = $this->walkBlockBody($node['handler']['body']['body'] ?? [], $indent);
             $result .= ' catch (' . $param . ') {' . ($handlerBody ? "\n" . $handlerBody . "\n" . $indent . '}' : '}');
         }
@@ -494,7 +519,17 @@ class AstConverter
                 return $this->walkUpdateExpression($node);
 
             case 'SequenceExpression':
-                return '(' . $this->walkExpressionList($node['expressions'] ?? [], $indent) . ')';
+                $exprs = $node['expressions'] ?? [];
+                if (count($exprs) <= 1) {
+                    return $exprs ? $this->walkExpression($exprs[0], $indent) : 'null';
+                }
+                $lastExpr = array_pop($exprs);
+                $stmts = [];
+                foreach ($exprs as $expr) {
+                    $stmts[] = $this->walkExpression($expr, $indent);
+                }
+                $last = $this->walkExpression($lastExpr, $indent);
+                return '(static function() { ' . implode('; ', $stmts) . '; return ' . $last . '; })()';
 
             case 'SpreadElement':
                 return '...' . $this->walkExpression($node['argument'], $indent);
@@ -572,11 +607,11 @@ class AstConverter
             'Math', 'JSON', 'Object', 'Array', 'Error', 'TypeError', 'RangeError',
             'console', 'process', 'Buffer', 'setTimeout', 'setInterval',
             'clearTimeout', 'require', 'module', 'exports', '__dirname',
-            '__filename', 'global', 'Number', 'Boolean', 'String', 'Date',
+            '__filename', 'Number', 'Boolean', 'String', 'Date',
             'RegExp', 'Map', 'Set', 'WeakMap', 'WeakSet', 'Promise',
-            'Symbol', 'Reflect', 'Proxy', 'isFinite', 'isNaN',
-            'parseInt', 'parseFloat', 'encodeURI', 'encodeURIComponent',
-            'decodeURI', 'decodeURIComponent',
+            'Symbol', 'Reflect', 'Proxy', 'Function',
+            'isFinite', 'isNaN', 'parseFloat', 'parseInt',
+            'encodeURI', 'encodeURIComponent', 'decodeURI', 'decodeURIComponent',
         ];
 
         if (in_array($name, $noPrefix, true)) return $name;
@@ -709,12 +744,14 @@ class AstConverter
             case '-':
                 return '-' . $arg;
             case 'void':
-                // JS void always returns undefined; evaluate for side effects, then return null
-                return '(static function() { ' . $arg . '; return null; })()';
+                // JS void always returns undefined; discard expression value
+                $inner = $this->walkExpression($node['argument'], $indent);
+                return '(static function() { null; return null; })()';
             case 'typeof':
                 return $this->walkTypeof($node, $indent);
             case 'delete':
-                return 'unset(' . $arg . ')';
+                // JS delete returns true on success; PHP unset is a statement, not an expression
+                return '(static function() { if (isset(' . $arg . ')) { unset(' . $arg . '); return true; } return true; })()';
             default:
                 return $op . $arg;
         }
@@ -809,6 +846,9 @@ class AstConverter
             if ($firstArg && $firstArg['type'] === 'Literal') {
                 $path = $firstArg['value'];
                 $path = preg_replace('/\.js$/', '.php', $path);
+                if (pathinfo($path, PATHINFO_EXTENSION) === '') {
+                    $path .= '.php';
+                }
                 if (strpos($path, '.') === 0 || strpos($path, '/') === 0) {
                     return 'require __DIR__ . ' . var_export('/' . ltrim($path, './'), true);
                 }
@@ -839,6 +879,14 @@ class AstConverter
                 'pop' => 'array_pop',
                 'shift' => 'array_shift',
                 'unshift' => 'array_unshift',
+                'reverse' => 'array_reverse',
+                'sort' => 'sort',
+                'splice' => 'array_splice',
+                'every' => null,
+                'some' => null,
+                'filter' => 'array_filter',
+                'map' => 'array_map',
+                'reduce' => 'array_reduce',
                 'test' => 'preg_match',
                 'exec' => false,
             ];
@@ -867,7 +915,7 @@ class AstConverter
                         return $methodMap[$prop] . '(' . ($args ? $obj . ', ' . $args : $obj) . ')';
                     }
                     if (in_array($prop, ['indexOf', 'includes', 'push', 'pop', 'shift', 'unshift', 'test', 'exec'])) {
-                        return $methodMap[$prop] . '(' . $args . ', ' . $obj . ')';
+                        return $methodMap[$prop] . '(' . ($args ? $args . ', ' : '') . $obj . ')';
                     }
                     // For explode, array_slice, etc: method(arg, obj)
                     return $methodMap[$prop] . '(' . $args . ($args ? ', ' : '') . $obj . ')';
@@ -961,8 +1009,56 @@ class AstConverter
             return '[' . $args . ']';
         }
 
+        // Handle Function() constructor
+        if ($callee['type'] === 'Identifier' && $callee['name'] === 'Function') {
+            // Function('return this')() -> static fn() => $GLOBALS
+            // Function('arg', 'body')() -> fn($arg) => $body
+            // Just generate a closure stub
+            $numArgs = count($node['arguments']);
+            if ($numArgs <= 1) {
+                return '(static function() { return null; })';
+            }
+            $paramNames = [];
+            for ($i = 0; $i < $numArgs - 1; $i++) {
+                $arg = $node['arguments'][$i];
+                if ($arg['type'] === 'Literal' && is_string($arg['value'])) {
+                    $paramNames[] = '$' . $arg['value'];
+                }
+            }
+            // Use only the last argument as the body expression
+            $lastArg = $node['arguments'][$numArgs - 1];
+            $bodyExpr = $this->walkExpression($lastArg, $indent);
+            return '(function(' . implode(', ', $paramNames) . ') { return ' . $bodyExpr . '; })';
+        }
+
+        // Handle RegExp() constructor (bare call, not new)
+        if ($callee['type'] === 'Identifier' && $callee['name'] === 'RegExp') {
+            if (count($node['arguments']) === 1) {
+                $pattern = $this->walkExpression($node['arguments'][0], $indent);
+                return "'/' . " . $pattern . " . '/'";
+            }
+            if (count($node['arguments']) >= 2) {
+                $pattern = $this->walkExpression($node['arguments'][0], $indent);
+                $flags = $this->walkExpression($node['arguments'][1], $indent);
+                return "'/' . " . $pattern . " . '/' . " . $flags;
+            }
+            return 'null';
+        }
+
+        // Handle .call() - fn.call(thisArg, ...) -> call_user_func(fn, ...)
+        if ($callee['type'] === 'MemberExpression' && !$callee['computed'] && $callee['property']['name'] === 'call') {
+            $fn = $this->walkExpression($callee['object'], $indent);
+            return 'call_user_func(' . $fn . ', ' . $args . ')';
+        }
+
         // Normal function call
         $calleeStr = $this->walkExpression($callee, $indent);
+
+        // Wrap function/arrow expressions in parens for IIFE
+        if ($callee['type'] === 'FunctionExpression' || $callee['type'] === 'ArrowFunctionExpression') {
+            $calleeStr = '(' . $calleeStr . ')';
+        }
+
         return $calleeStr . '(' . $args . ')';
     }
 
@@ -997,6 +1093,7 @@ class AstConverter
                 ],
                 'Object' => ['keys' => 'keys', 'values' => 'values', 'assign' => 'assign'],
                 'JSON' => ['parse' => 'parse', 'stringify' => 'stringify'],
+                'RegExp' => ['prototype' => 'prototype', 'source' => 'source'],
             ];
             if (isset($staticObjMap[$objName][$propName])) {
                 $mapped = $staticObjMap[$objName][$propName];
@@ -1010,6 +1107,14 @@ class AstConverter
         }
 
         $object = $this->walkExpression($node['object'], $indent);
+
+        // PHP type keywords can't be used with [] subscript (Array, Function)
+        if ($node['object']['type'] === 'Identifier') {
+            static $typeKeywords = ['Array', 'Function'];
+            if (in_array($node['object']['name'], $typeKeywords)) {
+                $object = var_export($node['object']['name'], true);
+            }
+        }
 
         // Handle .length -> array count / strlen
         if (!$computed && $propName === 'length') {
@@ -1049,6 +1154,15 @@ class AstConverter
             $node['left']['object']['name'] === 'exports') {
             $prop = $node['left']['property']['name'] ?? '';
             return '$' . $prop . ' = ' . $right;
+        }
+
+        // Handle obj.length = n -> array_splice/truncation
+        if ($node['left']['type'] === 'MemberExpression' &&
+            !$node['left']['computed'] &&
+            ($node['left']['property']['name'] ?? '') === 'length') {
+            $obj = $this->walkExpression($node['left']['object'], $indent);
+            // For arrays: array_splice modifies in-place, for strings: substr returns new value
+            return '(is_array(' . $obj . ') ? array_splice(' . $obj . ', 0, ' . $right . ') : substr(' . $obj . ', 0, ' . $right . '))';
         }
 
         // Convert compound operators
@@ -1135,12 +1249,7 @@ class AstConverter
         if ($right['type'] === 'Identifier') {
             $name = $right['name'];
             // Check if function name was renamed to avoid PHP conflicts
-            $reserved = ['Hash', 'Map', 'Set', 'WeakMap', 'WeakSet', 'Promise',
-                'Closure', 'DateTime', 'Exception', 'PDO', 'DOMDocument',
-                'SimpleXMLElement', 'SplStack', 'SplFileInfo', 'Iterator',
-                'Countable', 'ArrayAccess', 'Serializable', 'JsonSerializable',
-                'RecursiveIteratorIterator', 'DirectoryIterator', 'PharData'];
-            if (in_array($name, $reserved, true)) {
+            if (in_array($name, $this->reservedPhpNames(), true)) {
                 $name = '_' . $name;
             }
             return $indent . 'return ' . var_export($name, true) . ';';

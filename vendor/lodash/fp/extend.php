@@ -1,3 +1,2 @@
 <?php
-return require('./assignIn');
-
+return require __DIR__ . '/assignIn.php';

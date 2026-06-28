@@ -1,19 +1,8 @@
 <?php
-$baseGetAllKeys = require __DIR__ . '/_baseGetAllKeys';
-    $getSymbolsIn = require('./_getSymbolsIn');
-    $keysIn = require('./$keysIn');
-
-/**
-* Creates an array of own and inherited enumerable property names and
-* symbols of `object`.
-*
-* @private
-* @param {Object} object The object to query.
-* @returns {Array} Returns the array of property names and symbols.
-*/
+$baseGetAllKeys = require __DIR__ . '/_baseGetAllKeys.php';
+$getSymbolsIn = require __DIR__ . '/_getSymbolsIn.php';
+$keysIn = require __DIR__ . '/keysIn.php';
 function getAllKeysIn($object) {
-  return $baseGetAllKeys(object, $keysIn, $getSymbolsIn);
+    return $baseGetAllKeys($object, $keysIn, $getSymbolsIn);
 }
-
-return getAllKeysIn;
-
+return 'getAllKeysIn';

@@ -1,25 +1,15 @@
 <?php
-$LazyWrapper = require __DIR__ . '/_LazyWrapper';
-    $LodashWrapper = require('./_LodashWrapper');
-    $copyArray = require('./_copyArray');
-
-/**
-* Creates a clone of `wrapper`.
-*
-* @private
-* @param {Object} wrapper The wrapper to clone.
-* @returns {Object} Returns the cloned wrapper.
-*/
+$LazyWrapper = require __DIR__ . '/_LazyWrapper.php';
+$LodashWrapper = require __DIR__ . '/_LodashWrapper.php';
+$copyArray = require __DIR__ . '/_copyArray.php';
 function wrapperClone($wrapper) {
-  if (wrapper instanceof $LazyWrapper) {
-    return wrapper.clone();
-  }
-  $result = new LodashWrapper(wrapper.__wrapped__, wrapper.__chain__);
-  $result.__actions__ = $copyArray(wrapper.__actions__);
-  $result.__index__  = wrapper.__index__;
-  $result.__values__ = wrapper.__values__;
-  return $result;
+    if ($wrapper instanceof $LazyWrapper) {
+        return $wrapper['clone']();
+    }
+    $result = new $LodashWrapper($wrapper['__wrapped__'], $wrapper['__chain__']);
+    $result['__actions__'] = $copyArray($wrapper['__actions__']);
+    $result['__index__'] = $wrapper['__index__'];
+    $result['__values__'] = $wrapper['__values__'];
+    return $result;
 }
-
-return wrapperClone;
-
+return 'wrapperClone';

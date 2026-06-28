@@ -1,54 +1,27 @@
 <?php
-$castPath = require __DIR__ . '/_castPath';
-    $last = require('./$last');
-    $parent = require('./_parent');
-    $toKey = require('./_toKey');
-
-/** Used for built-in method references. */
-$objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-$hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
-* The base implementation of `_.unset`.
-*
-* @private
-* @param {Object} object The object to modify.
-* @param {Array|string} path The property path to unset.
-* @returns {boolean} Returns `true` if the property is deleted, else `false`.
-*/
+$castPath = require __DIR__ . '/_castPath.php';
+$last = require __DIR__ . '/last.php';
+$parent = require __DIR__ . '/_parent.php';
+$toKey = require __DIR__ . '/_toKey.php';
+$objectProto = Object['prototype'];
+$hasOwnProperty = $objectProto['hasOwnProperty'];
 function baseUnset($object, $path) {
-  path = $castPath(path, object);
-
-  // Prevent prototype pollution:
-  // https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg
-  // https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh
-  $index = -1;
-      $length = (is_array($path) ? count($path) : strlen($path));
-
-  if (!$length) {
-    return true;
-  }
-
-  while (++$index < $length) {
-    $key = toKey(path[index]);
-
-    // Always block "__proto__" anywhere in the path if it's not expected
-    if ($key === '__proto__' && !$hasOwnProperty.call(object, '__proto__')) {
-      return false;
+    $path = $castPath($path, $object);
+    $index = -1;
+    $length = (is_array($path) ? count($path) : strlen($path));
+    if (!$length) {
+        return true;
     }
-
-    // Block constructor/prototype as non-terminal traversal keys to prevent
-    // escaping the object graph into built-in constructors and prototypes.
-    if (($key === 'constructor' || $key === 'prototype') && $index < $length - 1) {
-      return false;
+    while (++$index < $length) {
+        $key = $toKey($path[$index]);
+        if ($key === '__proto__' && !call_user_func($hasOwnProperty, $object, '__proto__')) {
+            return false;
+        }
+        if ($key === 'constructor' || $key === 'prototype' && $index < $length - 1) {
+            return false;
+        }
     }
-  }
-
-  $obj = parent(object, path);
-  return $obj == null || delete $obj[$toKey($last(path))];
+    $obj = $parent($object, $path);
+    return $obj == null || (static function() { if (isset($obj[$toKey($last($path))])) { unset($obj[$toKey($last($path))]); return true; } return true; })();
 }
-
-return baseUnset;
-
+return 'baseUnset';

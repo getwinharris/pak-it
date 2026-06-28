@@ -1,64 +1,41 @@
 <?php
-$Stack = require __DIR__ . '/_Stack';
-    $baseIsEqual = require('./_baseIsEqual');
-
-/** Used to compose bitmasks for value comparisons. */
-$COMPARE_PARTIAL_FLAG = 1,
-COMPARE_UNORDERED_FLAG = 2;
-
-/**
-* The base implementation of `_.isMatch` without support for iteratee shorthands.
-*
-* @private
-* @param {Object} object The object to inspect.
-* @param {Object} source The object of property values to match.
-* @param {Array} matchData The property names, values, and compare flags to match.
-* @param {Function} [customizer] The function to customize comparisons.
-* @returns {boolean} Returns `true` if `object` is a match, else `false`.
-*/
+$Stack = require __DIR__ . '/_Stack.php';
+$baseIsEqual = require __DIR__ . '/_baseIsEqual.php';
+$COMPARE_PARTIAL_FLAG = 1;
+$COMPARE_UNORDERED_FLAG = 2;
 function baseIsMatch($object, $source, $matchData, $customizer) {
-  $index = matchData.length;
-      $length = $index;
-      $noCustomizer = !customizer;
-
-  if ($object == null) {
-    return !$length;
-  }
-  $object = Object($object);
-  while (index--) {
-    $data = matchData[index];
-    if (($noCustomizer && $data[2])
-          ? $data[1] !== $object[$data[0]]
-          : !($data[0] in $object)
-        ) {
-      return false;
+    $index = (is_array($matchData) ? count($matchData) : strlen($matchData));
+    $length = $index;
+    $noCustomizer = !$customizer;
+    if ($object == null) {
+        return !$length;
     }
-  }
-  while (++$index < $length) {
-    $data = matchData[$index];
-    $key = data[0];
+    $object = Object($object);
+    while ($index--) {
+        $data = $matchData[$index];
+        if (($noCustomizer && $data[2] ? $data[1] !== $object[$data[0]] : !(is_array($object) ? (array_key_exists($data[0], $object) || in_array($data[0], $object)) : false))) {
+            return false;
+        }
+    }
+    while (++$index < $length) {
+        $data = $matchData[$index];
+        $key = $data[0];
         $objValue = $object[$key];
         $srcValue = $data[1];
-
-    if ($noCustomizer && $data[2]) {
-      if ($objValue === null && !($key in $object)) {
-        return false;
-      }
-    } else {
-      $stack = new Stack;
-      if (customizer) {
-        $result = customizer(objValue, srcValue, key, object, source, stack);
-      }
-      if (!($result === null
-            ? $baseIsEqual($srcValue, $objValue, $COMPARE_PARTIAL_FLAG | $COMPARE_UNORDERED_FLAG, customizer, $stack)
-            : $result
-          )) {
-        return false;
-      }
+        if ($noCustomizer && $data[2]) {
+            if ($objValue === null && !(is_array($object) ? (array_key_exists($key, $object) || in_array($key, $object)) : false)) {
+                return false;
+            }
+        } else {
+            $stack = new $Stack();
+            if ($customizer) {
+                $result = $customizer($objValue, $srcValue, $key, $object, $source, $stack);
+            }
+            if (!($result === null ? $baseIsEqual($srcValue, $objValue, $COMPARE_PARTIAL_FLAG | $COMPARE_UNORDERED_FLAG, $customizer, $stack) : $result)) {
+                return false;
+            }
+        }
     }
-  }
-  return true;
+    return true;
 }
-
-return baseIsMatch;
-
+return 'baseIsMatch';

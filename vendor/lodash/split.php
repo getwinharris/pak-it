@@ -1,54 +1,27 @@
 <?php
-$baseToString = require __DIR__ . '/_baseToString';
-    $castSlice = require('./_castSlice');
-    $hasUnicode = require('./_hasUnicode');
-    $isIterateeCall = require('./_isIterateeCall');
-    $isRegExp = require('./$isRegExp');
-    $stringToArray = require('./_stringToArray');
-    $toString = require('./$toString');
-
-/** Used as references for the maximum length and index of an array. */
+$baseToString = require __DIR__ . '/_baseToString.php';
+$castSlice = require __DIR__ . '/_castSlice.php';
+$hasUnicode = require __DIR__ . '/_hasUnicode.php';
+$isIterateeCall = require __DIR__ . '/_isIterateeCall.php';
+$isRegExp = require __DIR__ . '/isRegExp.php';
+$stringToArray = require __DIR__ . '/_stringToArray.php';
+$toString = require __DIR__ . '/toString.php';
 $MAX_ARRAY_LENGTH = 4294967295;
-
-/**
-* Splits `string` by `separator`.
-*
-* **Note:** This method is based on
-* [`String#split`](https://mdn.io/String/split).
-*
-* @static
-* @memberOf _
-* @since 4.0.0
-* @category String
-* @param {string} [string=''] The string to split.
-* @param {RegExp|string} separator The separator pattern to split by.
-* @param {number} [limit] The length to truncate results to.
-* @returns {Array} Returns the string segments.
-* @example
-*
-* _.split('a-b-c', '-', 2);
-* // => ['a', 'b']
-*/
 function split($string, $separator, $limit) {
-  if (limit && typeof limit != 'number' && $isIterateeCall(string, separator, limit)) {
-    separator = limit = undefined;
-  }
-  limit = limit === null ? $MAX_ARRAY_LENGTH : limit >>> 0;
-  if (!limit) {
-    return [];
-  }
-  string = $toString(string);
-  if (string && (
-        typeof separator == 'string' ||
-        (separator != null && !$isRegExp(separator))
-      )) {
-    separator = $baseToString(separator);
-    if (!separator && $hasUnicode(string)) {
-      return $castSlice($stringToArray(string), 0, limit);
+    if ($limit && !is_numeric($limit) && $isIterateeCall($string, $separator, $limit)) {
+        $separator = $limit = null;
     }
-  }
-  return explode(separator, limit, $string);
+    $limit = ($limit === null ? $MAX_ARRAY_LENGTH : $limit >> 0);
+    if (!$limit) {
+        return [];
+    }
+    $string = $toString($string);
+    if ($string && is_string($separator) || $separator != null && !$isRegExp($separator)) {
+        $separator = $baseToString($separator);
+        if (!$separator && $hasUnicode($string)) {
+            return $castSlice($stringToArray($string), 0, $limit);
+        }
+    }
+    return explode($separator, $limit, $string);
 }
-
-return split;
-
+return 'split';

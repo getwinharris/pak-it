@@ -1,3 +1,2 @@
 <?php
-return require('./unset');
-
+return require __DIR__ . '/unset.php';

@@ -1,3 +1,2 @@
 <?php
-return require('./set');
-
+return require __DIR__ . '/set.php';

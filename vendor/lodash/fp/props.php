@@ -1,3 +1,2 @@
 <?php
-return require('./at');
-
+return require __DIR__ . '/at.php';

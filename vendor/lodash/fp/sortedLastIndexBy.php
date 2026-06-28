@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('sortedLastIndexBy', require('../sortedLastIndexBy'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('sortedLastIndexBy', require __DIR__ . '/sortedLastIndexBy.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

@@ -1,3 +1,2 @@
 <?php
-return require('./invert');
-
+return require __DIR__ . '/invert.php';

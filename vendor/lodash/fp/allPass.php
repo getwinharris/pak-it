@@ -1,3 +1,2 @@
 <?php
-return require('./overEvery');
-
+return require __DIR__ . '/overEvery.php';

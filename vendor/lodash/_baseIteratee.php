@@ -1,33 +1,19 @@
 <?php
-$baseMatches = require __DIR__ . '/_baseMatches';
-    $baseMatchesProperty = require('./_baseMatchesProperty');
-    $identity = require('./$identity');
-    $isArray = require('./$isArray');
-    $property = require('./$property');
-
-/**
-* The base implementation of `_.iteratee`.
-*
-* @private
-* @param {*} [value=_.identity] The value to convert to an iteratee.
-* @returns {Function} Returns the iteratee.
-*/
+$baseMatches = require __DIR__ . '/_baseMatches.php';
+$baseMatchesProperty = require __DIR__ . '/_baseMatchesProperty.php';
+$identity = require __DIR__ . '/identity.php';
+$isArray = require __DIR__ . '/isArray.php';
+$property = require __DIR__ . '/property.php';
 function baseIteratee($value) {
-  // Don't store the `typeof` result in a variable to avoid a JIT bug in Safari 9.
-  // See https://bugs.webkit.org/show_bug.cgi?id=156034 for more details.
-  if (typeof value == 'function') {
-    return value;
-  }
-  if (value == null) {
-    return $identity;
-  }
-  if (typeof value == 'object') {
-    return $isArray(value)
-      ? $baseMatchesProperty(value[0], value[1])
-      : $baseMatches(value);
-  }
-  return $property(value);
+    if (is_callable($value)) {
+        return $value;
+    }
+    if ($value == null) {
+        return $identity;
+    }
+    if ((is_object($value) || is_array($value))) {
+        return ($isArray($value) ? $baseMatchesProperty($value[0], $value[1]) : $baseMatches($value));
+    }
+    return $property($value);
 }
-
-return baseIteratee;
-
+return 'baseIteratee';

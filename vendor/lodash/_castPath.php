@@ -1,23 +1,12 @@
 <?php
-$isArray = require __DIR__ . '/isArray';
-    $isKey = require('./_isKey');
-    $stringToPath = require('./_stringToPath');
-    $toString = require('./$toString');
-
-/**
-* Casts `value` to a path array if it's not one.
-*
-* @private
-* @param {*} value The value to inspect.
-* @param {Object} [object] The object to query keys on.
-* @returns {Array} Returns the cast property path array.
-*/
+$isArray = require __DIR__ . '/isArray.php';
+$isKey = require __DIR__ . '/_isKey.php';
+$stringToPath = require __DIR__ . '/_stringToPath.php';
+$toString = require __DIR__ . '/toString.php';
 function castPath($value, $object) {
-  if ($isArray(value)) {
-    return value;
-  }
-  return $isKey(value, object) ? [value] : $stringToPath($toString(value));
+    if ($isArray($value)) {
+        return $value;
+    }
+    return ($isKey($value, $object) ? [$value] : $stringToPath($toString($value)));
 }
-
-return castPath;
-
+return 'castPath';

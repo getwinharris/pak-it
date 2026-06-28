@@ -1,22 +1,8 @@
 <?php
-$baseFindIndex = require __DIR__ . '/_baseFindIndex';
-    $baseIsNaN = require('./_baseIsNaN');
-    $strictIndexOf = require('./_strictIndexOf');
-
-/**
-* The base implementation of `_.indexOf` without `fromIndex` bounds checks.
-*
-* @private
-* @param {Array} array The array to inspect.
-* @param {*} value The value to search for.
-* @param {number} fromIndex The index to search from.
-* @returns {number} Returns the index of the matched value, else `-1`.
-*/
+$baseFindIndex = require __DIR__ . '/_baseFindIndex.php';
+$baseIsNaN = require __DIR__ . '/_baseIsNaN.php';
+$strictIndexOf = require __DIR__ . '/_strictIndexOf.php';
 function baseIndexOf($array, $value, $fromIndex) {
-  return value === value
-    ? $strictIndexOf(array, value, fromIndex)
-    : $baseFindIndex(array, $baseIsNaN, fromIndex);
+    return ($value === $value ? $strictIndexOf($array, $value, $fromIndex) : $baseFindIndex($array, $baseIsNaN, $fromIndex));
 }
-
-return baseIndexOf;
-
+return 'baseIndexOf';

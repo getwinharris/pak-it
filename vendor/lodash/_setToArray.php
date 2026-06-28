@@ -1,20 +1,10 @@
 <?php
-/**
-* Converts `set` to an array of its values.
-*
-* @private
-* @param {Object} set The set to convert.
-* @returns {Array} Returns the values.
-*/
 function setToArray($set) {
-  $index = -1;
-      $result = Array(set.size);
-
-  set.forEach(function($value) {
-    $result[++$index] = $value;
-  });
-  return $result;
+    $index = -1;
+    $result = array_fill(0, $set['size'], null);
+    $set['forEach'](function($value) {
+        $result[++$index] = $value;
+});
+    return $result;
 }
-
-return setToArray;
-
+return 'setToArray';

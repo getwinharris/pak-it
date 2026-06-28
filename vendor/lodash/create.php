@@ -1,45 +1,8 @@
 <?php
-$baseAssign = require __DIR__ . '/_baseAssign';
-    $baseCreate = require('./_baseCreate');
-
-/**
-* Creates an object that inherits from the `prototype` object. If a
-* `properties` object is given, its own enumerable string keyed properties
-* are assigned to the created object.
-*
-* @static
-* @memberOf _
-* @since 2.3.0
-* @category Object
-* @param {Object} prototype The object to inherit from.
-* @param {Object} [properties] The properties to assign to the object.
-* @returns {Object} Returns the new object.
-* @example
-*
-* function Shape() {
-*   this.x = 0;
-*   this.y = 0;
-* }
-*
-* function Circle() {
-*   Shape.call(this);
-* }
-*
-* Circle.prototype = _.create(Shape.prototype, {
-*   'constructor': Circle
-* });
-*
-* var circle = new Circle;
-* circle instanceof Circle;
-* // => true
-*
-* circle instanceof Shape;
-* // => true
-*/
+$baseAssign = require __DIR__ . '/_baseAssign.php';
+$baseCreate = require __DIR__ . '/_baseCreate.php';
 function create($prototype, $properties) {
-  $result = baseCreate(prototype);
-  return properties == null ? $result : $baseAssign($result, properties);
+    $result = $baseCreate($prototype);
+    return ($properties == null ? $result : $baseAssign($result, $properties));
 }
-
-return create;
-
+return 'create';

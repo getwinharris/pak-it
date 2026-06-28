@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('zipWith', require('../zipWith'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('zipWith', require __DIR__ . '/zipWith.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

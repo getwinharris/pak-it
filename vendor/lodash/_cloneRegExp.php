@@ -1,19 +1,8 @@
 <?php
-/** Used to match `RegExp` flags from their coerced string values. */
-$reFlags = /\w*$/;
-
-/**
-* Creates a clone of `regexp`.
-*
-* @private
-* @param {Object} regexp The regexp to clone.
-* @returns {Object} Returns the cloned regexp.
-*/
+$reFlags = '/\\w*$/';
 function cloneRegExp($regexp) {
-  $result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
-  $result.lastIndex = regexp.lastIndex;
-  return $result;
+    $result = new $regexp['constructor']($regexp['source'], preg_match($reFlags, $regexp));
+    $result['lastIndex'] = $regexp['lastIndex'];
+    return $result;
 }
-
-return cloneRegExp;
-
+return 'cloneRegExp';

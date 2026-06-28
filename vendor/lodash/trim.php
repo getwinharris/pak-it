@@ -1,49 +1,23 @@
 <?php
-$baseToString = require __DIR__ . '/_baseToString';
-    $baseTrim = require('./_baseTrim');
-    $castSlice = require('./_castSlice');
-    $charsEndIndex = require('./_charsEndIndex');
-    $charsStartIndex = require('./_charsStartIndex');
-    $stringToArray = require('./_stringToArray');
-    $toString = require('./$toString');
-
-/**
-* Removes leading and trailing whitespace or specified characters from `string`.
-*
-* @static
-* @memberOf _
-* @since 3.0.0
-* @category String
-* @param {string} [string=''] The string to trim.
-* @param {string} [chars=whitespace] The characters to trim.
-* @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
-* @returns {string} Returns the trimmed string.
-* @example
-*
-* _.trim('  abc  ');
-* // => 'abc'
-*
-* _.trim('-_-abc-_-', '_-');
-* // => 'abc'
-*
-* _.map(['  foo  ', '  bar  '], _.trim);
-* // => ['foo', 'bar']
-*/
-function trim($string, $chars, $guard) {
-  string = $toString(string);
-  if (string && (guard || chars === null)) {
-    return $baseTrim(string);
-  }
-  if (!string || !(chars = $baseToString(chars))) {
-    return string;
-  }
-  $strSymbols = stringToArray(string);
-      $chrSymbols = $stringToArray(chars);
-      $start = $charsStartIndex($strSymbols, $chrSymbols);
-      $end = $charsEndIndex($strSymbols, $chrSymbols) + 1;
-
-  return $castSlice($strSymbols, $start, $end).join('');
+$baseToString = require __DIR__ . '/_baseToString.php';
+$baseTrim = require __DIR__ . '/_baseTrim.php';
+$castSlice = require __DIR__ . '/_castSlice.php';
+$charsEndIndex = require __DIR__ . '/_charsEndIndex.php';
+$charsStartIndex = require __DIR__ . '/_charsStartIndex.php';
+$stringToArray = require __DIR__ . '/_stringToArray.php';
+$toString = require __DIR__ . '/toString.php';
+function _trim($string, $chars, $guard) {
+    $string = $toString($string);
+    if ($string && $guard || $chars === null) {
+        return $baseTrim($string);
+    }
+    if (!$string || !$chars = $baseToString($chars)) {
+        return $string;
+    }
+    $strSymbols = $stringToArray($string);
+    $chrSymbols = $stringToArray($chars);
+    $start = $charsStartIndex($strSymbols, $chrSymbols);
+    $end = $charsEndIndex($strSymbols, $chrSymbols) + 1;
+    return implode('', $castSlice($strSymbols, $start, $end));
 }
-
-return trim;
-
+return '_trim';

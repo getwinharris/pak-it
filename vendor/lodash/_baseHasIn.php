@@ -1,15 +1,5 @@
 <?php
-/**
-* The base implementation of `_.hasIn` without support for deep paths.
-*
-* @private
-* @param {Object} [object] The object to query.
-* @param {Array|string} key The key to check.
-* @returns {boolean} Returns `true` if `key` exists, else `false`.
-*/
 function baseHasIn($object, $key) {
-  return object != null && key in Object(object);
+    return $object != null && (is_array(Object($object)) ? (array_key_exists($key, Object($object)) || in_array($key, Object($object))) : false);
 }
-
-return baseHasIn;
-
+return 'baseHasIn';

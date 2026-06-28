@@ -1,3 +1,2 @@
 <?php
-return require('./assignInWith');
-
+return require __DIR__ . '/assignInWith.php';

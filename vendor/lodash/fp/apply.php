@@ -1,3 +1,2 @@
 <?php
-return require('./spread');
-
+return require __DIR__ . '/spread.php';

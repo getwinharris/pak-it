@@ -1,2 +1,2 @@
 <?php
-return require('./lodash');
+return require __DIR__ . '/lodash.php';

@@ -1,3 +1,2 @@
 <?php
-return require('./xorWith');
-
+return require __DIR__ . '/xorWith.php';

@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('concat', require('../concat'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('concat', require __DIR__ . '/concat.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

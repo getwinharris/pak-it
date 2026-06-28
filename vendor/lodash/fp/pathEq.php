@@ -1,3 +1,2 @@
 <?php
-return require('./matchesProperty');
-
+return require __DIR__ . '/matchesProperty.php';

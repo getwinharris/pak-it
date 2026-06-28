@@ -1,20 +1,8 @@
 <?php
-$baseGetTag = require __DIR__ . '/_baseGetTag';
-    $isObjectLike = require('./$isObjectLike');
-
-/** `Object#toString` result references. */
+$baseGetTag = require __DIR__ . '/_baseGetTag.php';
+$isObjectLike = require __DIR__ . '/isObjectLike.php';
 $dateTag = '[object Date]';
-
-/**
-* The base implementation of `_.isDate` without Node.js optimizations.
-*
-* @private
-* @param {*} value The value to check.
-* @returns {boolean} Returns `true` if `value` is a date object, else `false`.
-*/
 function baseIsDate($value) {
-  return $isObjectLike(value) && $baseGetTag(value) == $dateTag;
+    return $isObjectLike($value) && $baseGetTag($value) == $dateTag;
 }
-
-return baseIsDate;
-
+return 'baseIsDate';

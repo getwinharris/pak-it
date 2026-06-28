@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('nthArg', require('../nthArg'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('nthArg', require __DIR__ . '/nthArg.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

@@ -1,27 +1,26 @@
 <?php
-return {
-  'after': require('./after');
-  'ary': require('./ary');
-  'before': require('./before');
-  'bind': require('./bind');
-  'bindKey': require('./bindKey');
-  'curry': require('./curry');
-  'curryRight': require('./curryRight');
-  'debounce': require('./debounce');
-  'defer': require('./defer');
-  'delay': require('./delay');
-  'flip': require('./flip');
-  'memoize': require('./memoize');
-  'negate': require('./negate');
-  'once': require('./once');
-  'overArgs': require('./overArgs');
-  'partial': require('./partial');
-  'partialRight': require('./partialRight');
-  'rearg': require('./rearg');
-  'rest': require('./rest');
-  'spread': require('./spread');
-  'throttle': require('./throttle');
-  'unary': require('./unary');
-  'wrap': require('./wrap')
-};
-
+return [
+    'after' => require __DIR__ . '/after.php',
+    'ary' => require __DIR__ . '/ary.php',
+    'before' => require __DIR__ . '/before.php',
+    'bind' => require __DIR__ . '/bind.php',
+    'bindKey' => require __DIR__ . '/bindKey.php',
+    'curry' => require __DIR__ . '/curry.php',
+    'curryRight' => require __DIR__ . '/curryRight.php',
+    'debounce' => require __DIR__ . '/debounce.php',
+    'defer' => require __DIR__ . '/defer.php',
+    'delay' => require __DIR__ . '/delay.php',
+    'flip' => require __DIR__ . '/flip.php',
+    'memoize' => require __DIR__ . '/memoize.php',
+    'negate' => require __DIR__ . '/negate.php',
+    'once' => require __DIR__ . '/once.php',
+    'overArgs' => require __DIR__ . '/overArgs.php',
+    'partial' => require __DIR__ . '/partial.php',
+    'partialRight' => require __DIR__ . '/partialRight.php',
+    'rearg' => require __DIR__ . '/rearg.php',
+    'rest' => require __DIR__ . '/rest.php',
+    'spread' => require __DIR__ . '/spread.php',
+    'throttle' => require __DIR__ . '/throttle.php',
+    'unary' => require __DIR__ . '/unary.php',
+    'wrap' => require __DIR__ . '/wrap.php'
+];

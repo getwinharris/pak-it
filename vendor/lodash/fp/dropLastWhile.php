@@ -1,3 +1,2 @@
 <?php
-return require('./dropRightWhile');
-
+return require __DIR__ . '/dropRightWhile.php';

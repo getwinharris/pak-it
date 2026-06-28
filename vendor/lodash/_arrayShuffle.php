@@ -1,17 +1,7 @@
 <?php
-$copyArray = require __DIR__ . '/_copyArray';
-    $shuffleSelf = require('./_shuffleSelf');
-
-/**
-* A specialized version of `_.shuffle` for arrays.
-*
-* @private
-* @param {Array} array The array to shuffle.
-* @returns {Array} Returns the new shuffled array.
-*/
+$copyArray = require __DIR__ . '/_copyArray.php';
+$shuffleSelf = require __DIR__ . '/_shuffleSelf.php';
 function arrayShuffle($array) {
-  return $shuffleSelf($copyArray(array));
+    return $shuffleSelf($copyArray($array));
 }
-
-return arrayShuffle;
-
+return 'arrayShuffle';

@@ -1,3 +1,2 @@
 <?php
-return require('./stubFalse');
-
+return require __DIR__ . '/stubFalse.php';

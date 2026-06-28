@@ -1,3 +1,2 @@
 <?php
-return require('./constant');
-
+return require __DIR__ . '/constant.php';

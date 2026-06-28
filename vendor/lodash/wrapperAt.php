@@ -1,50 +1,31 @@
 <?php
-$LazyWrapper = require __DIR__ . '/_LazyWrapper';
-    $LodashWrapper = require('./_LodashWrapper');
-    $baseAt = require('./_baseAt');
-    $flatRest = require('./_flatRest');
-    $isIndex = require('./_isIndex');
-    $thru = require('./$thru');
-
-/**
-* This method is the wrapper version of `_.at`.
-*
-* @name at
-* @memberOf _
-* @since 1.0.0
-* @category Seq
-* @param {...(string|string[])} [paths] The property paths to pick.
-* @returns {Object} Returns the new `lodash` wrapper instance.
-* @example
-*
-* var object = { 'a': [{ 'b': { 'c': 3 } }, 4] };
-*
-* _(object).at(['a[0].b.c', 'a[1]']).value();
-* // => [3, 4]
-*/
-$wrapperAt = flatRest(function(paths) {;
-  $length = paths.length;
-      $start = $length ? $paths[0] : 0;
-      $value = this.__wrapped__;
-      $interceptor = function($object) { return $baseAt($object, $paths); };
-
-  if ($length > 1 || this.(is_array($__actions__) ? count($__actions__) : strlen($__actions__)) ||
-      !($value instanceof $LazyWrapper) || !$isIndex($start)) {
-    return this.$thru($interceptor);
-  }
-  $value = array_slice($value, $start, +$start + ($length ? 1 : 0));
-  $value.$__actions__.push({
-    'func': $thru;
-    'args': [$interceptor];
-    'thisArg': undefined
-  });
-  return new $LodashWrapper($value, this.__chain__).$thru(function($array) {
-    if ($length && !(is_array($array) ? count($array) : strlen($array))) {
-      $array[] = undefined;
-    }
-    return $array;
-  });
+$LazyWrapper = require __DIR__ . '/_LazyWrapper.php';
+$LodashWrapper = require __DIR__ . '/_LodashWrapper.php';
+$baseAt = require __DIR__ . '/_baseAt.php';
+$flatRest = require __DIR__ . '/_flatRest.php';
+$isIndex = require __DIR__ . '/_isIndex.php';
+$thru = require __DIR__ . '/thru.php';
+$wrapperAt = $flatRest(function($paths) {
+        $length = (is_array($paths) ? count($paths) : strlen($paths));
+        $start = ($length ? $paths[0] : 0);
+        $value = $this->__wrapped__;
+        $interceptor = function($object) {
+        return $baseAt($object, $paths);
+};
+        if ($length > 1 || (is_array($this->__actions__) ? count($this->__actions__) : strlen($this->__actions__)) || !$value instanceof $LazyWrapper || !$isIndex($start)) {
+            return $this->thru($interceptor);
+        }
+        $value = array_slice($start, +$start + ($length ? 1 : 0), $value);
+        $value['__actions__'][] = [
+            'func' => $thru,
+            'args' => [$interceptor],
+            'thisArg' => null
+        ];
+        return new $LodashWrapper($value, $this->__chain__)['thru'](function($array) {
+        if ($length && !(is_array($array) ? count($array) : strlen($array))) {
+            $array[] = null;
+        }
+        return $array;
 });
-
-return $wrapperAt;
-
+});
+return 'wrapperAt';

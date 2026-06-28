@@ -1,18 +1,8 @@
 <?php
-$flatten = require __DIR__ . '/flatten';
-    $overRest = require('./_overRest');
-    $setToString = require('./_setToString');
-
-/**
-* A specialized version of `baseRest` which flattens the rest array.
-*
-* @private
-* @param {Function} func The function to apply a rest parameter to.
-* @returns {Function} Returns the new function.
-*/
+$flatten = require __DIR__ . '/flatten.php';
+$overRest = require __DIR__ . '/_overRest.php';
+$setToString = require __DIR__ . '/_setToString.php';
 function flatRest($func) {
-  return $setToString($overRest(func, undefined, $flatten), func + '');
+    return $setToString($overRest($func, null, $flatten), $func + '');
 }
-
-return flatRest;
-
+return 'flatRest';

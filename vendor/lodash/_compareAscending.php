@@ -1,43 +1,22 @@
 <?php
-$isSymbol = require __DIR__ . '/isSymbol';
-
-/**
-* Compares values to sort them in ascending order.
-*
-* @private
-* @param {*} value The value to compare.
-* @param {*} other The other value to compare.
-* @returns {number} Returns the sort order indicator for `value`.
-*/
+$isSymbol = require __DIR__ . '/isSymbol.php';
 function compareAscending($value, $other) {
-  if (value !== other) {
-    $valIsDefined = value !== undefined;
-        $valIsNull = value === null;
-        $valIsReflexive = value === value;
-        $valIsSymbol = $isSymbol(value);
-
-    $othIsDefined = other !== undefined;
-        $othIsNull = other === null;
-        $othIsReflexive = other === other;
-        $othIsSymbol = $isSymbol(other);
-
-    if ((!$othIsNull && !$othIsSymbol && !$valIsSymbol && value > other) ||
-        ($valIsSymbol && $othIsDefined && $othIsReflexive && !$othIsNull && !$othIsSymbol) ||
-        ($valIsNull && $othIsDefined && $othIsReflexive) ||
-        (!$valIsDefined && $othIsReflexive) ||
-        !$valIsReflexive) {
-      return 1;
+    if ($value !== $other) {
+        $valIsDefined = $value !== null;
+        $valIsNull = $value === null;
+        $valIsReflexive = $value === $value;
+        $valIsSymbol = $isSymbol($value);
+        $othIsDefined = $other !== null;
+        $othIsNull = $other === null;
+        $othIsReflexive = $other === $other;
+        $othIsSymbol = $isSymbol($other);
+        if (!$othIsNull && !$othIsSymbol && !$valIsSymbol && $value > $other || $valIsSymbol && $othIsDefined && $othIsReflexive && !$othIsNull && !$othIsSymbol || $valIsNull && $othIsDefined && $othIsReflexive || !$valIsDefined && $othIsReflexive || !$valIsReflexive) {
+            return 1;
+        }
+        if (!$valIsNull && !$valIsSymbol && !$othIsSymbol && $value < $other || $othIsSymbol && $valIsDefined && $valIsReflexive && !$valIsNull && !$valIsSymbol || $othIsNull && $valIsDefined && $valIsReflexive || !$othIsDefined && $valIsReflexive || !$othIsReflexive) {
+            return -1;
+        }
     }
-    if ((!$valIsNull && !$valIsSymbol && !$othIsSymbol && value < other) ||
-        ($othIsSymbol && $valIsDefined && $valIsReflexive && !$valIsNull && !$valIsSymbol) ||
-        ($othIsNull && $valIsDefined && $valIsReflexive) ||
-        (!$othIsDefined && $valIsReflexive) ||
-        !$othIsReflexive) {
-      return -1;
-    }
-  }
-  return 0;
+    return 0;
 }
-
-return compareAscending;
-
+return 'compareAscending';

@@ -1,3 +1,2 @@
 <?php
-return require('./flow');
-
+return require __DIR__ . '/flow.php';

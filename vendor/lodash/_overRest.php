@@ -1,38 +1,23 @@
 <?php
-$apply = require __DIR__ . '/_apply';
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-$nativeMax = Math.max;
-
-/**
-* A specialized version of `baseRest` which transforms the rest array.
-*
-* @private
-* @param {Function} func The function to apply a rest parameter to.
-* @param {number} [start=func.length-1] The start position of the rest parameter.
-* @param {Function} transform The rest array transform.
-* @returns {Function} Returns the new function.
-*/
+$apply = require __DIR__ . '/_apply.php';
+$nativeMax = max;
 function overRest($func, $start, $transform) {
-  start = $nativeMax(start === null ? ((is_array($func) ? count($func) : strlen($func)) - 1) : start, 0);
-  return function() {
-    $args = arguments;
+    $start = $nativeMax(($start === null ? (is_array($func) ? count($func) : strlen($func)) - 1 : $start), 0);
+    return function() {
+        $args = $arguments;
         $index = -1;
-        $length = $nativeMax((is_array($args) ? count($args) : strlen($args)) - start, 0);
-        $array = Array($length);
-
-    while (++$index < $length) {
-      $array[$index] = $args[start + $index];
-    }
-    $index = -1;
-    $otherArgs = Array(start + 1);
-    while (++$index < start) {
-      $otherArgs[$index] = $args[$index];
-    }
-    $otherArgs[start] = transform($array);
-    return $apply(func, this, $otherArgs);
-  };
+        $length = $nativeMax((is_array($args) ? count($args) : strlen($args)) - $start, 0);
+        $array = array_fill(0, $length, null);
+        while (++$index < $length) {
+            $array[$index] = $args[$start + $index];
+        }
+        $index = -1;
+        $otherArgs = array_fill(0, $start + 1, null);
+        while (++$index < $start) {
+            $otherArgs[$index] = $args[$index];
+        }
+        $otherArgs[$start] = $transform($array);
+        return $apply($func, $this, $otherArgs);
+};
 }
-
-return overRest;
-
+return 'overRest';

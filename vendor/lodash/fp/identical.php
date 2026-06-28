@@ -1,3 +1,2 @@
 <?php
-return require('./eq');
-
+return require __DIR__ . '/eq.php';

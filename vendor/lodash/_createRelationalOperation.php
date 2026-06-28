@@ -1,22 +1,12 @@
 <?php
-$toNumber = require __DIR__ . '/toNumber';
-
-/**
-* Creates a function that performs a relational operation on two values.
-*
-* @private
-* @param {Function} operator The function to perform the operation.
-* @returns {Function} Returns the new relational operation function.
-*/
+$toNumber = require __DIR__ . '/toNumber.php';
 function createRelationalOperation($operator) {
-  return function($value, $other) {
-    if (!(typeof $value == 'string' && typeof $other == 'string')) {
-      $value = $toNumber($value);
-      $other = $toNumber($other);
-    }
-    return operator($value, $other);
-  };
+    return function($value, $other) {
+        if (!is_string($value) && is_string($other)) {
+            $value = $toNumber($value);
+            $other = $toNumber($other);
+        }
+        return $operator($value, $other);
+};
 }
-
-return createRelationalOperation;
-
+return 'createRelationalOperation';

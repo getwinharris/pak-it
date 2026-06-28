@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('unionWith', require('../unionWith'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('unionWith', require __DIR__ . '/unionWith.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

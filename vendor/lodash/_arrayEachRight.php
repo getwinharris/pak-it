@@ -1,23 +1,11 @@
 <?php
-/**
-* A specialized version of `_.forEachRight` for arrays without support for
-* iteratee shorthands.
-*
-* @private
-* @param {Array} [array] The array to iterate over.
-* @param {Function} iteratee The function invoked per iteration.
-* @returns {Array} Returns `array`.
-*/
 function arrayEachRight($array, $iteratee) {
-  $length = array == null ? 0 : array.length;
-
-  while (length--) {
-    if (iteratee(array[$length], $length, array) === false) {
-      break;
+    $length = ($array == null ? 0 : (is_array($array) ? count($array) : strlen($array)));
+    while ($length--) {
+        if ($iteratee($array[$length], $length, $array) === false) {
+            break;
+        }
     }
-  }
-  return array;
+    return $array;
 }
-
-return arrayEachRight;
-
+return 'arrayEachRight';

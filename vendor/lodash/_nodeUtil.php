@@ -1,32 +1,16 @@
 <?php
-$freeGlobal = require __DIR__ . '/_freeGlobal';
-
-/** Detect free variable `exports`. */
-$freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-$freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-$moduleExports = freeModule && freeModule.exports === freeExports;
-
-/** Detect free variable `process` from Node.js. */
-$freeProcess = moduleExports && freeGlobal.process;
-
-/** Used to access faster Node.js helpers. */
+$freeGlobal = require __DIR__ . '/_freeGlobal.php';
+$freeExports = (is_object(exports) || is_array(exports)) && exports && !exports['nodeType'] && exports;
+$freeModule = $freeExports && (is_object(module) || is_array(module)) && module && !module['nodeType'] && module;
+$moduleExports = $freeModule && $freeModule['exports'] === $freeExports;
+$freeProcess = $moduleExports && $freeGlobal['process'];
 $nodeUtil = (function() {
-try {
-// Use `util.types` for Node.js 10+.
-$types = freeModule && freeModule.require && freeModule.require('util').types;
-
-if (types) {
-return types;
-}
-
-// Legacy `process.binding('util')` for Node.js < 10.
-return freeProcess && freeProcess.binding && freeProcess.binding('util');
-} catch (e) {}
-}());
-
-module.exports = nodeUtil;
-
+        try {
+            $types = $freeModule && $freeModule['require'] && $freeModule['require']('util')['types'];
+            if ($types) {
+                return $types;
+            }
+            return $freeProcess && $freeProcess['binding'] && $freeProcess['binding']('util');
+        } catch (\Throwable $e) {}
+})();
+return 'nodeUtil';

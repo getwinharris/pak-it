@@ -1,35 +1,34 @@
 <?php
-return {
-  'camelCase': require('./camelCase');
-  'capitalize': require('./capitalize');
-  'deburr': require('./deburr');
-  'endsWith': require('./endsWith');
-  'escape': require('./escape');
-  'escapeRegExp': require('./escapeRegExp');
-  'kebabCase': require('./kebabCase');
-  'lowerCase': require('./lowerCase');
-  'lowerFirst': require('./lowerFirst');
-  'pad': require('./pad');
-  'padEnd': require('./padEnd');
-  'padStart': require('./padStart');
-  'parseInt': require('./parseInt');
-  'repeat': require('./repeat');
-  'replace': require('./replace');
-  'snakeCase': require('./snakeCase');
-  'split': require('./split');
-  'startCase': require('./startCase');
-  'startsWith': require('./startsWith');
-  'template': require('./template');
-  'templateSettings': require('./templateSettings');
-  'toLower': require('./toLower');
-  'toUpper': require('./toUpper');
-  'trim': require('./trim');
-  'trimEnd': require('./trimEnd');
-  'trimStart': require('./trimStart');
-  'truncate': require('./truncate');
-  'unescape': require('./unescape');
-  'upperCase': require('./upperCase');
-  'upperFirst': require('./upperFirst');
-  'words': require('./words')
-};
-
+return [
+    'camelCase' => require __DIR__ . '/camelCase.php',
+    'capitalize' => require __DIR__ . '/capitalize.php',
+    'deburr' => require __DIR__ . '/deburr.php',
+    'endsWith' => require __DIR__ . '/endsWith.php',
+    'escape' => require __DIR__ . '/escape.php',
+    'escapeRegExp' => require __DIR__ . '/escapeRegExp.php',
+    'kebabCase' => require __DIR__ . '/kebabCase.php',
+    'lowerCase' => require __DIR__ . '/lowerCase.php',
+    'lowerFirst' => require __DIR__ . '/lowerFirst.php',
+    'pad' => require __DIR__ . '/pad.php',
+    'padEnd' => require __DIR__ . '/padEnd.php',
+    'padStart' => require __DIR__ . '/padStart.php',
+    'parseInt' => require __DIR__ . '/parseInt.php',
+    'repeat' => require __DIR__ . '/repeat.php',
+    'replace' => require __DIR__ . '/replace.php',
+    'snakeCase' => require __DIR__ . '/snakeCase.php',
+    'split' => require __DIR__ . '/split.php',
+    'startCase' => require __DIR__ . '/startCase.php',
+    'startsWith' => require __DIR__ . '/startsWith.php',
+    'template' => require __DIR__ . '/template.php',
+    'templateSettings' => require __DIR__ . '/templateSettings.php',
+    'toLower' => require __DIR__ . '/toLower.php',
+    'toUpper' => require __DIR__ . '/toUpper.php',
+    'trim' => require __DIR__ . '/trim.php',
+    'trimEnd' => require __DIR__ . '/trimEnd.php',
+    'trimStart' => require __DIR__ . '/trimStart.php',
+    'truncate' => require __DIR__ . '/truncate.php',
+    'unescape' => require __DIR__ . '/unescape.php',
+    'upperCase' => require __DIR__ . '/upperCase.php',
+    'upperFirst' => require __DIR__ . '/upperFirst.php',
+    'words' => require __DIR__ . '/words.php'
+];

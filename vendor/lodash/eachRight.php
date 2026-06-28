@@ -1,3 +1,2 @@
 <?php
-return require('./forEachRight');
-
+return require __DIR__ . '/forEachRight.php';

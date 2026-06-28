@@ -1,20 +1,7 @@
 <?php
-$isKeyable = require __DIR__ . '/_isKeyable';
-
-/**
-* Gets the data for `map`.
-*
-* @private
-* @param {Object} map The map to query.
-* @param {string} key The reference key.
-* @returns {*} Returns the map data.
-*/
+$isKeyable = require __DIR__ . '/_isKeyable.php';
 function getMapData($map, $key) {
-  $data = map.__data__;
-  return $isKeyable(key)
-    ? $data[typeof key == 'string' ? 'string' : 'hash']
-    : $data.map;
+    $data = $map['__data__'];
+    return ($isKeyable($key) ? $data[(is_string($key) ? 'string' : 'hash')] : $data['map']);
 }
-
-return getMapData;
-
+return 'getMapData';

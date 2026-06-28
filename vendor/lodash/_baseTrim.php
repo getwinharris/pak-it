@@ -1,21 +1,7 @@
 <?php
-$trimmedEndIndex = require __DIR__ . '/_trimmedEndIndex';
-
-/** Used to match leading whitespace. */
-$reTrimStart = /^\s+/;
-
-/**
-* The base implementation of `_.trim`.
-*
-* @private
-* @param {string} string The string to trim.
-* @returns {string} Returns the trimmed string.
-*/
+$trimmedEndIndex = require __DIR__ . '/_trimmedEndIndex.php';
+$reTrimStart = '/^\\s+/';
 function baseTrim($string) {
-  return string
-    ? array_slice($string, 0, $trimmedEndIndex(string) + 1).replace($reTrimStart, '')
-    : string;
+    return ($string ? str_replace($reTrimStart, '', array_slice(0, $trimmedEndIndex($string) + 1, $string)) : $string);
 }
-
-return baseTrim;
-
+return 'baseTrim';

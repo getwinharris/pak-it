@@ -1,38 +1,12 @@
 <?php
-$arrayReduceRight = require __DIR__ . '/_arrayReduceRight';
-    $baseEachRight = require('./_baseEachRight');
-    $baseIteratee = require('./_baseIteratee');
-    $baseReduce = require('./_baseReduce');
-    $isArray = require('./$isArray');
-
-/**
-* This method is like `_.reduce` except that it iterates over elements of
-* `collection` from right to left.
-*
-* @static
-* @memberOf _
-* @since 0.1.0
-* @category Collection
-* @param {Array|Object} collection The collection to iterate over.
-* @param {Function} [iteratee=_.identity] The function invoked per iteration.
-* @param {*} [accumulator] The initial value.
-* @returns {*} Returns the accumulated value.
-* @see _.reduce
-* @example
-*
-* var array = [[0, 1], [2, 3], [4, 5]];
-*
-* _.reduceRight(array, function(flattened, other) {
-*   return flattened.concat(other);
-* }, []);
-* // => [4, 5, 2, 3, 0, 1]
-*/
+$arrayReduceRight = require __DIR__ . '/_arrayReduceRight.php';
+$baseEachRight = require __DIR__ . '/_baseEachRight.php';
+$baseIteratee = require __DIR__ . '/_baseIteratee.php';
+$baseReduce = require __DIR__ . '/_baseReduce.php';
+$isArray = require __DIR__ . '/isArray.php';
 function reduceRight($collection, $iteratee, $accumulator) {
-  $func = isArray(collection) ? arrayReduceRight : baseReduce;
-      $initAccum = (is_array($arguments) ? count($arguments) : strlen($arguments)) < 3;
-
-  return $func(collection, $baseIteratee(iteratee, 4), accumulator, $initAccum, $baseEachRight);
+    $func = ($isArray($collection) ? $arrayReduceRight : $baseReduce);
+    $initAccum = (is_array($arguments) ? count($arguments) : strlen($arguments)) < 3;
+    return $func($collection, $baseIteratee($iteratee, 4), $accumulator, $initAccum, $baseEachRight);
 }
-
-return reduceRight;
-
+return 'reduceRight';

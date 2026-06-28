@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('meanBy', require('../meanBy'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('meanBy', require __DIR__ . '/meanBy.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

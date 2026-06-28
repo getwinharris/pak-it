@@ -1,3 +1,2 @@
 <?php
-return require('./overArgs');
-
+return require __DIR__ . '/overArgs.php';

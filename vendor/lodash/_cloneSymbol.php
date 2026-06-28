@@ -1,20 +1,8 @@
 <?php
-$Symbol = require __DIR__ . '/_Symbol';
-
-/** Used to convert symbols to primitives and strings. */
-$symbolProto = Symbol ? Symbol.prototype : undefined,
-symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
-
-/**
-* Creates a clone of the `symbol` object.
-*
-* @private
-* @param {Object} symbol The symbol object to clone.
-* @returns {Object} Returns the cloned symbol object.
-*/
+$Symbol = require __DIR__ . '/_Symbol.php';
+$symbolProto = ($Symbol ? $Symbol['prototype'] : null);
+$symbolValueOf = ($symbolProto ? $symbolProto['valueOf'] : null);
 function cloneSymbol($symbol) {
-  return $symbolValueOf ? Object($symbolValueOf.call(symbol)) : {};
+    return ($symbolValueOf ? Object(call_user_func($symbolValueOf, $symbol)) : []);
 }
-
-return cloneSymbol;
-
+return 'cloneSymbol';

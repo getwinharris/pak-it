@@ -1,17 +1,7 @@
 <?php
-$nativeCreate = require __DIR__ . '/_nativeCreate';
-
-/**
-* Removes all key-value entries from the hash.
-*
-* @private
-* @name clear
-* @memberOf Hash
-*/
+$nativeCreate = require __DIR__ . '/_nativeCreate.php';
 function hashClear() {
-  this.__data__ = $nativeCreate ? $nativeCreate(null) : {};
-  this.size = 0;
+    $this->__data__ = ($nativeCreate ? $nativeCreate(null) : []);
+    $this->size = 0;
 }
-
-return hashClear;
-
+return 'hashClear';

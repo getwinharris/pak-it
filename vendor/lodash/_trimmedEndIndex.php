@@ -1,21 +1,8 @@
 <?php
-/** Used to match a single whitespace character. */
-$reWhitespace = /\s/;
-
-/**
-* Used by `_.trim` and `_.trimEnd` to get the index of the last non-whitespace
-* character of `string`.
-*
-* @private
-* @param {string} string The string to inspect.
-* @returns {number} Returns the index of the last non-whitespace character.
-*/
+$reWhitespace = '/\\s/';
 function trimmedEndIndex($string) {
-  $index = string.length;
-
-  while (index-- && $reWhitespace.test(string.charAt($index))) {}
-  return $index;
+    $index = (is_array($string) ? count($string) : strlen($string));
+    while ($index-- && preg_match($string['charAt']($index), $reWhitespace)) {}
+    return $index;
 }
-
-return trimmedEndIndex;
-
+return 'trimmedEndIndex';

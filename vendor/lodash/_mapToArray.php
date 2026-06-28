@@ -1,20 +1,10 @@
 <?php
-/**
-* Converts `map` to its key-value pairs.
-*
-* @private
-* @param {Object} map The map to convert.
-* @returns {Array} Returns the key-value pairs.
-*/
 function mapToArray($map) {
-  $index = -1;
-      $result = Array(map.size);
-
-  map.forEach(function($value, $key) {
-    $result[++$index] = [$key, $value];
-  });
-  return $result;
+    $index = -1;
+    $result = array_fill(0, $map['size'], null);
+    $map['forEach'](function($value, $key) {
+        $result[++$index] = [$key, $value];
+});
+    return $result;
 }
-
-return mapToArray;
-
+return 'mapToArray';

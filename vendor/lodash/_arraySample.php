@@ -1,17 +1,7 @@
 <?php
-$baseRandom = require __DIR__ . '/_baseRandom';
-
-/**
-* A specialized version of `_.sample` for arrays.
-*
-* @private
-* @param {Array} array The array to sample.
-* @returns {*} Returns the random element.
-*/
+$baseRandom = require __DIR__ . '/_baseRandom.php';
 function arraySample($array) {
-  $length = array.length;
-  return $length ? array[$baseRandom(0, $length - 1)] : undefined;
+    $length = (is_array($array) ? count($array) : strlen($array));
+    return ($length ? $array[$baseRandom(0, $length - 1)] : null);
 }
-
-return arraySample;
-
+return 'arraySample';

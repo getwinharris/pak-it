@@ -1,3 +1,2 @@
 <?php
-return require('./flatten');
-
+return require __DIR__ . '/flatten.php';

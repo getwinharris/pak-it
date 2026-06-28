@@ -1,9 +1,5 @@
 <?php
-$getNative = require __DIR__ . '/_getNative';
-    $root = require('./_root');
-
-/* Built-in method references that are verified to be native. */
-$DataView = getNative(root, 'DataView');
-
-module.exports = DataView;
-
+$getNative = require __DIR__ . '/_getNative.php';
+$root = require __DIR__ . '/_root.php';
+$DataView = $getNative($root, 'DataView');
+return 'DataView';

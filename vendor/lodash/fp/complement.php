@@ -1,3 +1,2 @@
 <?php
-return require('./negate');
-
+return require __DIR__ . '/negate.php';

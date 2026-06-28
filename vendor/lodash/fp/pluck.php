@@ -1,3 +1,2 @@
 <?php
-return require('./map');
-
+return require __DIR__ . '/map.php';

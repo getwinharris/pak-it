@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('map', require('../map'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('map', require __DIR__ . '/map.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

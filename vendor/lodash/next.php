@@ -1,37 +1,14 @@
 <?php
-$toArray = require __DIR__ . '/toArray';
-
-/**
-* Gets the next value on a wrapped object following the
-* [iterator protocol](https://mdn.io/iteration_protocols#iterator).
-*
-* @name next
-* @memberOf _
-* @since 4.0.0
-* @category Seq
-* @returns {Object} Returns the next iterator value.
-* @example
-*
-* var wrapped = _([1, 2]);
-*
-* wrapped.next();
-* // => { 'done': false, 'value': 1 }
-*
-* wrapped.next();
-* // => { 'done': false, 'value': 2 }
-*
-* wrapped.next();
-* // => { 'done': true, 'value': undefined }
-*/
+$toArray = require __DIR__ . '/toArray.php';
 function wrapperNext() {
-  if (this.__values__ === null) {
-    this.__values__ = $toArray(this.$value());
-  }
-  $done = this.__index__ >= this.__values__.length;
-      $value = $done ? undefined : this.__values__[this.__index__++];
-
-  return { '$done': $done, '$value': $value };
+    if ($this->__values__ === null) {
+        $this->__values__ = $toArray($this->value());
+    }
+    $done = $this->__index__ >= (is_array($this->__values__) ? count($this->__values__) : strlen($this->__values__));
+    $value = ($done ? null : $this->__values__[$this->__index__++]);
+    return [
+        'done' => $done,
+        'value' => $value
+    ];
 }
-
-return wrapperNext;
-
+return 'wrapperNext';

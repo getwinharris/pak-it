@@ -1,29 +1,7 @@
 <?php
-$baseIsTypedArray = require __DIR__ . '/_baseIsTypedArray';
-    $baseUnary = require('./_baseUnary');
-    $nodeUtil = require('./_nodeUtil');
-
-/* Node.js helper references. */
-$nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
-
-/**
-* Checks if `value` is classified as a typed array.
-*
-* @static
-* @memberOf _
-* @since 3.0.0
-* @category Lang
-* @param {*} value The value to check.
-* @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
-* @example
-*
-* _.isTypedArray(new Uint8Array);
-* // => true
-*
-* _.isTypedArray([]);
-* // => false
-*/
-$isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
-
-return $isTypedArray;
-
+$baseIsTypedArray = require __DIR__ . '/_baseIsTypedArray.php';
+$baseUnary = require __DIR__ . '/_baseUnary.php';
+$nodeUtil = require __DIR__ . '/_nodeUtil.php';
+$nodeIsTypedArray = $nodeUtil && $nodeUtil['isTypedArray'];
+$isTypedArray = ($nodeIsTypedArray ? $baseUnary($nodeIsTypedArray) : $baseIsTypedArray);
+return 'isTypedArray';

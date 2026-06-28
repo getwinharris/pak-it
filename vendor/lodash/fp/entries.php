@@ -1,3 +1,2 @@
 <?php
-return require('./toPairs');
-
+return require __DIR__ . '/toPairs.php';

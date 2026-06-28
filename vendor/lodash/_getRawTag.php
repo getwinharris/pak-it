@@ -1,48 +1,24 @@
 <?php
-$Symbol = require __DIR__ . '/_Symbol';
-
-/** Used for built-in method references. */
-$objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-$hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
-* Used to resolve the
-* [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
-* of values.
-*/
-$nativeObjectToString = objectProto.toString;
-
-/** Built-in value references. */
-$symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-/**
-* A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
-*
-* @private
-* @param {*} value The value to query.
-* @returns {string} Returns the raw `toStringTag`.
-*/
+$Symbol = require __DIR__ . '/_Symbol.php';
+$objectProto = Object['prototype'];
+$hasOwnProperty = $objectProto['hasOwnProperty'];
+$nativeObjectToString = $objectProto['toString'];
+$symToStringTag = ($Symbol ? $Symbol['toStringTag'] : null);
 function getRawTag($value) {
-  $isOwn = hasOwnProperty.call(value, symToStringTag);
-      $tag = value[$symToStringTag];
-
-  try {
-    value[$symToStringTag] = undefined;
-    $unmasked = true;
-  } catch (e) {}
-
-  $result = nativeObjectToString.call(value);
-  if ($unmasked) {
-    if ($isOwn) {
-      value[$symToStringTag] = $tag;
-    } else {
-      delete value[$symToStringTag];
+    $isOwn = call_user_func($hasOwnProperty, $value, $symToStringTag);
+    $tag = $value[$symToStringTag];
+    try {
+        $value[$symToStringTag] = null;
+        $unmasked = true;
+    } catch (\Throwable $e) {}
+    $result = call_user_func($nativeObjectToString, $value);
+    if ($unmasked) {
+        if ($isOwn) {
+            $value[$symToStringTag] = $tag;
+        } else {
+            (static function() { if (isset($value[$symToStringTag])) { unset($value[$symToStringTag]); return true; } return true; })();
+        }
     }
-  }
-  return $result;
+    return $result;
 }
-
-return getRawTag;
-
+return 'getRawTag';

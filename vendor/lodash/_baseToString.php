@@ -1,39 +1,22 @@
 <?php
-$Symbol = require __DIR__ . '/_Symbol';
-    $arrayMap = require('./_arrayMap');
-    $isArray = require('./$isArray');
-    $isSymbol = require('./$isSymbol');
-
-/** Used as references for various `Number` constants. */
+$Symbol = require __DIR__ . '/_Symbol.php';
+$arrayMap = require __DIR__ . '/_arrayMap.php';
+$isArray = require __DIR__ . '/isArray.php';
+$isSymbol = require __DIR__ . '/isSymbol.php';
 $INFINITY = 1 / 0;
-
-/** Used to convert symbols to primitives and strings. */
-$symbolProto = Symbol ? Symbol.prototype : undefined;
-    $symbolToString = $symbolProto ? $symbolProto.toString : undefined;
-
-/**
-* The base implementation of `_.toString` which doesn't convert nullish
-* values to empty strings.
-*
-* @private
-* @param {*} value The value to process.
-* @returns {string} Returns the string.
-*/
+$symbolProto = ($Symbol ? $Symbol['prototype'] : null);
+$symbolToString = ($symbolProto ? $symbolProto['toString'] : null);
 function baseToString($value) {
-  // Exit early for strings to avoid a performance hit in some environments.
-  if (typeof value == 'string') {
-    return value;
-  }
-  if ($isArray(value)) {
-    // Recursively convert values (susceptible to call stack limits).
-    return $arrayMap(value, baseToString) + '';
-  }
-  if ($isSymbol(value)) {
-    return $symbolToString ? $symbolToString.call(value) : '';
-  }
-  $result = (value + '');
-  return ($result == '0' && (1 / value) == -$INFINITY) ? '-0' : $result;
+    if (is_string($value)) {
+        return $value;
+    }
+    if ($isArray($value)) {
+        return $arrayMap($value, $baseToString) + '';
+    }
+    if ($isSymbol($value)) {
+        return ($symbolToString ? call_user_func($symbolToString, $value) : '');
+    }
+    $result = $value + '';
+    return ($result == '0' && 1 / $value == -$INFINITY ? '-0' : $result);
 }
-
-return baseToString;
-
+return 'baseToString';

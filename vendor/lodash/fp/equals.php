@@ -1,3 +1,2 @@
 <?php
-return require('./isEqual');
-
+return require __DIR__ . '/isEqual.php';

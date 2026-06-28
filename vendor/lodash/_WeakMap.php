@@ -1,9 +1,5 @@
 <?php
-$getNative = require __DIR__ . '/_getNative';
-    $root = require('./_root');
-
-/* Built-in method references that are verified to be native. */
-$WeakMap = getNative(root, 'WeakMap');
-
-module.exports = WeakMap;
-
+$getNative = require __DIR__ . '/_getNative.php';
+$root = require __DIR__ . '/_root.php';
+$WeakMap = $getNative($root, 'WeakMap');
+return '_WeakMap';

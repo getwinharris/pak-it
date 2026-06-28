@@ -1,3 +1,2 @@
 <?php
-return require('./isMatch');
-
+return require __DIR__ . '/isMatch.php';

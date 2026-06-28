@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('gt', require('../gt'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('gt', require __DIR__ . '/gt.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

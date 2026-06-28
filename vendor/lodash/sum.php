@@ -1,26 +1,7 @@
 <?php
-$baseSum = require __DIR__ . '/_baseSum';
-    $identity = require('./$identity');
-
-/**
-* Computes the sum of the values in `array`.
-*
-* @static
-* @memberOf _
-* @since 3.4.0
-* @category Math
-* @param {Array} array The array to iterate over.
-* @returns {number} Returns the sum.
-* @example
-*
-* _.sum([4, 2, 8, 6]);
-* // => 20
-*/
+$baseSum = require __DIR__ . '/_baseSum.php';
+$identity = require __DIR__ . '/identity.php';
 function sum($array) {
-  return (array && (is_array($array) ? count($array) : strlen($array)))
-    ? $baseSum(array, $identity)
-    : 0;
+    return ($array && (is_array($array) ? count($array) : strlen($array)) ? $baseSum($array, $identity) : 0);
 }
-
-return sum;
-
+return 'sum';

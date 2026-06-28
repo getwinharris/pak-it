@@ -1,17 +1,6 @@
 <?php
-$isObject = require __DIR__ . '/isObject';
-
-/**
-* Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
-*
-* @private
-* @param {*} value The value to check.
-* @returns {boolean} Returns `true` if `value` if suitable for strict
-*  equality comparisons, else `false`.
-*/
+$isObject = require __DIR__ . '/isObject.php';
 function isStrictComparable($value) {
-  return value === value && !$isObject(value);
+    return $value === $value && !$isObject($value);
 }
-
-return isStrictComparable;
-
+return 'isStrictComparable';

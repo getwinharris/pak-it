@@ -1,45 +1,19 @@
 <?php
-$arrayPush = require __DIR__ . '/_arrayPush';
-    $baseFlatten = require('./_baseFlatten');
-    $copyArray = require('./_copyArray');
-    $isArray = require('./$isArray');
-
-/**
-* Creates a new array concatenating `array` with any additional arrays
-* and/or values.
-*
-* @static
-* @memberOf _
-* @since 4.0.0
-* @category Array
-* @param {Array} array The array to concatenate.
-* @param {...*} [values] The values to concatenate.
-* @returns {Array} Returns the new concatenated array.
-* @example
-*
-* var array = [1];
-* var other = _.concat(array, 2, [3], [[4]]);
-*
-* console.log(other);
-* // => [1, 2, 3, [4]]
-*
-* console.log(array);
-* // => [1]
-*/
+$arrayPush = require __DIR__ . '/_arrayPush.php';
+$baseFlatten = require __DIR__ . '/_baseFlatten.php';
+$copyArray = require __DIR__ . '/_copyArray.php';
+$isArray = require __DIR__ . '/isArray.php';
 function concat() {
-  $length = arguments.length;
-  if (!$length) {
-    return [];
-  }
-  $args = Array(length - 1);
-      $array = arguments[0];
-      $index = $length;
-
-  while (index--) {
-    $args[$index - 1] = arguments[$index];
-  }
-  return $arrayPush($isArray($array) ? $copyArray($array) : [$array], $baseFlatten($args, 1));
+    $length = (is_array($arguments) ? count($arguments) : strlen($arguments));
+    if (!$length) {
+        return [];
+    }
+    $args = array_fill(0, $length - 1, null);
+    $array = $arguments[0];
+    $index = $length;
+    while ($index--) {
+        $args[$index - 1] = $arguments[$index];
+    }
+    return $arrayPush(($isArray($array) ? $copyArray($array) : [$array]), $baseFlatten($args, 1));
 }
-
-return concat;
-
+return 'concat';

@@ -1,21 +1,8 @@
 <?php
-$baseIndexOf = require __DIR__ . '/_baseIndexOf';
-
-/**
-* Used by `_.trim` and `_.trimEnd` to get the index of the last string symbol
-* that is not found in the character symbols.
-*
-* @private
-* @param {Array} strSymbols The string symbols to inspect.
-* @param {Array} chrSymbols The character symbols to find.
-* @returns {number} Returns the index of the last unmatched string symbol.
-*/
+$baseIndexOf = require __DIR__ . '/_baseIndexOf.php';
 function charsEndIndex($strSymbols, $chrSymbols) {
-  $index = strSymbols.length;
-
-  while (index-- && $baseIndexOf(chrSymbols, strSymbols[$index], 0) > -1) {}
-  return $index;
+    $index = (is_array($strSymbols) ? count($strSymbols) : strlen($strSymbols));
+    while ($index-- && $baseIndexOf($chrSymbols, $strSymbols[$index], 0) > -1) {}
+    return $index;
 }
-
-return charsEndIndex;
-
+return 'charsEndIndex';

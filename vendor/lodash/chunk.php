@@ -1,52 +1,25 @@
 <?php
-$baseSlice = require __DIR__ . '/_baseSlice';
-    $isIterateeCall = require('./_isIterateeCall');
-    $toInteger = require('./$toInteger');
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-$nativeCeil = Math.ceil,
-nativeMax = Math.max;
-
-/**
-* Creates an array of elements split into groups the length of `size`.
-* If `array` can't be split evenly, the final chunk will be the remaining
-* elements.
-*
-* @static
-* @memberOf _
-* @since 3.0.0
-* @category Array
-* @param {Array} array The array to process.
-* @param {number} [size=1] The length of each chunk
-* @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
-* @returns {Array} Returns the new array of chunks.
-* @example
-*
-* _.chunk(['a', 'b', 'c', 'd'], 2);
-* // => [['a', 'b'], ['c', 'd']]
-*
-* _.chunk(['a', 'b', 'c', 'd'], 3);
-* // => [['a', 'b', 'c'], ['d']]
-*/
+$baseSlice = require __DIR__ . '/_baseSlice.php';
+$isIterateeCall = require __DIR__ . '/_isIterateeCall.php';
+$toInteger = require __DIR__ . '/toInteger.php';
+$nativeCeil = ceil;
+$nativeMax = max;
 function chunk($array, $size, $guard) {
-  if ((guard ? $isIterateeCall(array, size, guard) : size === null)) {
-    size = 1;
-  } else {
-    size = $nativeMax($toInteger(size), 0);
-  }
-  $length = array == null ? 0 : array.length;
-  if (!$length || size < 1) {
-    return [];
-  }
-  $index = 0;
-      $resIndex = 0;
-      $result = Array($nativeCeil($length / size));
-
-  while ($index < $length) {
-    $result[$resIndex++] = $baseSlice(array, $index, ($index += size));
-  }
-  return $result;
+    if (($guard ? $isIterateeCall($array, $size, $guard) : $size === null)) {
+        $size = 1;
+    } else {
+        $size = $nativeMax($toInteger($size), 0);
+    }
+    $length = ($array == null ? 0 : (is_array($array) ? count($array) : strlen($array)));
+    if (!$length || $size < 1) {
+        return [];
+    }
+    $index = 0;
+    $resIndex = 0;
+    $result = array_fill(0, $nativeCeil($length / $size), null);
+    while ($index < $length) {
+        $result[$resIndex++] = $baseSlice($array, $index, $index += $size);
+    }
+    return $result;
 }
-
-return chunk;
-
+return 'chunk';

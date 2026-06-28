@@ -1,69 +1,68 @@
 <?php
-return {
-  'chunk': require('./chunk');
-  'compact': require('./compact');
-  'concat': require('./concat');
-  'difference': require('./difference');
-  'differenceBy': require('./differenceBy');
-  'differenceWith': require('./differenceWith');
-  'drop': require('./drop');
-  'dropRight': require('./dropRight');
-  'dropRightWhile': require('./dropRightWhile');
-  'dropWhile': require('./dropWhile');
-  'fill': require('./fill');
-  'findIndex': require('./findIndex');
-  'findLastIndex': require('./findLastIndex');
-  'first': require('./first');
-  'flatten': require('./flatten');
-  'flattenDeep': require('./flattenDeep');
-  'flattenDepth': require('./flattenDepth');
-  'fromPairs': require('./fromPairs');
-  'head': require('./head');
-  'indexOf': require('./indexOf');
-  'initial': require('./initial');
-  'intersection': require('./intersection');
-  'intersectionBy': require('./intersectionBy');
-  'intersectionWith': require('./intersectionWith');
-  'join': require('./join');
-  'last': require('./last');
-  'lastIndexOf': require('./lastIndexOf');
-  'nth': require('./nth');
-  'pull': require('./pull');
-  'pullAll': require('./pullAll');
-  'pullAllBy': require('./pullAllBy');
-  'pullAllWith': require('./pullAllWith');
-  'pullAt': require('./pullAt');
-  'remove': require('./remove');
-  'reverse': require('./reverse');
-  'slice': require('./slice');
-  'sortedIndex': require('./sortedIndex');
-  'sortedIndexBy': require('./sortedIndexBy');
-  'sortedIndexOf': require('./sortedIndexOf');
-  'sortedLastIndex': require('./sortedLastIndex');
-  'sortedLastIndexBy': require('./sortedLastIndexBy');
-  'sortedLastIndexOf': require('./sortedLastIndexOf');
-  'sortedUniq': require('./sortedUniq');
-  'sortedUniqBy': require('./sortedUniqBy');
-  'tail': require('./tail');
-  'take': require('./take');
-  'takeRight': require('./takeRight');
-  'takeRightWhile': require('./takeRightWhile');
-  'takeWhile': require('./takeWhile');
-  'union': require('./union');
-  'unionBy': require('./unionBy');
-  'unionWith': require('./unionWith');
-  'uniq': require('./uniq');
-  'uniqBy': require('./uniqBy');
-  'uniqWith': require('./uniqWith');
-  'unzip': require('./unzip');
-  'unzipWith': require('./unzipWith');
-  'without': require('./without');
-  'xor': require('./xor');
-  'xorBy': require('./xorBy');
-  'xorWith': require('./xorWith');
-  'zip': require('./zip');
-  'zipObject': require('./zipObject');
-  'zipObjectDeep': require('./zipObjectDeep');
-  'zipWith': require('./zipWith')
-};
-
+return [
+    'chunk' => require __DIR__ . '/chunk.php',
+    'compact' => require __DIR__ . '/compact.php',
+    'concat' => require __DIR__ . '/concat.php',
+    'difference' => require __DIR__ . '/difference.php',
+    'differenceBy' => require __DIR__ . '/differenceBy.php',
+    'differenceWith' => require __DIR__ . '/differenceWith.php',
+    'drop' => require __DIR__ . '/drop.php',
+    'dropRight' => require __DIR__ . '/dropRight.php',
+    'dropRightWhile' => require __DIR__ . '/dropRightWhile.php',
+    'dropWhile' => require __DIR__ . '/dropWhile.php',
+    'fill' => require __DIR__ . '/fill.php',
+    'findIndex' => require __DIR__ . '/findIndex.php',
+    'findLastIndex' => require __DIR__ . '/findLastIndex.php',
+    'first' => require __DIR__ . '/first.php',
+    'flatten' => require __DIR__ . '/flatten.php',
+    'flattenDeep' => require __DIR__ . '/flattenDeep.php',
+    'flattenDepth' => require __DIR__ . '/flattenDepth.php',
+    'fromPairs' => require __DIR__ . '/fromPairs.php',
+    'head' => require __DIR__ . '/head.php',
+    'indexOf' => require __DIR__ . '/indexOf.php',
+    'initial' => require __DIR__ . '/initial.php',
+    'intersection' => require __DIR__ . '/intersection.php',
+    'intersectionBy' => require __DIR__ . '/intersectionBy.php',
+    'intersectionWith' => require __DIR__ . '/intersectionWith.php',
+    'join' => require __DIR__ . '/join.php',
+    'last' => require __DIR__ . '/last.php',
+    'lastIndexOf' => require __DIR__ . '/lastIndexOf.php',
+    'nth' => require __DIR__ . '/nth.php',
+    'pull' => require __DIR__ . '/pull.php',
+    'pullAll' => require __DIR__ . '/pullAll.php',
+    'pullAllBy' => require __DIR__ . '/pullAllBy.php',
+    'pullAllWith' => require __DIR__ . '/pullAllWith.php',
+    'pullAt' => require __DIR__ . '/pullAt.php',
+    'remove' => require __DIR__ . '/remove.php',
+    'reverse' => require __DIR__ . '/reverse.php',
+    'slice' => require __DIR__ . '/slice.php',
+    'sortedIndex' => require __DIR__ . '/sortedIndex.php',
+    'sortedIndexBy' => require __DIR__ . '/sortedIndexBy.php',
+    'sortedIndexOf' => require __DIR__ . '/sortedIndexOf.php',
+    'sortedLastIndex' => require __DIR__ . '/sortedLastIndex.php',
+    'sortedLastIndexBy' => require __DIR__ . '/sortedLastIndexBy.php',
+    'sortedLastIndexOf' => require __DIR__ . '/sortedLastIndexOf.php',
+    'sortedUniq' => require __DIR__ . '/sortedUniq.php',
+    'sortedUniqBy' => require __DIR__ . '/sortedUniqBy.php',
+    'tail' => require __DIR__ . '/tail.php',
+    'take' => require __DIR__ . '/take.php',
+    'takeRight' => require __DIR__ . '/takeRight.php',
+    'takeRightWhile' => require __DIR__ . '/takeRightWhile.php',
+    'takeWhile' => require __DIR__ . '/takeWhile.php',
+    'union' => require __DIR__ . '/union.php',
+    'unionBy' => require __DIR__ . '/unionBy.php',
+    'unionWith' => require __DIR__ . '/unionWith.php',
+    'uniq' => require __DIR__ . '/uniq.php',
+    'uniqBy' => require __DIR__ . '/uniqBy.php',
+    'uniqWith' => require __DIR__ . '/uniqWith.php',
+    'unzip' => require __DIR__ . '/unzip.php',
+    'unzipWith' => require __DIR__ . '/unzipWith.php',
+    'without' => require __DIR__ . '/without.php',
+    'xor' => require __DIR__ . '/xor.php',
+    'xorBy' => require __DIR__ . '/xorBy.php',
+    'xorWith' => require __DIR__ . '/xorWith.php',
+    'zip' => require __DIR__ . '/zip.php',
+    'zipObject' => require __DIR__ . '/zipObject.php',
+    'zipObjectDeep' => require __DIR__ . '/zipObjectDeep.php',
+    'zipWith' => require __DIR__ . '/zipWith.php'
+];

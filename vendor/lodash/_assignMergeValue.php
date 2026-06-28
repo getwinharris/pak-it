@@ -1,22 +1,9 @@
 <?php
-$baseAssignValue = require __DIR__ . '/_baseAssignValue';
-    $eq = require('./$eq');
-
-/**
-* This function is like `assignValue` except that it doesn't assign
-* `undefined` values.
-*
-* @private
-* @param {Object} object The object to modify.
-* @param {string} key The key of the property to assign.
-* @param {*} value The value to assign.
-*/
+$baseAssignValue = require __DIR__ . '/_baseAssignValue.php';
+$eq = require __DIR__ . '/eq.php';
 function assignMergeValue($object, $key, $value) {
-  if ((value !== null && !$eq(object[key], value)) ||
-      (value === null && !(key in object))) {
-    $baseAssignValue(object, key, value);
-  }
+    if ($value !== null && !$eq($object[$key], $value) || $value === null && !(is_array($object) ? (array_key_exists($key, $object) || in_array($key, $object)) : false)) {
+        $baseAssignValue($object, $key, $value);
+    }
 }
-
-return assignMergeValue;
-
+return 'assignMergeValue';

@@ -1,51 +1,50 @@
 <?php
-return {
-  'assign': require('./assign');
-  'assignIn': require('./assignIn');
-  'assignInWith': require('./assignInWith');
-  'assignWith': require('./assignWith');
-  'at': require('./at');
-  'create': require('./create');
-  'defaults': require('./defaults');
-  'defaultsDeep': require('./defaultsDeep');
-  'entries': require('./entries');
-  'entriesIn': require('./entriesIn');
-  'extend': require('./extend');
-  'extendWith': require('./extendWith');
-  'findKey': require('./findKey');
-  'findLastKey': require('./findLastKey');
-  'forIn': require('./forIn');
-  'forInRight': require('./forInRight');
-  'forOwn': require('./forOwn');
-  'forOwnRight': require('./forOwnRight');
-  'functions': require('./functions');
-  'functionsIn': require('./functionsIn');
-  'get': require('./get');
-  'has': require('./has');
-  'hasIn': require('./hasIn');
-  'invert': require('./invert');
-  'invertBy': require('./invertBy');
-  'invoke': require('./invoke');
-  'keys': require('./keys');
-  'keysIn': require('./keysIn');
-  'mapKeys': require('./mapKeys');
-  'mapValues': require('./mapValues');
-  'merge': require('./merge');
-  'mergeWith': require('./mergeWith');
-  'omit': require('./omit');
-  'omitBy': require('./omitBy');
-  'pick': require('./pick');
-  'pickBy': require('./pickBy');
-  'result': require('./result');
-  'set': require('./set');
-  'setWith': require('./setWith');
-  'toPairs': require('./toPairs');
-  'toPairsIn': require('./toPairsIn');
-  'transform': require('./transform');
-  'unset': require('./unset');
-  'update': require('./update');
-  'updateWith': require('./updateWith');
-  'values': require('./values');
-  'valuesIn': require('./valuesIn')
-};
-
+return [
+    'assign' => require __DIR__ . '/assign.php',
+    'assignIn' => require __DIR__ . '/assignIn.php',
+    'assignInWith' => require __DIR__ . '/assignInWith.php',
+    'assignWith' => require __DIR__ . '/assignWith.php',
+    'at' => require __DIR__ . '/at.php',
+    'create' => require __DIR__ . '/create.php',
+    'defaults' => require __DIR__ . '/defaults.php',
+    'defaultsDeep' => require __DIR__ . '/defaultsDeep.php',
+    'entries' => require __DIR__ . '/entries.php',
+    'entriesIn' => require __DIR__ . '/entriesIn.php',
+    'extend' => require __DIR__ . '/extend.php',
+    'extendWith' => require __DIR__ . '/extendWith.php',
+    'findKey' => require __DIR__ . '/findKey.php',
+    'findLastKey' => require __DIR__ . '/findLastKey.php',
+    'forIn' => require __DIR__ . '/forIn.php',
+    'forInRight' => require __DIR__ . '/forInRight.php',
+    'forOwn' => require __DIR__ . '/forOwn.php',
+    'forOwnRight' => require __DIR__ . '/forOwnRight.php',
+    'functions' => require __DIR__ . '/functions.php',
+    'functionsIn' => require __DIR__ . '/functionsIn.php',
+    'get' => require __DIR__ . '/get.php',
+    'has' => require __DIR__ . '/has.php',
+    'hasIn' => require __DIR__ . '/hasIn.php',
+    'invert' => require __DIR__ . '/invert.php',
+    'invertBy' => require __DIR__ . '/invertBy.php',
+    'invoke' => require __DIR__ . '/invoke.php',
+    'keys' => require __DIR__ . '/keys.php',
+    'keysIn' => require __DIR__ . '/keysIn.php',
+    'mapKeys' => require __DIR__ . '/mapKeys.php',
+    'mapValues' => require __DIR__ . '/mapValues.php',
+    'merge' => require __DIR__ . '/merge.php',
+    'mergeWith' => require __DIR__ . '/mergeWith.php',
+    'omit' => require __DIR__ . '/omit.php',
+    'omitBy' => require __DIR__ . '/omitBy.php',
+    'pick' => require __DIR__ . '/pick.php',
+    'pickBy' => require __DIR__ . '/pickBy.php',
+    'result' => require __DIR__ . '/result.php',
+    'set' => require __DIR__ . '/set.php',
+    'setWith' => require __DIR__ . '/setWith.php',
+    'toPairs' => require __DIR__ . '/toPairs.php',
+    'toPairsIn' => require __DIR__ . '/toPairsIn.php',
+    'transform' => require __DIR__ . '/transform.php',
+    'unset' => require __DIR__ . '/unset.php',
+    'update' => require __DIR__ . '/update.php',
+    'updateWith' => require __DIR__ . '/updateWith.php',
+    'values' => require __DIR__ . '/values.php',
+    'valuesIn' => require __DIR__ . '/valuesIn.php'
+];

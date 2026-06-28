@@ -1,18 +1,6 @@
 <?php
-$getMapData = require __DIR__ . '/_getMapData';
-
-/**
-* Checks if a map value for `key` exists.
-*
-* @private
-* @name has
-* @memberOf MapCache
-* @param {string} key The key of the entry to check.
-* @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
-*/
+$getMapData = require __DIR__ . '/_getMapData.php';
 function mapCacheHas($key) {
-  return $getMapData(this, key).has(key);
+    return $getMapData($this, $key)['has']($key);
 }
-
-return mapCacheHas;
-
+return 'mapCacheHas';

@@ -1,3 +1,2 @@
 <?php
-return require('./forEach');
-
+return require __DIR__ . '/forEach.php';

@@ -1,3 +1,2 @@
 <?php
-return require('./takeRight');
-
+return require __DIR__ . '/takeRight.php';

@@ -1,35 +1,15 @@
 <?php
-$castSlice = require __DIR__ . '/_castSlice';
-    $hasUnicode = require('./_hasUnicode');
-    $stringToArray = require('./_stringToArray');
-    $toString = require('./$toString');
-
-/**
-* Creates a function like `_.lowerFirst`.
-*
-* @private
-* @param {string} methodName The name of the `String` case method to use.
-* @returns {Function} Returns the new case function.
-*/
+$castSlice = require __DIR__ . '/_castSlice.php';
+$hasUnicode = require __DIR__ . '/_hasUnicode.php';
+$stringToArray = require __DIR__ . '/_stringToArray.php';
+$toString = require __DIR__ . '/toString.php';
 function createCaseFirst($methodName) {
-  return function($string) {
-    $string = $toString($string);
-
-    $strSymbols = hasUnicode(string);
-      ? $stringToArray($string)
-      : undefined;
-
-    $chr = strSymbols;
-      ? $strSymbols[0]
-      : $string.charAt(0);
-
-    $trailing = strSymbols;
-      ? $castSlice($strSymbols, 1).join('')
-      : array_slice($string, 1);
-
-    return $chr[methodName]() + $trailing;
-  };
+    return function($string) {
+        $string = $toString($string);
+        $strSymbols = ($hasUnicode($string) ? $stringToArray($string) : null);
+        $chr = ($strSymbols ? $strSymbols[0] : $string['charAt'](0));
+        $trailing = ($strSymbols ? implode('', $castSlice($strSymbols, 1)) : array_slice(1, $string));
+        return $chr[$methodName]() + $trailing;
+};
 }
-
-return createCaseFirst;
-
+return 'createCaseFirst';

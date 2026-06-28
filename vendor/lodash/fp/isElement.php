@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('isElement', require('../isElement'), require('./_falseOptions'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('isElement', require __DIR__ . '/isElement.php', require __DIR__ . '/_falseOptions.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

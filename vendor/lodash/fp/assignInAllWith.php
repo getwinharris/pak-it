@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('assignInAllWith', require('../assignInWith'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('assignInAllWith', require __DIR__ . '/assignInWith.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

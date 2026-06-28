@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('mergeAllWith', require('../mergeWith'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('mergeAllWith', require __DIR__ . '/mergeWith.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

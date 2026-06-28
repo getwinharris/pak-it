@@ -1,36 +1,35 @@
 <?php
-return {
-  'attempt': require('./attempt');
-  'bindAll': require('./bindAll');
-  'cond': require('./cond');
-  'conforms': require('./conforms');
-  'constant': require('./constant');
-  'defaultTo': require('./defaultTo');
-  'flow': require('./flow');
-  'flowRight': require('./flowRight');
-  'identity': require('./identity');
-  'iteratee': require('./iteratee');
-  'matches': require('./matches');
-  'matchesProperty': require('./matchesProperty');
-  'method': require('./method');
-  'methodOf': require('./methodOf');
-  'mixin': require('./mixin');
-  'noop': require('./noop');
-  'nthArg': require('./nthArg');
-  'over': require('./over');
-  'overEvery': require('./overEvery');
-  'overSome': require('./overSome');
-  'property': require('./property');
-  'propertyOf': require('./propertyOf');
-  'range': require('./range');
-  'rangeRight': require('./rangeRight');
-  'stubArray': require('./stubArray');
-  'stubFalse': require('./stubFalse');
-  'stubObject': require('./stubObject');
-  'stubString': require('./stubString');
-  'stubTrue': require('./stubTrue');
-  'times': require('./times');
-  'toPath': require('./toPath');
-  'uniqueId': require('./uniqueId')
-};
-
+return [
+    'attempt' => require __DIR__ . '/attempt.php',
+    'bindAll' => require __DIR__ . '/bindAll.php',
+    'cond' => require __DIR__ . '/cond.php',
+    'conforms' => require __DIR__ . '/conforms.php',
+    'constant' => require __DIR__ . '/constant.php',
+    'defaultTo' => require __DIR__ . '/defaultTo.php',
+    'flow' => require __DIR__ . '/flow.php',
+    'flowRight' => require __DIR__ . '/flowRight.php',
+    'identity' => require __DIR__ . '/identity.php',
+    'iteratee' => require __DIR__ . '/iteratee.php',
+    'matches' => require __DIR__ . '/matches.php',
+    'matchesProperty' => require __DIR__ . '/matchesProperty.php',
+    'method' => require __DIR__ . '/method.php',
+    'methodOf' => require __DIR__ . '/methodOf.php',
+    'mixin' => require __DIR__ . '/mixin.php',
+    'noop' => require __DIR__ . '/noop.php',
+    'nthArg' => require __DIR__ . '/nthArg.php',
+    'over' => require __DIR__ . '/over.php',
+    'overEvery' => require __DIR__ . '/overEvery.php',
+    'overSome' => require __DIR__ . '/overSome.php',
+    'property' => require __DIR__ . '/property.php',
+    'propertyOf' => require __DIR__ . '/propertyOf.php',
+    'range' => require __DIR__ . '/range.php',
+    'rangeRight' => require __DIR__ . '/rangeRight.php',
+    'stubArray' => require __DIR__ . '/stubArray.php',
+    'stubFalse' => require __DIR__ . '/stubFalse.php',
+    'stubObject' => require __DIR__ . '/stubObject.php',
+    'stubString' => require __DIR__ . '/stubString.php',
+    'stubTrue' => require __DIR__ . '/stubTrue.php',
+    'times' => require __DIR__ . '/times.php',
+    'toPath' => require __DIR__ . '/toPath.php',
+    'uniqueId' => require __DIR__ . '/uniqueId.php'
+];

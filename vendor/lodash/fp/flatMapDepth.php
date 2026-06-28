@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('flatMapDepth', require('../flatMapDepth'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('flatMapDepth', require __DIR__ . '/flatMapDepth.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

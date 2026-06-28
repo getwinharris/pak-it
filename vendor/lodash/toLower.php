@@ -1,30 +1,6 @@
 <?php
-$toString = require __DIR__ . '/toString';
-
-/**
-* Converts `string`, as a whole, to lower case just like
-* [String#toLowerCase](https://mdn.io/toLowerCase).
-*
-* @static
-* @memberOf _
-* @since 4.0.0
-* @category String
-* @param {string} [string=''] The string to convert.
-* @returns {string} Returns the lower cased string.
-* @example
-*
-* _.toLower('--Foo-Bar--');
-* // => '--foo-bar--'
-*
-* _.toLower('fooBar');
-* // => 'foobar'
-*
-* _.toLower('__FOO_BAR__');
-* // => '__foo_bar__'
-*/
+$toString = require __DIR__ . '/toString.php';
 function toLower($value) {
-  return $toString(value).toLowerCase();
+    return strtolower($toString($value));
 }
-
-return toLower;
-
+return 'toLower';

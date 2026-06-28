@@ -1,24 +1,7 @@
 <?php
-$baseFlatten = require __DIR__ . '/_baseFlatten';
-
-/**
-* Flattens `array` a single level deep.
-*
-* @static
-* @memberOf _
-* @since 0.1.0
-* @category Array
-* @param {Array} array The array to flatten.
-* @returns {Array} Returns the new flattened array.
-* @example
-*
-* _.flatten([1, [2, [3, [4]], 5]]);
-* // => [1, 2, [3, [4]], 5]
-*/
+$baseFlatten = require __DIR__ . '/_baseFlatten.php';
 function flatten($array) {
-  $length = array == null ? 0 : array.length;
-  return $length ? $baseFlatten(array, 1) : [];
+    $length = ($array == null ? 0 : (is_array($array) ? count($array) : strlen($array)));
+    return ($length ? $baseFlatten($array, 1) : []);
 }
-
-return flatten;
-
+return 'flatten';

@@ -1,34 +1,22 @@
 <?php
-$isArrayLike = require __DIR__ . '/isArrayLike';
-
-/**
-* Creates a `baseEach` or `baseEachRight` function.
-*
-* @private
-* @param {Function} eachFunc The function to iterate over a collection.
-* @param {boolean} [fromRight] Specify iterating from right to left.
-* @returns {Function} Returns the new base function.
-*/
+$isArrayLike = require __DIR__ . '/isArrayLike.php';
 function createBaseEach($eachFunc, $fromRight) {
-  return function($collection, $iteratee) {
-    if ($collection == null) {
-      return $collection;
-    }
-    if (!$isArrayLike($collection)) {
-      return eachFunc($collection, $iteratee);
-    }
-    $length = collection.length;
-        $index = fromRight ? $length : -1;
+    return function($collection, $iteratee) {
+        if ($collection == null) {
+            return $collection;
+        }
+        if (!$isArrayLike($collection)) {
+            return $eachFunc($collection, $iteratee);
+        }
+        $length = (is_array($collection) ? count($collection) : strlen($collection));
+        $index = ($fromRight ? $length : -1);
         $iterable = Object($collection);
-
-    while ((fromRight ? index-- : ++$index < $length)) {
-      if ($iteratee($iterable[$index], $index, $iterable) === false) {
-        break;
-      }
-    }
-    return $collection;
-  };
+        while (($fromRight ? $index-- : ++$index < $length)) {
+            if ($iteratee($iterable[$index], $index, $iterable) === false) {
+                break;
+            }
+        }
+        return $collection;
+};
 }
-
-return createBaseEach;
-
+return 'createBaseEach';

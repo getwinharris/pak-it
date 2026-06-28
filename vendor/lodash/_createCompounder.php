@@ -1,26 +1,12 @@
 <?php
-$arrayReduce = require __DIR__ . '/_arrayReduce';
-    $deburr = require('./$deburr');
-    $words = require('./$words');
-
-/** Used to compose unicode capture groups. */
+$arrayReduce = require __DIR__ . '/_arrayReduce.php';
+$deburr = require __DIR__ . '/deburr.php';
+$words = require __DIR__ . '/words.php';
 $rsApos = "['\u2019]";
-
-/** Used to match apostrophes. */
-$reApos = RegExp(rsApos, 'g');
-
-/**
-* Creates a function like `_.camelCase`.
-*
-* @private
-* @param {Function} callback The function to combine each word.
-* @returns {Function} Returns the new compounder function.
-*/
+$reApos = '/' . $rsApos . '/' . 'g';
 function createCompounder($callback) {
-  return function($string) {
-    return $arrayReduce($words($deburr($string).replace($reApos, '')), callback, '');
-  };
+    return function($string) {
+        return $arrayReduce($words(str_replace($reApos, '', $deburr($string))), $callback, '');
+};
 }
-
-return createCompounder;
-
+return 'createCompounder';

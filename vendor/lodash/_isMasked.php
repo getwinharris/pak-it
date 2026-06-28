@@ -1,22 +1,10 @@
 <?php
-$coreJsData = require __DIR__ . '/_coreJsData';
-
-/** Used to detect methods masquerading as native. */
+$coreJsData = require __DIR__ . '/_coreJsData.php';
 $maskSrcKey = (function() {
-$uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
-return uid ? ('Symbol(src)_1.' + uid) : '';
-}());
-
-/**
-* Checks if `func` has its source masked.
-*
-* @private
-* @param {Function} func The function to check.
-* @returns {boolean} Returns `true` if `func` is masked, else `false`.
-*/
+        $uid = preg_match('/[^.]+$/', $coreJsData && $coreJsData['keys'] && $coreJsData['keys']['IE_PROTO'] || '');
+        return ($uid ? 'Symbol(src)_1.' + $uid : '');
+})();
 function isMasked($func) {
-  return !!$maskSrcKey && ($maskSrcKey in func);
+    return !!$maskSrcKey && (is_array($func) ? (array_key_exists($maskSrcKey, $func) || in_array($maskSrcKey, $func)) : false);
 }
-
-return isMasked;
-
+return 'isMasked';

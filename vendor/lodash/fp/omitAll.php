@@ -1,3 +1,2 @@
 <?php
-return require('./omit');
-
+return require __DIR__ . '/omit.php';

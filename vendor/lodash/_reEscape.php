@@ -1,6 +1,3 @@
 <?php
-/** Used to match template delimiters. */
-$reEscape = /<%-([\s\S]+?)%>/g;
-
-module.exports = reEscape;
-
+$reEscape = '/<%-([\\s\\S]+?)%>/g';
+return 'reEscape';

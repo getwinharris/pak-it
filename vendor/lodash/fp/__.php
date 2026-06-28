@@ -1,3 +1,2 @@
 <?php
-return require('./placeholder');
-
+return require __DIR__ . '/placeholder.php';

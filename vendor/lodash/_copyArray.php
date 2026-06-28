@@ -1,22 +1,11 @@
 <?php
-/**
-* Copies the values of `source` to `array`.
-*
-* @private
-* @param {Array} source The array to copy values from.
-* @param {Array} [array=[]] The array to copy values to.
-* @returns {Array} Returns `array`.
-*/
 function copyArray($source, $array) {
-  $index = -1;
-      $length = (is_array($source) ? count($source) : strlen($source));
-
-  array || (array = Array($length));
-  while (++$index < $length) {
-    array[$index] = source[$index];
-  }
-  return array;
+    $index = -1;
+    $length = (is_array($source) ? count($source) : strlen($source));
+    $array || $array = array_fill(0, $length, null);
+    while (++$index < $length) {
+        $array[$index] = $source[$index];
+    }
+    return $array;
 }
-
-return copyArray;
-
+return 'copyArray';

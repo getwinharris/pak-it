@@ -1,26 +1,13 @@
 <?php
-$isSymbol = require __DIR__ . '/isSymbol';
-
-/** Used as references for various `Number` constants. */
+$isSymbol = require __DIR__ . '/isSymbol.php';
 $NAN = 0 / 0;
-
-/**
-* The base implementation of `_.toNumber` which doesn't ensure correct
-* conversions of binary, hexadecimal, or octal string values.
-*
-* @private
-* @param {*} value The value to process.
-* @returns {number} Returns the number.
-*/
 function baseToNumber($value) {
-  if (typeof value == 'number') {
-    return value;
-  }
-  if ($isSymbol(value)) {
-    return $NAN;
-  }
-  return +value;
+    if (is_numeric($value)) {
+        return $value;
+    }
+    if ($isSymbol($value)) {
+        return $NAN;
+    }
+    return +$value;
 }
-
-return baseToNumber;
-
+return 'baseToNumber';

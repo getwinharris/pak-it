@@ -1,18 +1,8 @@
 <?php
-$baseGet = require __DIR__ . '/_baseGet';
-
-/**
-* A specialized version of `baseProperty` which supports deep paths.
-*
-* @private
-* @param {Array|string} path The path of the property to get.
-* @returns {Function} Returns the new accessor function.
-*/
+$baseGet = require __DIR__ . '/_baseGet.php';
 function basePropertyDeep($path) {
-  return function($object) {
-    return $baseGet($object, path);
-  };
+    return function($object) {
+        return $baseGet($object, $path);
+};
 }
-
-return basePropertyDeep;
-
+return 'basePropertyDeep';

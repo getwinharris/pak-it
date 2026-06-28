@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('shuffle', require('../shuffle'), require('./_falseOptions'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('shuffle', require __DIR__ . '/shuffle.php', require __DIR__ . '/_falseOptions.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

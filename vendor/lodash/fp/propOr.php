@@ -1,3 +1,2 @@
 <?php
-return require('./getOr');
-
+return require __DIR__ . '/getOr.php';

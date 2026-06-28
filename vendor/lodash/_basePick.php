@@ -1,21 +1,9 @@
 <?php
-$basePickBy = require __DIR__ . '/_basePickBy';
-    $hasIn = require('./$hasIn');
-
-/**
-* The base implementation of `_.pick` without support for individual
-* property identifiers.
-*
-* @private
-* @param {Object} object The source object.
-* @param {string[]} paths The property paths to pick.
-* @returns {Object} Returns the new object.
-*/
+$basePickBy = require __DIR__ . '/_basePickBy.php';
+$hasIn = require __DIR__ . '/hasIn.php';
 function basePick($object, $paths) {
-  return $basePickBy(object, paths, function($value, $path) {
-    return $hasIn(object, $path);
-  });
+    return $basePickBy($object, $paths, function($value, $path) {
+        return $hasIn($object, $path);
+});
 }
-
-return basePick;
-
+return 'basePick';

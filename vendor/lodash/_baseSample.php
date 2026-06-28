@@ -1,17 +1,7 @@
 <?php
-$arraySample = require __DIR__ . '/_arraySample';
-    $values = require('./$values');
-
-/**
-* The base implementation of `_.sample`.
-*
-* @private
-* @param {Array|Object} collection The collection to sample.
-* @returns {*} Returns the random element.
-*/
+$arraySample = require __DIR__ . '/_arraySample.php';
+$values = require __DIR__ . '/values.php';
 function baseSample($collection) {
-  return $arraySample($values(collection));
+    return $arraySample($values($collection));
 }
-
-return baseSample;
-
+return 'baseSample';

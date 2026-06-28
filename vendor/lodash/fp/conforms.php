@@ -1,3 +1,2 @@
 <?php
-return require('./conformsTo');
-
+return require __DIR__ . '/conformsTo.php';

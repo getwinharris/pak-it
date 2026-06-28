@@ -1,3 +1,2 @@
 <?php
-return require('./head');
-
+return require __DIR__ . '/head.php';

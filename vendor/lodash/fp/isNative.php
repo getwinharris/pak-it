@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('isNative', require('../isNative'), require('./_falseOptions'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('isNative', require __DIR__ . '/isNative.php', require __DIR__ . '/_falseOptions.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

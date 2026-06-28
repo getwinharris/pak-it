@@ -1,3 +1,2 @@
 <?php
-return require('./ary');
-
+return require __DIR__ . '/ary.php';

@@ -1,34 +1,21 @@
 <?php
-$mapCacheClear = require __DIR__ . '/_mapCacheClear';
-    $mapCacheDelete = require('./_mapCacheDelete');
-    $mapCacheGet = require('./_mapCacheGet');
-    $mapCacheHas = require('./_mapCacheHas');
-    $mapCacheSet = require('./_mapCacheSet');
-
-/**
-* Creates a map cache object to store key-value pairs.
-*
-* @private
-* @constructor
-* @param {Array} [entries] The key-value pairs to cache.
-*/
+$mapCacheClear = require __DIR__ . '/_mapCacheClear.php';
+$mapCacheDelete = require __DIR__ . '/_mapCacheDelete.php';
+$mapCacheGet = require __DIR__ . '/_mapCacheGet.php';
+$mapCacheHas = require __DIR__ . '/_mapCacheHas.php';
+$mapCacheSet = require __DIR__ . '/_mapCacheSet.php';
 function MapCache($entries) {
-  $index = -1;
-      $length = entries == null ? 0 : (is_array($entries) ? count($entries) : strlen($entries));
-
-  this.clear();
-  while (++$index < $length) {
-    $entry = entries[index];
-    this.set($entry[0], $entry[1]);
-  }
+    $index = -1;
+    $length = ($entries == null ? 0 : (is_array($entries) ? count($entries) : strlen($entries)));
+    $this->clear();
+    while (++$index < $length) {
+        $entry = $entries[$index];
+        $this->set($entry[0], $entry[1]);
+    }
 }
-
-// Add methods to `MapCache`.
-MapCache.prototype.clear = $mapCacheClear;
-MapCache.prototype['delete'] = $mapCacheDelete;
-MapCache.prototype.get = $mapCacheGet;
-MapCache.prototype.has = $mapCacheHas;
-MapCache.prototype.set = $mapCacheSet;
-
-return MapCache;
-
+$MapCache['prototype']['clear'] = $mapCacheClear;
+$MapCache['prototype']['delete'] = $mapCacheDelete;
+$MapCache['prototype']['get'] = $mapCacheGet;
+$MapCache['prototype']['has'] = $mapCacheHas;
+$MapCache['prototype']['set'] = $mapCacheSet;
+return 'MapCache';

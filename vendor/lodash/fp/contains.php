@@ -1,3 +1,2 @@
 <?php
-return require('./includes');
-
+return require __DIR__ . '/includes.php';

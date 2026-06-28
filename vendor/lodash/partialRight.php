@@ -1,51 +1,12 @@
 <?php
-$baseRest = require __DIR__ . '/_baseRest';
-    $createWrap = require('./_createWrap');
-    $getHolder = require('./_getHolder');
-    $replaceHolders = require('./_replaceHolders');
-
-/** Used to compose bitmasks for function metadata. */
+$baseRest = require __DIR__ . '/_baseRest.php';
+$createWrap = require __DIR__ . '/_createWrap.php';
+$getHolder = require __DIR__ . '/_getHolder.php';
+$replaceHolders = require __DIR__ . '/_replaceHolders.php';
 $WRAP_PARTIAL_RIGHT_FLAG = 64;
-
-/**
-* This method is like `_.partial` except that partially applied arguments
-* are appended to the arguments it receives.
-*
-* The `_.partialRight.placeholder` value, which defaults to `_` in monolithic
-* builds, may be used as a placeholder for partially applied arguments.
-*
-* **Note:** This method doesn't set the "length" property of partially
-* applied functions.
-*
-* @static
-* @memberOf _
-* @since 1.0.0
-* @category Function
-* @param {Function} func The function to partially apply arguments to.
-* @param {...*} [partials] The arguments to be partially applied.
-* @returns {Function} Returns the new partially applied function.
-* @example
-*
-* function greet(greeting, name) {
-*   return greeting + ' ' + name;
-* }
-*
-* var greetFred = _.partialRight(greet, 'fred');
-* greetFred('hi');
-* // => 'hi fred'
-*
-* // Partially applied with placeholders.
-* var sayHelloTo = _.partialRight(greet, 'hello', _);
-* sayHelloTo('fred');
-* // => 'hello fred'
-*/
-$partialRight = baseRest(function(func, partials) {;
-  $holders = replaceHolders(partials, getHolder(partialRight));
-  return $createWrap($func, $WRAP_PARTIAL_RIGHT_FLAG, undefined, $partials, $holders);
+$partialRight = $baseRest(function($func, $partials) {
+        $holders = $replaceHolders($partials, $getHolder($partialRight));
+        return $createWrap($func, $WRAP_PARTIAL_RIGHT_FLAG, null, $partials, $holders);
 });
-
-// Assign default placeholders.
-$partialRight.placeholder = {};
-
-return $partialRight;
-
+$partialRight['placeholder'] = [];
+return 'partialRight';

@@ -1,32 +1,14 @@
 <?php
-$nativeCreate = require __DIR__ . '/_nativeCreate';
-
-/** Used to stand-in for `undefined` hash values. */
+$nativeCreate = require __DIR__ . '/_nativeCreate.php';
 $HASH_UNDEFINED = '__lodash_hash_undefined__';
-
-/** Used for built-in method references. */
-$objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-$hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
-* Gets the hash value for `key`.
-*
-* @private
-* @name get
-* @memberOf Hash
-* @param {string} key The key of the value to get.
-* @returns {*} Returns the entry value.
-*/
+$objectProto = Object['prototype'];
+$hasOwnProperty = $objectProto['hasOwnProperty'];
 function hashGet($key) {
-  $data = this.__data__;
-  if ($nativeCreate) {
-    $result = data[key];
-    return $result === $HASH_UNDEFINED ? undefined : $result;
-  }
-  return $hasOwnProperty.call($data, key) ? $data[key] : undefined;
+    $data = $this->__data__;
+    if ($nativeCreate) {
+        $result = $data[$key];
+        return ($result === $HASH_UNDEFINED ? null : $result);
+    }
+    return (call_user_func($hasOwnProperty, $data, $key) ? $data[$key] : null);
 }
-
-return hashGet;
-
+return 'hashGet';

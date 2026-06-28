@@ -1,9 +1,5 @@
 <?php
-$getNative = require __DIR__ . '/_getNative';
-    $root = require('./_root');
-
-/* Built-in method references that are verified to be native. */
-$Set = getNative(root, 'Set');
-
-module.exports = Set;
-
+$getNative = require __DIR__ . '/_getNative.php';
+$root = require __DIR__ . '/_root.php';
+$Set = $getNative($root, 'Set');
+return '_Set';

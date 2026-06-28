@@ -1,3 +1,2 @@
 <?php
-return require('./assignInAllWith');
-
+return require __DIR__ . '/assignInAllWith.php';

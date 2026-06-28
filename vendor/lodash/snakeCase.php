@@ -1,30 +1,6 @@
 <?php
-$createCompounder = require __DIR__ . '/_createCompounder';
-
-/**
-* Converts `string` to
-* [snake case](https://en.wikipedia.org/wiki/Snake_case).
-*
-* @static
-* @memberOf _
-* @since 3.0.0
-* @category String
-* @param {string} [string=''] The string to convert.
-* @returns {string} Returns the snake cased string.
-* @example
-*
-* _.snakeCase('Foo Bar');
-* // => 'foo_bar'
-*
-* _.snakeCase('fooBar');
-* // => 'foo_bar'
-*
-* _.snakeCase('--FOO-BAR--');
-* // => 'foo_bar'
-*/
-$snakeCase = createCompounder(function(result, word, index) {;
-  return $result + ($index ? '_' : '') + strtolower($word);
+$createCompounder = require __DIR__ . '/_createCompounder.php';
+$snakeCase = $createCompounder(function($result, $word, $index) {
+        return $result + ($index ? '_' : '') + strtolower($word);
 });
-
-return $snakeCase;
-
+return 'snakeCase';

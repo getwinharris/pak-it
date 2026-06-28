@@ -1,48 +1,22 @@
 <?php
-$baseKeys = require __DIR__ . '/_baseKeys';
-    $getTag = require('./_getTag');
-    $isArrayLike = require('./$isArrayLike');
-    $isString = require('./$isString');
-    $stringSize = require('./_stringSize');
-
-/** `Object#toString` result references. */
-$mapTag = '[object Map]',
-setTag = '[object Set]';
-
-/**
-* Gets the size of `collection` by returning its length for array-like
-* values or the number of own enumerable string keyed properties for objects.
-*
-* @static
-* @memberOf _
-* @since 0.1.0
-* @category Collection
-* @param {Array|Object|string} collection The collection to inspect.
-* @returns {number} Returns the collection size.
-* @example
-*
-* _.size([1, 2, 3]);
-* // => 3
-*
-* _.size({ 'a': 1, 'b': 2 });
-* // => 2
-*
-* _.size('pebbles');
-* // => 7
-*/
+$baseKeys = require __DIR__ . '/_baseKeys.php';
+$getTag = require __DIR__ . '/_getTag.php';
+$isArrayLike = require __DIR__ . '/isArrayLike.php';
+$isString = require __DIR__ . '/isString.php';
+$stringSize = require __DIR__ . '/_stringSize.php';
+$mapTag = '[object Map]';
+$setTag = '[object Set]';
 function size($collection) {
-  if (collection == null) {
-    return 0;
-  }
-  if ($isArrayLike(collection)) {
-    return $isString(collection) ? $stringSize(collection) : (is_array($collection) ? count($collection) : strlen($collection));
-  }
-  $tag = getTag(collection);
-  if ($tag == $mapTag || $tag == $setTag) {
-    return collection.size;
-  }
-  return $baseKeys(collection).length;
+    if ($collection == null) {
+        return 0;
+    }
+    if ($isArrayLike($collection)) {
+        return ($isString($collection) ? $stringSize($collection) : (is_array($collection) ? count($collection) : strlen($collection)));
+    }
+    $tag = $getTag($collection);
+    if ($tag == $mapTag || $tag == $setTag) {
+        return $collection['size'];
+    }
+    return (is_array($baseKeys($collection)) ? count($baseKeys($collection)) : strlen($baseKeys($collection)));
 }
-
-return size;
-
+return 'size';

@@ -1,3 +1,2 @@
 <?php
-return require('./initial');
-
+return require __DIR__ . '/initial.php';

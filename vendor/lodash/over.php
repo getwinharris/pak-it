@@ -1,26 +1,5 @@
 <?php
-$arrayMap = require __DIR__ . '/_arrayMap';
-    $createOver = require('./_createOver');
-
-/**
-* Creates a function that invokes `iteratees` with the arguments it receives
-* and returns their results.
-*
-* @static
-* @memberOf _
-* @since 4.0.0
-* @category Util
-* @param {...(Function|Function[])} [iteratees=[_.identity]]
-*  The iteratees to invoke.
-* @returns {Function} Returns the new function.
-* @example
-*
-* var func = _.over([Math.max, Math.min]);
-*
-* func(1, 2, 3, 4);
-* // => [4, 1]
-*/
-$over = createOver(arrayMap);
-
-return $over;
-
+$arrayMap = require __DIR__ . '/_arrayMap.php';
+$createOver = require __DIR__ . '/_createOver.php';
+$over = $createOver($arrayMap);
+return 'over';

@@ -1,4 +1,3 @@
 <?php
-$convert = require __DIR__ . '/convert';
-return $convert(require('../function'));
-
+$convert = require __DIR__ . '/convert.php';
+return $convert(require __DIR__ . '/function.php');

@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('isMatchWith', require('../isMatchWith'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('isMatchWith', require __DIR__ . '/isMatchWith.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

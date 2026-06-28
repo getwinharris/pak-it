@@ -1,35 +1,18 @@
 <?php
-$baseRepeat = require __DIR__ . '/_baseRepeat';
-    $baseToString = require('./_baseToString');
-    $castSlice = require('./_castSlice');
-    $hasUnicode = require('./_hasUnicode');
-    $stringSize = require('./_stringSize');
-    $stringToArray = require('./_stringToArray');
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-$nativeCeil = Math.ceil;
-
-/**
-* Creates the padding for `string` based on `length`. The `chars` string
-* is truncated if the number of characters exceeds `length`.
-*
-* @private
-* @param {number} length The padding length.
-* @param {string} [chars=' '] The string used as padding.
-* @returns {string} Returns the padding for `string`.
-*/
+$baseRepeat = require __DIR__ . '/_baseRepeat.php';
+$baseToString = require __DIR__ . '/_baseToString.php';
+$castSlice = require __DIR__ . '/_castSlice.php';
+$hasUnicode = require __DIR__ . '/_hasUnicode.php';
+$stringSize = require __DIR__ . '/_stringSize.php';
+$stringToArray = require __DIR__ . '/_stringToArray.php';
+$nativeCeil = ceil;
 function createPadding($length, $chars) {
-  chars = chars === null ? ' ' : $baseToString(chars);
-
-  $charsLength = chars.length;
-  if ($charsLength < 2) {
-    return $charsLength ? $baseRepeat(chars, length) : chars;
-  }
-  $result = baseRepeat(chars, nativeCeil(length / stringSize(chars)));
-  return $hasUnicode(chars)
-    ? $castSlice($stringToArray($result), 0, length).join('')
-    : array_slice($result, 0, length);
+    $chars = ($chars === null ? ' ' : $baseToString($chars));
+    $charsLength = (is_array($chars) ? count($chars) : strlen($chars));
+    if ($charsLength < 2) {
+        return ($charsLength ? $baseRepeat($chars, $length) : $chars);
+    }
+    $result = $baseRepeat($chars, $nativeCeil($length / $stringSize($chars)));
+    return ($hasUnicode($chars) ? implode('', $castSlice($stringToArray($result), 0, $length)) : array_slice(0, $length, $result));
 }
-
-return createPadding;
-
+return 'createPadding';

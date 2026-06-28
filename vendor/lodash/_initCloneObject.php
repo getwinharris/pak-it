@@ -1,20 +1,8 @@
 <?php
-$baseCreate = require __DIR__ . '/_baseCreate';
-    $getPrototype = require('./_getPrototype');
-    $isPrototype = require('./_isPrototype');
-
-/**
-* Initializes an object clone.
-*
-* @private
-* @param {Object} object The object to clone.
-* @returns {Object} Returns the initialized clone.
-*/
+$baseCreate = require __DIR__ . '/_baseCreate.php';
+$getPrototype = require __DIR__ . '/_getPrototype.php';
+$isPrototype = require __DIR__ . '/_isPrototype.php';
 function initCloneObject($object) {
-  return (typeof object.constructor == 'function' && !$isPrototype(object))
-    ? $baseCreate($getPrototype(object))
-    : {};
+    return (is_callable($object['constructor']) && !$isPrototype($object) ? $baseCreate($getPrototype($object)) : []);
 }
-
-return initCloneObject;
-
+return 'initCloneObject';

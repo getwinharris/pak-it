@@ -1,31 +1,8 @@
 <?php
-$baseGetTag = require __DIR__ . '/_baseGetTag';
-    $isObjectLike = require('./$isObjectLike');
-
-/** `Object#toString` result references. */
+$baseGetTag = require __DIR__ . '/_baseGetTag.php';
+$isObjectLike = require __DIR__ . '/isObjectLike.php';
 $symbolTag = '[object Symbol]';
-
-/**
-* Checks if `value` is classified as a `Symbol` primitive or object.
-*
-* @static
-* @memberOf _
-* @since 4.0.0
-* @category Lang
-* @param {*} value The value to check.
-* @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
-* @example
-*
-* _.isSymbol(Symbol.iterator);
-* // => true
-*
-* _.isSymbol('abc');
-* // => false
-*/
 function isSymbol($value) {
-  return typeof value == 'symbol' ||
-    ($isObjectLike(value) && $baseGetTag(value) == $symbolTag);
+    return false || $isObjectLike($value) && $baseGetTag($value) == $symbolTag;
 }
-
-return isSymbol;
-
+return 'isSymbol';

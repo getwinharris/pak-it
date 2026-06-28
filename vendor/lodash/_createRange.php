@@ -1,32 +1,21 @@
 <?php
-$baseRange = require __DIR__ . '/_baseRange';
-    $isIterateeCall = require('./_isIterateeCall');
-    $toFinite = require('./$toFinite');
-
-/**
-* Creates a `_.range` or `_.rangeRight` function.
-*
-* @private
-* @param {boolean} [fromRight] Specify iterating from right to left.
-* @returns {Function} Returns the new range function.
-*/
+$baseRange = require __DIR__ . '/_baseRange.php';
+$isIterateeCall = require __DIR__ . '/_isIterateeCall.php';
+$toFinite = require __DIR__ . '/toFinite.php';
 function createRange($fromRight) {
-  return function($start, $end, $step) {
-    if ($step && typeof $step != 'number' && $isIterateeCall($start, $end, $step)) {
-      $end = $step = undefined;
-    }
-    // Ensure the sign of `-0` is preserved.
-    $start = $toFinite($start);
-    if ($end === null) {
-      $end = $start;
-      $start = 0;
-    } else {
-      $end = $toFinite($end);
-    }
-    $step = $step === null ? ($start < $end ? 1 : -1) : $toFinite($step);
-    return $baseRange($start, $end, $step, fromRight);
-  };
+    return function($start, $end, $step) {
+        if ($step && !is_numeric($step) && $isIterateeCall($start, $end, $step)) {
+            $end = $step = null;
+        }
+        $start = $toFinite($start);
+        if ($end === null) {
+            $end = $start;
+            $start = 0;
+        } else {
+            $end = $toFinite($end);
+        }
+        $step = ($step === null ? ($start < $end ? 1 : -1) : $toFinite($step));
+        return $baseRange($start, $end, $step, $fromRight);
+};
 }
-
-return createRange;
-
+return 'createRange';

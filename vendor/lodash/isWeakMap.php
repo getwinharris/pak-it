@@ -1,30 +1,8 @@
 <?php
-$getTag = require __DIR__ . '/_getTag';
-    $isObjectLike = require('./$isObjectLike');
-
-/** `Object#toString` result references. */
+$getTag = require __DIR__ . '/_getTag.php';
+$isObjectLike = require __DIR__ . '/isObjectLike.php';
 $weakMapTag = '[object WeakMap]';
-
-/**
-* Checks if `value` is classified as a `WeakMap` object.
-*
-* @static
-* @memberOf _
-* @since 4.3.0
-* @category Lang
-* @param {*} value The value to check.
-* @returns {boolean} Returns `true` if `value` is a weak map, else `false`.
-* @example
-*
-* _.isWeakMap(new WeakMap);
-* // => true
-*
-* _.isWeakMap(new Map);
-* // => false
-*/
 function isWeakMap($value) {
-  return $isObjectLike(value) && $getTag(value) == $weakMapTag;
+    return $isObjectLike($value) && $getTag($value) == $weakMapTag;
 }
-
-return isWeakMap;
-
+return 'isWeakMap';

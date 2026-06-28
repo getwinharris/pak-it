@@ -1,16 +1,4 @@
 <?php
-$baseRest = require __DIR__ . '/_baseRest';
-
-/**
-* A `baseRest` alias which can be replaced with `identity` by module
-* replacement plugins.
-*
-* @private
-* @type {Function}
-* @param {Function} func The function to apply a rest parameter to.
-* @returns {Function} Returns the new function.
-*/
-$castRest = baseRest;
-
-return $castRest;
-
+$baseRest = require __DIR__ . '/_baseRest.php';
+$castRest = $baseRest;
+return 'castRest';

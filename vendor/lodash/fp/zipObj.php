@@ -1,3 +1,2 @@
 <?php
-return require('./zipObject');
-
+return require __DIR__ . '/zipObject.php';

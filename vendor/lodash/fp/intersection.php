@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('intersection', require('../intersection'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('intersection', require __DIR__ . '/intersection.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

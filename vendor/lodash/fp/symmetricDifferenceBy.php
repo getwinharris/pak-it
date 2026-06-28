@@ -1,3 +1,2 @@
 <?php
-return require('./xorBy');
-
+return require __DIR__ . '/xorBy.php';

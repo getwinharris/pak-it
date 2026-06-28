@@ -1,16 +1,5 @@
 <?php
-$baseForOwnRight = require __DIR__ . '/_baseForOwnRight';
-    $createBaseEach = require('./_createBaseEach');
-
-/**
-* The base implementation of `_.forEachRight` without support for iteratee shorthands.
-*
-* @private
-* @param {Array|Object} collection The collection to iterate over.
-* @param {Function} iteratee The function invoked per iteration.
-* @returns {Array|Object} Returns `collection`.
-*/
-$baseEachRight = createBaseEach(baseForOwnRight, true);
-
-return $baseEachRight;
-
+$baseForOwnRight = require __DIR__ . '/_baseForOwnRight.php';
+$createBaseEach = require __DIR__ . '/_createBaseEach.php';
+$baseEachRight = $createBaseEach($baseForOwnRight, true);
+return 'baseEachRight';

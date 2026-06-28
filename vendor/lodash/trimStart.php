@@ -1,45 +1,20 @@
 <?php
-$baseToString = require __DIR__ . '/_baseToString';
-    $castSlice = require('./_castSlice');
-    $charsStartIndex = require('./_charsStartIndex');
-    $stringToArray = require('./_stringToArray');
-    $toString = require('./$toString');
-
-/** Used to match leading whitespace. */
-$reTrimStart = /^\s+/;
-
-/**
-* Removes leading whitespace or specified characters from `string`.
-*
-* @static
-* @memberOf _
-* @since 4.0.0
-* @category String
-* @param {string} [string=''] The string to trim.
-* @param {string} [chars=whitespace] The characters to trim.
-* @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
-* @returns {string} Returns the trimmed string.
-* @example
-*
-* _.trimStart('  abc  ');
-* // => 'abc  '
-*
-* _.trimStart('-_-abc-_-', '_-');
-* // => 'abc-_-'
-*/
+$baseToString = require __DIR__ . '/_baseToString.php';
+$castSlice = require __DIR__ . '/_castSlice.php';
+$charsStartIndex = require __DIR__ . '/_charsStartIndex.php';
+$stringToArray = require __DIR__ . '/_stringToArray.php';
+$toString = require __DIR__ . '/toString.php';
+$reTrimStart = '/^\\s+/';
 function trimStart($string, $chars, $guard) {
-  string = $toString(string);
-  if (string && (guard || chars === null)) {
-    return str_replace($reTrimStart, '', $string);
-  }
-  if (!string || !(chars = $baseToString(chars))) {
-    return string;
-  }
-  $strSymbols = stringToArray(string);
-      $start = $charsStartIndex($strSymbols, $stringToArray(chars));
-
-  return $castSlice($strSymbols, $start).join('');
+    $string = $toString($string);
+    if ($string && $guard || $chars === null) {
+        return str_replace($reTrimStart, '', $string);
+    }
+    if (!$string || !$chars = $baseToString($chars)) {
+        return $string;
+    }
+    $strSymbols = $stringToArray($string);
+    $start = $charsStartIndex($strSymbols, $stringToArray($chars));
+    return implode('', $castSlice($strSymbols, $start));
 }
-
-return trimStart;
-
+return 'trimStart';

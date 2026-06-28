@@ -1,35 +1,20 @@
 <?php
-$isObject = require __DIR__ . '/isObject';
-    $isPrototype = require('./_isPrototype');
-    $nativeKeysIn = require('./_nativeKeysIn');
-
-/** Used for built-in method references. */
-$objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-$hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
-* The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
-*
-* @private
-* @param {Object} object The object to query.
-* @returns {Array} Returns the array of property names.
-*/
+$isObject = require __DIR__ . '/isObject.php';
+$isPrototype = require __DIR__ . '/_isPrototype.php';
+$nativeKeysIn = require __DIR__ . '/_nativeKeysIn.php';
+$objectProto = Object['prototype'];
+$hasOwnProperty = $objectProto['hasOwnProperty'];
 function baseKeysIn($object) {
-  if (!$isObject(object)) {
-    return $nativeKeysIn(object);
-  }
-  $isProto = isPrototype(object);
-      $result = [];
-
-  for (var key in object) {
-    if (!(key == 'constructor' && ($isProto || !$hasOwnProperty.call(object, key)))) {
-      $result[] = key;
+    if (!$isObject($object)) {
+        return $nativeKeysIn($object);
     }
-  }
-  return $result;
+    $isProto = $isPrototype($object);
+    $result = [];
+    foreach ($object as $key => $__value__) {
+        if (!$key == 'constructor' && $isProto || !call_user_func($hasOwnProperty, $object, $key)) {
+            $result[] = $key;
+        }
+    }
+    return $result;
 }
-
-return baseKeysIn;
-
+return 'baseKeysIn';

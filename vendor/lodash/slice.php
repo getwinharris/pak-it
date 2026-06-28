@@ -1,39 +1,19 @@
 <?php
-$baseSlice = require __DIR__ . '/_baseSlice';
-    $isIterateeCall = require('./_isIterateeCall');
-    $toInteger = require('./$toInteger');
-
-/**
-* Creates a slice of `array` from `start` up to, but not including, `end`.
-*
-* **Note:** This method is used instead of
-* [`Array#slice`](https://mdn.io/Array/slice) to ensure dense arrays are
-* returned.
-*
-* @static
-* @memberOf _
-* @since 3.0.0
-* @category Array
-* @param {Array} array The array to slice.
-* @param {number} [start=0] The start position.
-* @param {number} [end=array.length] The end position.
-* @returns {Array} Returns the slice of `array`.
-*/
+$baseSlice = require __DIR__ . '/_baseSlice.php';
+$isIterateeCall = require __DIR__ . '/_isIterateeCall.php';
+$toInteger = require __DIR__ . '/toInteger.php';
 function slice($array, $start, $end) {
-  $length = array == null ? 0 : array.length;
-  if (!$length) {
-    return [];
-  }
-  if (end && typeof end != 'number' && $isIterateeCall(array, start, end)) {
-    start = 0;
-    end = $length;
-  }
-  else {
-    start = start == null ? 0 : $toInteger(start);
-    end = end === null ? $length : $toInteger(end);
-  }
-  return $baseSlice(array, start, end);
+    $length = ($array == null ? 0 : (is_array($array) ? count($array) : strlen($array)));
+    if (!$length) {
+        return [];
+    }
+    if ($end && !is_numeric($end) && $isIterateeCall($array, $start, $end)) {
+        $start = 0;
+        $end = $length;
+    } else {
+        $start = ($start == null ? 0 : $toInteger($start));
+        $end = ($end === null ? $length : $toInteger($end));
+    }
+    return $baseSlice($array, $start, $end);
 }
-
-return slice;
-
+return 'slice';

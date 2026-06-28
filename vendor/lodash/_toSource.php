@@ -1,28 +1,15 @@
 <?php
-/** Used for built-in method references. */
-$funcProto = Function.prototype;
-
-/** Used to resolve the decompiled source of functions. */
-$funcToString = funcProto.toString;
-
-/**
-* Converts `func` to its source code.
-*
-* @private
-* @param {Function} func The function to convert.
-* @returns {string} Returns the source code.
-*/
+$funcProto = 'Function'['prototype'];
+$funcToString = $funcProto['toString'];
 function toSource($func) {
-  if (func != null) {
-    try {
-      return $funcToString.call(func);
-    } catch (e) {}
-    try {
-      return (func + '');
-    } catch (e) {}
-  }
-  return '';
+    if ($func != null) {
+        try {
+            return call_user_func($funcToString, $func);
+        } catch (\Throwable $e) {}
+        try {
+            return $func + '';
+        } catch (\Throwable $e) {}
+    }
+    return '';
 }
-
-return toSource;
-
+return 'toSource';

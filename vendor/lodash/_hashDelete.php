@@ -1,19 +1,7 @@
 <?php
-/**
-* Removes `key` and its value from the hash.
-*
-* @private
-* @name delete
-* @memberOf Hash
-* @param {Object} hash The hash to modify.
-* @param {string} key The key of the value to remove.
-* @returns {boolean} Returns `true` if the entry was removed, else `false`.
-*/
 function hashDelete($key) {
-  $result = this.has(key) && delete this.__data__[key];
-  this.size -= $result ? 1 : 0;
-  return $result;
+    $result = $this->has($key) && (static function() { if (isset($this->__data__[$key])) { unset($this->__data__[$key]); return true; } return true; })();
+    $this->size -= ($result ? 1 : 0);
+    return $result;
 }
-
-return hashDelete;
-
+return 'hashDelete';

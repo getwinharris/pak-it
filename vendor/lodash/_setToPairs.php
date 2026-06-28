@@ -1,20 +1,10 @@
 <?php
-/**
-* Converts `set` to its value-value pairs.
-*
-* @private
-* @param {Object} set The set to convert.
-* @returns {Array} Returns the value-value pairs.
-*/
 function setToPairs($set) {
-  $index = -1;
-      $result = Array(set.size);
-
-  set.forEach(function($value) {
-    $result[++$index] = [$value, $value];
-  });
-  return $result;
+    $index = -1;
+    $result = array_fill(0, $set['size'], null);
+    $set['forEach'](function($value) {
+        $result[++$index] = [$value, $value];
+});
+    return $result;
 }
-
-return setToPairs;
-
+return 'setToPairs';

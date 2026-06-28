@@ -1,18 +1,7 @@
 <?php
-$baseForRight = require __DIR__ . '/_baseForRight';
-    $keys = require('./$keys');
-
-/**
-* The base implementation of `_.forOwnRight` without support for iteratee shorthands.
-*
-* @private
-* @param {Object} object The object to iterate over.
-* @param {Function} iteratee The function invoked per iteration.
-* @returns {Object} Returns `object`.
-*/
+$baseForRight = require __DIR__ . '/_baseForRight.php';
+$keys = require __DIR__ . '/keys.php';
 function baseForOwnRight($object, $iteratee) {
-  return object && $baseForRight(object, iteratee, $keys);
+    return $object && $baseForRight($object, $iteratee, $keys);
 }
-
-return baseForOwnRight;
-
+return 'baseForOwnRight';

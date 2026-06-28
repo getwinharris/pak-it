@@ -1,63 +1,23 @@
 <?php
-$apply = require __DIR__ . '/_apply';
-    $arrayMap = require('./_arrayMap');
-    $baseFlatten = require('./_baseFlatten');
-    $baseIteratee = require('./_baseIteratee');
-    $baseRest = require('./_baseRest');
-    $baseUnary = require('./_baseUnary');
-    $castRest = require('./_castRest');
-    $isArray = require('./$isArray');
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-$nativeMin = Math.min;
-
-/**
-* Creates a function that invokes `func` with its arguments transformed.
-*
-* @static
-* @since 4.0.0
-* @memberOf _
-* @category Function
-* @param {Function} func The function to wrap.
-* @param {...(Function|Function[])} [transforms=[_.identity]]
-*  The argument transforms.
-* @returns {Function} Returns the new function.
-* @example
-*
-* function doubled(n) {
-*   return n * 2;
-* }
-*
-* function square(n) {
-*   return n * n;
-* }
-*
-* var func = _.overArgs(function(x, y) {
-*   return [x, y];
-* }, [square, doubled]);
-*
-* func(9, 3);
-* // => [81, 6]
-*
-* func(10, 5);
-* // => [100, 10]
-*/
-$overArgs = castRest(function(func, transforms) {;
-  $transforms = ((is_array($transforms) ? count($transforms) : strlen($transforms)) == 1 && $isArray($transforms[0]))
-    ? $arrayMap($transforms[0], $baseUnary($baseIteratee))
-    : $arrayMap($baseFlatten($transforms, 1), $baseUnary($baseIteratee));
-
-  $funcsLength = transforms.length;
-  return $baseRest(function($args) {
-    $index = -1;
+$apply = require __DIR__ . '/_apply.php';
+$arrayMap = require __DIR__ . '/_arrayMap.php';
+$baseFlatten = require __DIR__ . '/_baseFlatten.php';
+$baseIteratee = require __DIR__ . '/_baseIteratee.php';
+$baseRest = require __DIR__ . '/_baseRest.php';
+$baseUnary = require __DIR__ . '/_baseUnary.php';
+$castRest = require __DIR__ . '/_castRest.php';
+$isArray = require __DIR__ . '/isArray.php';
+$nativeMin = min;
+$overArgs = $castRest(function($func, $transforms) {
+        $transforms = ((is_array($transforms) ? count($transforms) : strlen($transforms)) == 1 && $isArray($transforms[0]) ? $arrayMap($transforms[0], $baseUnary($baseIteratee)) : $arrayMap($baseFlatten($transforms, 1), $baseUnary($baseIteratee)));
+        $funcsLength = (is_array($transforms) ? count($transforms) : strlen($transforms));
+        return $baseRest(function($args) {
+        $index = -1;
         $length = $nativeMin((is_array($args) ? count($args) : strlen($args)), $funcsLength);
-
-    while (++$index < $length) {
-      $args[$index] = $transforms[$index].call(this, $args[$index]);
-    }
-    return $apply($func, this, $args);
-  });
+        while (++$index < $length) {
+            $args[$index] = call_user_func($transforms[$index], $this, $args[$index]);
+        }
+        return $apply($func, $this, $args);
 });
-
-return $overArgs;
-
+});
+return 'overArgs';

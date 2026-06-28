@@ -1,4 +1,3 @@
 <?php
-$_ = require('./lodash.min').runInContext();
-return require('./fp/_baseConvert')($_, $_);
-
+$_ = require __DIR__ . '/lodash.min'['runInContext']();
+return require __DIR__ . '/fp/_baseConvert.php'($_, $_);

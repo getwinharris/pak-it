@@ -1,45 +1,16 @@
 <?php
-$arrayMap = require __DIR__ . '/_arrayMap';
-    $baseAt = require('./_baseAt');
-    $basePullAt = require('./_basePullAt');
-    $compareAscending = require('./_compareAscending');
-    $flatRest = require('./_flatRest');
-    $isIndex = require('./_isIndex');
-
-/**
-* Removes elements from `array` corresponding to `indexes` and returns an
-* array of removed elements.
-*
-* **Note:** Unlike `_.at`, this method mutates `array`.
-*
-* @static
-* @memberOf _
-* @since 3.0.0
-* @category Array
-* @param {Array} array The array to modify.
-* @param {...(number|number[])} [indexes] The indexes of elements to remove.
-* @returns {Array} Returns the new array of removed elements.
-* @example
-*
-* var array = ['a', 'b', 'c', 'd'];
-* var pulled = _.pullAt(array, [1, 3]);
-*
-* console.log(array);
-* // => ['a', 'c']
-*
-* console.log(pulled);
-* // => ['b', 'd']
-*/
-$pullAt = flatRest(function(array, indexes) {;
-  $length = array == null ? 0 : array.length;
-      $result = $baseAt($array, $indexes);
-
-  $basePullAt($array, $arrayMap($indexes, function($index) {
-    return $isIndex($index, $length) ? +$index : $index;
-  }).sort($compareAscending));
-
-  return $result;
+$arrayMap = require __DIR__ . '/_arrayMap.php';
+$baseAt = require __DIR__ . '/_baseAt.php';
+$basePullAt = require __DIR__ . '/_basePullAt.php';
+$compareAscending = require __DIR__ . '/_compareAscending.php';
+$flatRest = require __DIR__ . '/_flatRest.php';
+$isIndex = require __DIR__ . '/_isIndex.php';
+$pullAt = $flatRest(function($array, $indexes) {
+        $length = ($array == null ? 0 : (is_array($array) ? count($array) : strlen($array)));
+        $result = $baseAt($array, $indexes);
+        $basePullAt($array, sort($compareAscending, $arrayMap($indexes, function($index) {
+        return ($isIndex($index, $length) ? +$index : $index);
+})));
+        return $result;
 });
-
-return $pullAt;
-
+return 'pullAt';

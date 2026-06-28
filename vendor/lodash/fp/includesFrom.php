@@ -1,7 +1,5 @@
 <?php
-$convert = require __DIR__ . '/convert';
-    $func = $convert('includesFrom', require('../includes'));
-
-$func.placeholder = require('./placeholder');
-return $func;
-
+$convert = require __DIR__ . '/convert.php';
+$func = $convert('includesFrom', require __DIR__ . '/includes.php');
+$func['placeholder'] = require __DIR__ . '/placeholder.php';
+return 'func';

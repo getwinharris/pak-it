@@ -1,37 +1,22 @@
 <?php
-$root = require __DIR__ . '/_root';
-    $toInteger = require('./$toInteger');
-    $toNumber = require('./$toNumber');
-    $toString = require('./$toString');
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-$nativeIsFinite = root.isFinite,
-nativeMin = Math.min;
-
-/**
-* Creates a function like `_.round`.
-*
-* @private
-* @param {string} methodName The name of the `Math` method to use when rounding.
-* @returns {Function} Returns the new round function.
-*/
+$root = require __DIR__ . '/_root.php';
+$toInteger = require __DIR__ . '/toInteger.php';
+$toNumber = require __DIR__ . '/toNumber.php';
+$toString = require __DIR__ . '/toString.php';
+$nativeIsFinite = $root['isFinite'];
+$nativeMin = min;
 function createRound($methodName) {
-  $func = Math[methodName];
-  return function($number, $precision) {
-    $number = $toNumber($number);
-    $precision = $precision == null ? 0 : $nativeMin($toInteger($precision), 292);
-    if ($precision && $nativeIsFinite($number)) {
-      // Shift with exponential notation to avoid floating-point issues.
-      // See [MDN](https://mdn.io/round#Examples) for more details.
-      $pair = (toString(number) + 'e').split('e');
-          $value = $func($pair[0] + 'e' + (+$pair[1] + $precision));
-
-      $pair = ($toString($value) + 'e').split('e');
-      return +($pair[0] + 'e' + (+$pair[1] - $precision));
-    }
-    return $func($number);
-  };
+    $func = Math[$methodName];
+    return function($number, $precision) {
+        $number = $toNumber($number);
+        $precision = ($precision == null ? 0 : $nativeMin($toInteger($precision), 292));
+        if ($precision && $nativeIsFinite($number)) {
+            $pair = explode('e', $toString($number) + 'e');
+            $value = $func($pair[0] + 'e' + +$pair[1] + $precision);
+            $pair = explode('e', $toString($value) + 'e');
+            return +$pair[0] + 'e' + +$pair[1] - $precision;
+        }
+        return $func($number);
+};
 }
-
-return createRound;
-
+return 'createRound';
