@@ -294,12 +294,14 @@ class AstConverter
         $body = $this->walkBlockBody($node['body']['body'] ?? [], $indent);
 
         // Avoid conflicts with PHP reserved names
-        static $phpKeywords = ['foreach', 'clone', 'unset', 'empty', 'isset', 'list', 'echo', 'print', 'die', 'exit', 'eval', 'include', 'require', 'return', 'yield', 'fn', 'match', 'readonly', 'enum', 'true', 'false', 'null', 'array', 'callable', 'static', 'global', 'var', 'const', 'abstract', 'final', 'private', 'protected', 'public', 'implements', 'extends', 'interface', 'trait', 'new', 'instanceof', 'insteadof', 'as', 'or', 'and', 'xor', 'for', 'while', 'if', 'else', 'elseif', 'switch', 'default', 'case', 'break', 'continue', 'throw', 'try', 'catch', 'finally', 'declare', 'enddeclare', 'goto', 'namespace', 'use', 'class', 'function'];
+        static $phpKeywords = ['do', 'foreach', 'clone', 'unset', 'empty', 'isset', 'list', 'echo', 'print', 'die', 'exit', 'eval', 'include', 'require', 'return', 'yield', 'fn', 'match', 'readonly', 'enum', 'true', 'false', 'null', 'array', 'callable', 'static', 'global', 'var', 'const', 'abstract', 'final', 'private', 'protected', 'public', 'implements', 'extends', 'interface', 'trait', 'new', 'instanceof', 'insteadof', 'as', 'or', 'and', 'xor', 'for', 'while', 'if', 'else', 'elseif', 'switch', 'default', 'case', 'break', 'continue', 'throw', 'try', 'catch', 'finally', 'declare', 'enddeclare', 'goto', 'namespace', 'use', 'class', 'function'];
         // Check case-insensitively for PHP keywords, case-sensitively for built-in function names
         $lowerName = strtolower($name);
         if (in_array($lowerName, $phpKeywords, true) || in_array($name, $this->reservedPhpNames(), true)) {
             $name = '_' . $name;
         }
+        // Sanitize names with invalid PHP identifier chars (e.g., minified JS uses $ as fn name)
+        $name = $this->sanitizePhpName($name);
 
         return $indent . 'function ' . $name . '(' . $params . ')' . ($body ? " {\n" . $body . "\n" . $indent . '}' : ' {}');
     }
@@ -360,7 +362,21 @@ class AstConverter
         $init = '';
         if (isset($node['init']) && $node['init']) {
             if ($node['init']['type'] === 'VariableDeclaration') {
-                $init = rtrim($this->walkVariableDeclaration($node['init'], ''), ';');
+                $decls = [];
+                foreach ($node['init']['declarations'] ?? [] as $decl) {
+                    $id = $this->walkExpression($decl['id'], $indent);
+                    $varName = $decl['id']['name'] ?? '';
+                    if ($varName && ($id === 'null' || $id === 'true' || $id === 'false' || $id === 'NAN' || $id === 'INF')) {
+                        $id = '$' . $varName;
+                    }
+                    if (isset($decl['init'])) {
+                        $initVal = $this->walkExpression($decl['init'], $indent);
+                        $decls[] = $id . ' = ' . $initVal;
+                    } else {
+                        $decls[] = $id . ' = null';
+                    }
+                }
+                $init = implode(', ', $decls);
             } else {
                 $init = $this->walkExpression($node['init'], $indent);
             }
@@ -601,7 +617,7 @@ class AstConverter
         if (isset($globals[$name])) return $globals[$name];
 
         // Local vars take precedence over globals — if re-declared, use $
-        if (isset($this->localVars[$name])) return '$' . $name;
+        if (isset($this->localVars[$name])) return '$' . $this->sanitizePhpName($name);
 
         static $noPrefix = [
             'Math', 'JSON', 'Object', 'Array', 'Error', 'TypeError', 'RangeError',
@@ -620,7 +636,19 @@ class AstConverter
         // But check if it looks like a constant (all caps)
         if (strtoupper($name) === $name && strlen($name) > 1) return $name;
 
-        return '$' . $name;
+        return '$' . $this->sanitizePhpName($name);
+    }
+
+    private function sanitizePhpName(string $name): string
+    {
+        if (preg_match('/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$/', $name)) {
+            return $name;
+        }
+        $sanitized = preg_replace('/[^a-zA-Z0-9_\x80-\xff]/', '_', $name);
+        if ($sanitized === '' || !preg_match('/^[a-zA-Z_\x80-\xff]/', $sanitized)) {
+            $sanitized = '_' . $sanitized;
+        }
+        return $sanitized;
     }
 
     private function walkLiteral(array $node): string

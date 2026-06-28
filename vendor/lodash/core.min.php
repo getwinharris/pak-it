@@ -5,8 +5,7 @@ call_user_func(function() {
             return (static function() { $n['push']['apply']($n, $t); return $n; })();
         }
         function t($n, $t, $r, $e) {
-            for ($u = (is_array($n) ? count($n) : strlen($n));
-$o = $r + ($e ? 1 : -1); ($e ? $o-- : ++$o < $u); ) {
+            for ($u = (is_array($n) ? count($n) : strlen($n)), $o = $r + ($e ? 1 : -1); ($e ? $o-- : ++$o < $u); ) {
                                 if ($t($n[$o], $o, $n))
                     return $o;
             }
@@ -64,8 +63,7 @@ $o = $r + ($e ? 1 : -1); ($e ? $o-- : ++$o < $u); ) {
 }); return $r; })();
         }
         function h($n, $t, $r) {
-            for ($e = -1;
-$u = (is_array($n) ? count($n) : strlen($n)); ++$e < $u; ) {
+            for ($e = -1, $u = (is_array($n) ? count($n) : strlen($n)); ++$e < $u; ) {
                 $o = $n[$e];
                 $i = $t($o);
                 if (null != $i && ($c === $nt ? $i === $i && true : $r($i, $c)))
@@ -225,11 +223,10 @@ $u = (is_array($n) ? count($n) : strlen($n)); ++$e < $u; ) {
             }
             return 0;
         }
-        function $($n, $t, $r, $e) {
+        function _($n, $t, $r, $e) {
             $u = !$r;
             $r || $r = [];
-            for ($o = -1;
-$i = (is_array($t) ? count($t) : strlen($t)); ++$o < $i; ) {
+            for ($o = -1, $i = (is_array($t) ? count($t) : strlen($t)); ++$o < $i; ) {
                 $c = $t[$o];
                 $f = ($e ? $e($r[$c], $n[$c], $c, $r, $n) : $nt);
                 (static function() { $f === $nt && $f = $n[$c]; return ($u ? $l($r, $c, $f) : $a($r, $c, $f)); })();
@@ -254,9 +251,7 @@ $i = (is_array($t) ? count($t) : strlen($t)); ++$o < $i; ) {
             return $r;
         if (!$An($r))
             return $n($r, $e);
-        for ($u = (is_array($r) ? count($r) : strlen($r));
-$o = ($t ? $u : -1);
-$i = Object($r); ($t ? $o-- : ++$o < $u) && $e($i[$o], $o, $i) !== false; ) {
+        for ($u = (is_array($r) ? count($r) : strlen($r)), $o = ($t ? $u : -1), $i = Object($r); ($t ? $o-- : ++$o < $u) && $e($i[$o], $o, $i) !== false; ) {
                         ;
         }
         return $r;
@@ -264,10 +259,7 @@ $i = Object($r); ($t ? $o-- : ++$o < $u) && $e($i[$o], $o, $i) !== false; ) {
         }
         function P($n) {
             return function($t, $r, $e) {
-        for ($u = -1;
-$o = Object($t);
-$i = $e($t);
-$c = (is_array($i) ? count($i) : strlen($i)); $c--; ) {
+        for ($u = -1, $o = Object($t), $i = $e($t), $c = (is_array($i) ? count($i) : strlen($i)); $c--; ) {
             $f = $i[($n ? $c : ++$u)];
             if ($r($o[$f], $f, $o) === false)
                 break;
@@ -298,12 +290,7 @@ $c = (is_array($i) ? count($i) : strlen($i)); $c--; ) {
         }
         function G($n, $t, $r, $e) {
             function u() {
-                for ($t = -1;
-$c = (is_array($arguments) ? count($arguments) : strlen($arguments));
-$f = -1;
-$a = (is_array($e) ? count($e) : strlen($e));
-$l = array_fill(0, $a + $c, null);
-$p = ($this && $this !== $kt && $this instanceof $u ? $i : $n); ++$f < $a; ) {
+                for ($t = -1, $c = (is_array($arguments) ? count($arguments) : strlen($arguments)), $f = -1, $a = (is_array($e) ? count($e) : strlen($e)), $l = array_fill(0, $a + $c, null), $p = ($this && $this !== $kt && $this instanceof $u ? $i : $n); ++$f < $a; ) {
                                         $l[$f] = $e[$f];
                 }
                 for (; $c--; ) {
@@ -327,9 +314,7 @@ $p = ($this && $this !== $kt && $this instanceof $u ? $i : $n); ++$f < $a; ) {
             $l = $o['get']($t);
             if ($a && $l)
                 return $a == $t && $l == $n;
-            for ($p = -1;
-$s = true;
-$h = ($r & $ut ? [] : $nt); ++$p < $c; ) {
+            for ($p = -1, $s = true, $h = ($r & $ut ? [] : $nt); ++$p < $c; ) {
                 $v = null;
                 $y = $n[$p];
                 $g = $t[$p];
@@ -383,8 +368,7 @@ $h = ($r & $ut ? [] : $nt); ++$p < $c; ) {
             $s = $o['get']($t);
             if ($p && $s)
                 return $p == $t && $s == $n;
-            for ($h = true;
-$v = $i; ++$a < $f; ) {
+            for ($h = true, $v = $i; ++$a < $f; ) {
                 $l = $c[$a];
                 $y = null;
                 $g = $n[$l];
@@ -431,10 +415,7 @@ $v = $i; ++$a < $f; ) {
         }
         function X($n, $t, $r) {
             return (static function() { $t = $Jt(($t === $nt ? (is_array($n) ? count($n) : strlen($n)) - 1 : $t), 0); return function() {
-        for ($e = $arguments;
-$u = -1;
-$o = $Jt((is_array($e) ? count($e) : strlen($e)) - $t, 0);
-$i = array_fill(0, $o, null); ++$u < $o; ) {
+        for ($e = $arguments, $u = -1, $o = $Jt((is_array($e) ? count($e) : strlen($e)) - $t, 0), $i = array_fill(0, $o, null); ++$u < $o; ) {
                         $i[$u] = $e[$t + $u];
         }
         $u = -1;
@@ -451,9 +432,7 @@ $i = array_fill(0, $o, null); ++$u < $o; ) {
             $t = (is_array($arguments) ? count($arguments) : strlen($arguments));
             if (!$t)
                 return [];
-            for ($r = array_fill(0, $t - 1, null);
-$e = $arguments[0];
-$u = $t; $u--; ) {
+            for ($r = array_fill(0, $t - 1, null), $e = $arguments[0], $u = $t; $u--; ) {
                                 $r[$u - 1] = $arguments[$u];
             }
             return $n(($Zt($e) ? $S($e) : [$e]), $y($r, 1));
@@ -477,8 +456,7 @@ $u = $t; $u--; ) {
         function un($n, $t, $r) {
             $e = (null == $n ? 0 : (is_array($n) ? count($n) : strlen($n)));
             $r = (is_numeric($r) ? ($r < 0 ? $Jt($e + $r, 0) : $r) : 0);
-            for ($u = $r || 0 - 1;
-$o = $t === $t; ++$u < $e; ) {
+            for ($u = $r || 0 - 1, $o = $t === $t; ++$u < $e; ) {
                 $i = $n[$u];
                 if (($o ? $i === $t : $i !== $i))
                     return $u;
@@ -558,7 +536,7 @@ $o = $t === $t; ++$u < $e; ) {
             return $dn(2, $n);
         }
         function xn($n) {
-            return ($Bn($n) ? ($Zt($n) ? $S($n) : $$($n, $Gt($n))) : $n);
+            return ($Bn($n) ? ($Zt($n) ? $S($n) : $_($n, $Gt($n))) : $n);
         }
         function wn($n, $t) {
             return $n === $t || $n !== $n && $t !== $t;
@@ -597,7 +575,7 @@ $o = $t === $t; ++$u < $e; ) {
         function Rn($n) {
             return $qn($n) && $n != +$n;
         }
-        function $n($n) {
+        function _n($n) {
             return null === $n;
         }
         function qn($n) {
@@ -665,7 +643,7 @@ $o = $t === $t; ++$u < $e; ) {
         }
         function Wn() {}
         function Xn($n) {
-            $t = ++$$t;
+            $t = ++$_t;
             return $Cn($n) + $t;
         }
         function Yn($n) {
@@ -715,7 +693,7 @@ $o = $t === $t; ++$u < $e; ) {
         $Bt = 'Array'['prototype'];
         $It = Object['prototype'];
         $Rt = $It['hasOwnProperty'];
-        $$t = 0;
+        $_t = 0;
         $qt = $It['toString'];
         $Dt = $kt['_'];
         $Pt = Object['create'];
@@ -761,10 +739,10 @@ $o = $t === $t; ++$u < $e; ) {
         $rr = Number;
         $er = Number;
         $ur = $q(function($n, $t) {
-        $$($t, $Gt($t), $n);
+        $_($t, $Gt($t), $n);
 });
         $or = $q(function($n, $t) {
-        $$($t, $Q($t), $n);
+        $_($t, $Q($t), $n);
 });
         $ir = $F(function($n, $t) {
         $n = Object($n);
@@ -772,10 +750,7 @@ $o = $t === $t; ++$u < $e; ) {
         $e = (is_array($t) ? count($t) : strlen($t));
         $u = ($e > 2 ? $t[2] : $nt);
         for ($u && $L($t[0], $t[1], $u) && $e = 1; ++$r < $e; ) {
-                        for ($o = $t[$r];
-$i = $fr($o);
-$c = -1;
-$f = (is_array($i) ? count($i) : strlen($i)); ++$c < $f; ) {
+                        for ($o = $t[$r], $i = $fr($o), $c = -1, $f = (is_array($i) ? count($i) : strlen($i)); ++$c < $f; ) {
                 $a = $i[$c];
                 $l = $n[$a];
                 $l === $nt || $wn($l, $It[$a]) && !call_user_func($Rt, $n, $a) && $n[$a] = $o[$a];
@@ -789,7 +764,7 @@ $f = (is_array($i) ? count($i) : strlen($i)); ++$c < $f; ) {
         return (null == $n ? [] : $k($n, $t));
 });
         $lr = $w;
-        (static function() { $c['assignIn'] = $or; $c['before'] = $dn; $c['bind'] = $Qt; $c['chain'] = $fn; $c['compact'] = $Y; $c['concat'] = $Z; $c['create'] = $Gn; $c['defaults'] = $ir; $c['defer'] = $Wt; $c['delay'] = $Xt; $c['filter'] = $hn; $c['flatten'] = $tn; $c['flattenDeep'] = $rn; $c['iteratee'] = $lr; $c['keys'] = $cr; $c['map'] = $yn; $c['matches'] = $Kn; $c['mixin'] = $Ln; $c['negate'] = $mn; $c['once'] = $On; $c['pick'] = $ar; $c['slice'] = $cn; $c['sortBy'] = $jn; $c['tap'] = $an; $c['thru'] = $ln; $c['toArray'] = $zn; $c['values'] = $Un; $c['extend'] = $or; $Ln($c, $c); $c['clone'] = $xn; $c['escape'] = $Vn; $c['every'] = $sn; $c['find'] = $Lt; $c['forEach'] = $vn; $c['has'] = $Jn; $c['head'] = $en; $c['identity'] = $Hn; $c['indexOf'] = $un; $c['isArguments'] = $Yt; $c['isArray'] = $Zt; $c['isBoolean'] = $En; $c['isDate'] = $nr; $c['isEmpty'] = $Nn; $c['isEqual'] = $kn; $c['isFinite'] = $Fn; $c['isFunction'] = $Tn; $c['isNaN'] = $Rn; $c['isNull'] = $$n; $c['isNumber'] = $qn; $c['isObject'] = $Bn; $c['isRegExp'] = $tr; $c['isString'] = $Dn; $c['isUndefined'] = $Pn; $c['last'] = $on; $c['max'] = $Yn; $c['min'] = $Zn; $c['noConflict'] = $Qn; $c['noop'] = $Wn; $c['reduce'] = $gn; $c['result'] = $Mn; $c['size'] = $_n; $c['some'] = $bn; $c['uniqueId'] = $Xn; $c['each'] = $vn; $c['first'] = $en; $Ln($c, (function() {
+        (static function() { $c['assignIn'] = $or; $c['before'] = $dn; $c['bind'] = $Qt; $c['chain'] = $fn; $c['compact'] = $Y; $c['concat'] = $Z; $c['create'] = $Gn; $c['defaults'] = $ir; $c['defer'] = $Wt; $c['delay'] = $Xt; $c['filter'] = $hn; $c['flatten'] = $tn; $c['flattenDeep'] = $rn; $c['iteratee'] = $lr; $c['keys'] = $cr; $c['map'] = $yn; $c['matches'] = $Kn; $c['mixin'] = $Ln; $c['negate'] = $mn; $c['once'] = $On; $c['pick'] = $ar; $c['slice'] = $cn; $c['sortBy'] = $jn; $c['tap'] = $an; $c['thru'] = $ln; $c['toArray'] = $zn; $c['values'] = $Un; $c['extend'] = $or; $Ln($c, $c); $c['clone'] = $xn; $c['escape'] = $Vn; $c['every'] = $sn; $c['find'] = $Lt; $c['forEach'] = $vn; $c['has'] = $Jn; $c['head'] = $en; $c['identity'] = $Hn; $c['indexOf'] = $un; $c['isArguments'] = $Yt; $c['isArray'] = $Zt; $c['isBoolean'] = $En; $c['isDate'] = $nr; $c['isEmpty'] = $Nn; $c['isEqual'] = $kn; $c['isFinite'] = $Fn; $c['isFunction'] = $Tn; $c['isNaN'] = $Rn; $c['isNull'] = $_n; $c['isNumber'] = $qn; $c['isObject'] = $Bn; $c['isRegExp'] = $tr; $c['isString'] = $Dn; $c['isUndefined'] = $Pn; $c['last'] = $on; $c['max'] = $Yn; $c['min'] = $Zn; $c['noConflict'] = $Qn; $c['noop'] = $Wn; $c['reduce'] = $gn; $c['result'] = $Mn; $c['size'] = $_n; $c['some'] = $bn; $c['uniqueId'] = $Xn; $c['each'] = $vn; $c['first'] = $en; $Ln($c, (function() {
         $n = [];
         return (static function() { $g($c, function($t, $r) {
         call_user_func($Rt, $c['prototype'], $r) || $n[$r] = $t;
