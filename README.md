@@ -69,20 +69,61 @@ $sorted  = \pakit\lodash\sortBy($users, 'age');
 
 ### Run a package's CLI command
 
-Some packages ship CLI entry points. Run them with:
+By default, converted PHP packages run their internal CLI entry point:
 
 ```bash
-# Run the lodash CLI (if it has one)
-php pak-it lodash
-
-# Pass arguments to the package CLI
 php pak-it lodash --help
-php pak-it lodash subcommand --flag value
-
-# Run a specific package command
-php pak-it chalk
 php pak-it axios https://api.example.com/data
 ```
+
+### Run non-PHP packages (npx, pip, brew)
+
+For packages that aren't PHP-native (Node.js CLI tools, Python packages, etc.), add a runner config to `pkg-run.json`:
+
+```json
+{
+  "playwright-cli": {
+    "command": "npx @playwright/mcp@latest",
+    "description": "Playwright MCP — browser automation"
+  },
+  "codex": {
+    "command": "npx codex-cli",
+    "description": "AI coding assistant"
+  },
+  "graphifyy": {
+    "command": "pipx run graphifyy",
+    "description": "Graph visualization tool"
+  }
+}
+```
+
+Then run them naturally without thinking about the underlying runtime:
+
+```bash
+# Install/pull a package
+php pak-it brew install --cask codex
+php pak-it npm install -g @playwright/cli@latest
+php pak-it playwright-cli install --skills
+
+# Use aliases — the runner is resolved automatically
+php pak-it codex login --device-auth
+php pak-it playwright-cli open https://demo.playwright.dev/todomvc/ --headed
+php pak-it playwright-cli type "Buy groceries"
+php pak-it playwright-cli press Enter
+php pak-it playwright-cli screenshot
+
+# Point your coding agent at a task:
+php pak-it codex login --device-auth
+# (instead of: codex login --device-auth)
+
+# Full Playwright todomvc test with screenshots
+php pak-it playwright-cli open https://demo.playwright.dev/todomvc/
+php pak-it playwright-cli type "Buy groceries"
+php pak-it playwright-cli press Enter
+php pak-it playwright-cli screenshot
+```
+
+The `command` field is any shell command — `npx <pkg>`, `pipx run <pkg>`, or a direct binary name. All extra arguments are appended automatically.
 
 ### Install with specific version
 

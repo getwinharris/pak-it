@@ -50,13 +50,22 @@ switch ($command) {
         echo "Usage:\n";
         echo "  php pak-it init <package>    Download and convert a package\n";
         echo "  php pak-it list              Show installed packages\n";
-        echo "  php pak-it <pkg> [args...]   Run a package's CLI\n";
+        echo "  php pak-it <pkg> [args...]   Run a package's CLI (vendor/ or pkg-run.json)\n";
+        echo "  php pak-it <npm|pip|brew|npx|pip3|cargo|go> [args...]  Pass through to native package manager\n";
         echo "  php pak-it verify            Syntax-check all converted files\n";
         echo "  php pak-it help              Show this help\n";
         break;
 
     default:
-        // Try to run as a package CLI
+        // Native package manager passthrough: php pak-it npm install -g ...
+        $nativeRunners = ['npm', 'pip', 'pip3', 'brew', 'npx', 'cargo', 'go'];
+        if (in_array($command, $nativeRunners, true)) {
+            $cmd = implode(' ', array_map('escapeshellarg', array_merge([$command], array_slice($argv, 2))));
+            passthru($cmd, $exitCode);
+            exit($exitCode);
+        }
+
+        // Try to run as a package CLI (from vendor/ or pkg-run.json)
         require __DIR__ . '/Commands/RunCommand.php';
         (new RunCommand())->run($command, array_slice($argv, 2));
         break;

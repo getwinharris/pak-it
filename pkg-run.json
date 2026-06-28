@@ -1,0 +1,14 @@
+{
+  "playwright-cli": {
+    "command": "npx @playwright/mcp@latest",
+    "description": "Playwright MCP server — browser automation via CLI"
+  },
+  "codex": {
+    "command": "npx codex-cli",
+    "description": "AI coding assistant"
+  },
+  "graphifyy": {
+    "command": "pipx run graphifyy",
+    "description": "Graph visualization tool"
+  }
+}
